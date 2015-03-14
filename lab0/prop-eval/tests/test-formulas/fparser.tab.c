@@ -1456,7 +1456,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 47 "../../src/fparser/fparser.y" /* yacc.c:1906  */
+#line 46 "../../src/fparser/fparser.y" /* yacc.c:1906  */
 
 
 /* Funcion que se provee para parsear una formula en un archivo.*/

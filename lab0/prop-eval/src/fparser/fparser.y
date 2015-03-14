@@ -42,8 +42,7 @@
 input: TK_BEGIN formula TK_END {ast = $2;};
 
 /* COMPLETAR ACA */
-formula: TK_PROP                 {ASTNODE_PROP(n,$1); $$ =n ;} ;
-
+formula: TK_PROP    {ASTNODE_PROP(n,$1); $$ =n ;} ;
 %%
 
 /* Funcion que se provee para parsear una formula en un archivo.*/
