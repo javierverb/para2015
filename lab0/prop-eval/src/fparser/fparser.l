@@ -42,15 +42,18 @@ begin|BEGIN     {return TK_BEGIN ;}
 end|END         {return TK_END ;}
 
 
-[ \t]* {
-    /*Ignoro cualquier clase de tabulación o espacio*/
+[ \t\n]* {
+    /*Ignoro cualquier clase de tabulación o espacio o salto de línea*/
 }
+
 
 ((P|p)0.){NUMBER_} {
-    printf("REJECTED: Only accept Pi or pi:i!=0");
+    printf("REJECTED: Only accept Pi or pi:i!=0\n");
 }
 
-
+("(".")"){NUMBER_} {
+    printf("(\n");
+}
 
 (p[0-9]+|P[0-9]+){NUMBER_} {
     printf("%s\n", f_text);
@@ -58,13 +61,13 @@ end|END         {return TK_END ;}
     return TK_PROP;
 }
 
-(&[^&]){NUMBER_} {
+(&[^&"^";]|"^"[^&"^";]|;[^&"^";]){NUMBER_} {
     printf("AND\n");
     f_lval.v = get_prop_var(f_text); 
     return TK_AND;
 }
 
-(v[^v]){NUMBER_} {
+(v[^v"|"]|"|"[^v"|"]){NUMBER_} {
     printf("OR\n");
     f_lval.v = get_prop_var(f_text); 
     return TK_OR;
