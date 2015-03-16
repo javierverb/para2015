@@ -36,6 +36,9 @@
 %token TK_AND
  /* Define el tipo de datos que retorna la bnf*/
 %type <a> input phi prop
+/* Precedencia del and vs ord */
+%left TK_OR
+%left TK_AND
 %%
 /* Simbolo inicial */
 input: TK_BEGIN phi TK_END {ast = $2;};

@@ -26,9 +26,6 @@ extern char* fname;
 
 
 NUMBER_    [0-9]*
-/* Adding by the Vasquez-Verblud group */
-CHARACTERS [a-zA-Z]*
-BLANK_SPACES_ [\s-\t]+
 
 /* Seccion de Patrones y Acciones:: En esta seccion se listan */
 /* los patrones que debe identificar el lexer y las acciones a ejecutar*/
@@ -44,36 +41,38 @@ BLANK_SPACES_ [\s-\t]+
 begin|BEGIN     {return TK_BEGIN ;}
 end|END         {return TK_END ;}
 
-BLANK_SPACES {  
-    /*Ignoro cualquier clase de espacio en vez de parcearlo sin necesidad*/
+
+[ \t]* {
+    /*Ignoro cualquier clase de tabulación o espacio*/
 }
 
-P0. {
+((P|p)0.){NUMBER_} {
     printf("REJECTED: Only accept Pi or pi:i!=0");
 }
 
-p{NUMBER_}|P{NUMBER_} {
-    printf("-%s-\n", f_text);
+
+
+(p[0-9]+|P[0-9]+){NUMBER_} {
+    printf("%s\n", f_text);
     f_lval.v = get_prop_var(f_text);
     return TK_PROP;
 }
 
-(.&.){NUMBER_} {
+(&[^&]){NUMBER_} {
     printf("AND\n");
     f_lval.v = get_prop_var(f_text); 
     return TK_AND;
 }
 
-(.v.){NUMBER_} {
+(v[^v]){NUMBER_} {
     printf("OR\n");
     f_lval.v = get_prop_var(f_text); 
     return TK_OR;
 }
 
 . {
-    log_error(" %s - lexer error - at line %d: %s\n",fname,f_lineno,f_text); 
+    log_error(" %s - lexer error - at line %d: [%s]\n",fname,f_lineno,f_text); 
 }
-
 %%
 /*Seccion de Codigo:: en esta seccion se puede colocar el codigo C
 * necesario para ejecutar las acciones. Es comun agregar aca una rutina
