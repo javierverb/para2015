@@ -26,7 +26,6 @@
 %union {
   ASTNode *a;
   int v;
-  unsigned int nat;
 }
 
 /* Tokens*/
@@ -35,10 +34,8 @@
 %token TK_END
 %token TK_OR
 %token TK_AND
-%token <nat> TK_NATURAL_NUMBER
-
  /* Define el tipo de datos que retorna la bnf*/
-%type <a> input phi prop number
+%type <a> input phi prop
 %%
 /* Simbolo inicial */
 input: TK_BEGIN phi TK_END {ast = $2;};
@@ -49,9 +46,6 @@ phi: prop
     | phi TK_AND phi {ASTNODE_AND(n,$1, $3); $$=n;}
 ;
 prop: TK_PROP {ASTNODE_PROP(n,$1); $$ =n ;}
-| TK_PROP number {ASTNODE_PROP(n,$1); $$ =n ;}
-;
-number: TK_NATURAL_NUMBER {$$ =n;}
 ;
 %%
 

@@ -28,7 +28,6 @@ extern char* fname;
 NUMBER_    [0-9]*
 /* Adding by the Vasquez-Verblud group */
 CHARACTERS [a-zA-Z]*
-NATURAL_ [1-9]
 BLANK_SPACES_ [\s-\t]+
 
 /* Seccion de Patrones y Acciones:: En esta seccion se listan */
@@ -46,17 +45,15 @@ begin|BEGIN     {return TK_BEGIN ;}
 end|END         {return TK_END ;}
 
 BLANK_SPACES {  
-    /*Ignoro cualquier espacio en vez de parcearlo sin necesidad*/
+    /*Ignoro cualquier clase de espacio en vez de parcearlo sin necesidad*/
 }
 
-(.NATURAL_NUMBER_.){NUMBER_} {
-    printf("N%s\n", f_text);
-    f_lval.v = get_prop_var(f_text); 
-    return TK_NATURAL_NUMBER;
+P0. {
+    printf("REJECTED: Only accept Pi or pi:i!=0");
 }
 
 p{NUMBER_}|P{NUMBER_} {
-    printf("P\n");
+    printf("-%s-\n", f_text);
     f_lval.v = get_prop_var(f_text);
     return TK_PROP;
 }
