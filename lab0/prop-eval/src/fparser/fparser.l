@@ -25,9 +25,11 @@ extern char* fname;
 %}
 
 
-NUMBER    [0-9]*
+NUMBER_    [0-9]*
 /* Adding by the Vasquez-Verblud group */
 CHARACTERS [a-zA-Z]*
+NATURAL_ [1-9]
+BLANK_SPACES_ [\s-\t]+
 
 /* Seccion de Patrones y Acciones:: En esta seccion se listan */
 /* los patrones que debe identificar el lexer y las acciones a ejecutar*/
@@ -43,10 +45,37 @@ CHARACTERS [a-zA-Z]*
 begin|BEGIN     {return TK_BEGIN ;}
 end|END         {return TK_END ;}
 
-((p|P)(\s("&"|"v")(\s|\t)+)?){NUMBER} {f_lval.v = get_prop_var(f_text); 
-                                    return TK_PROP;}
+BLANK_SPACES {  
+    /*Ignoro cualquier espacio en vez de parcearlo sin necesidad*/
+}
 
-.   { log_error(" %s - lexer error - at line %d: %s\n",fname,f_lineno,f_text); }
+(.NATURAL_NUMBER_.){NUMBER_} {
+    printf("N%s\n", f_text);
+    f_lval.v = get_prop_var(f_text); 
+    return TK_NATURAL_NUMBER;
+}
+
+p{NUMBER_}|P{NUMBER_} {
+    printf("P\n");
+    f_lval.v = get_prop_var(f_text);
+    return TK_PROP;
+}
+
+(.&.){NUMBER_} {
+    printf("AND\n");
+    f_lval.v = get_prop_var(f_text); 
+    return TK_AND;
+}
+
+(.v.){NUMBER_} {
+    printf("OR\n");
+    f_lval.v = get_prop_var(f_text); 
+    return TK_OR;
+}
+
+. {
+    log_error(" %s - lexer error - at line %d: %s\n",fname,f_lineno,f_text); 
+}
 
 %%
 /*Seccion de Codigo:: en esta seccion se puede colocar el codigo C

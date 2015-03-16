@@ -3,17 +3,17 @@ Extension de las Formulas: *.frm
 -----------------------------------
 [32mve:1 - vo:1 - output: error: data/test1/prop-02-1.frm - lexer error - at line 1: A 
 formula: BEGIN A1 END[0m
-[31mve:0 - vo:1 - output: error: data/test1/prop-04-0.frm - lexer error - at line 1: p 
+[32mve:0 - vo:0 - output:  P ok: data/test1/prop-04-0.frm 
 formula: BEGIN p9876543210 END[0m
 [32mve:1 - vo:1 - output: error: data/test1/and-04-1.frm - lexer error - at line 1: P 
 formula: begin P1 & P2 & p3 & P4 & P6 & & P7 & P8 end[0m
-[32mve:1 - vo:1 - output: error: data/test1/prop-05-1.frm - lexer error - at line 1: P 
+[31mve:1 - vo:0 - output:  P ok: data/test1/prop-05-1.frm 
 formula: BEGIN P09 END[0m
 [31mve:0 - vo:1 - output: error: data/test1/and-or-03-0.frm - lexer error - at line 1: P 
 formula: begin P1 & P2 v P3 v P4 & P6 v P8 end[0m
-[31mve:0 - vo:1 - output: error: data/test1/prop-03-0.frm - lexer error - at line 1: p 
+[32mve:0 - vo:0 - output:  P ok: data/test1/prop-03-0.frm 
 formula: begin p1 end[0m
-[31mve:0 - vo:1 - output: error: data/test1/or-03-0.frm - lexer error - at line 1: P 
+[31mve:0 - vo:1 - output: error: data/test1/or-03-0.frm - lexer error - at line 1: P OR P OR P OR P OR P OR P OR P 
 formula: begin P1 v P2 v p3 v P4 v P6 v P7 v P8 end[0m
 [31mve:0 - vo:1 - output: error: data/test1/and-02-0.frm - lexer error - at line 1: P 
 formula: begin P1 & P2 & p3 end[0m
@@ -21,17 +21,17 @@ formula: begin P1 & P2 & p3 end[0m
 formula: begin P1 & P2 v P3 v P4 end[0m
 [31mve:0 - vo:1 - output: error: data/test1/and-03-0.frm - lexer error - at line 1: P 
 formula: begin P1 & P2 & p3 & P4 & P6 & P7 & P8 end[0m
-[32mve:1 - vo:1 - output: error: data/test1/or-04-1.frm - lexer error - at line 1: P 
+[32mve:1 - vo:1 - output: error: data/test1/or-04-1.frm - lexer error - at line 1: v P OR P OR 
 formula: begin P1 v P2 v v p3 v P4 v P6 v P7 v P8 end[0m
 [31mve:0 - vo:1 - output: error: data/test1/and-or-01-0.frm - lexer error - at line 1: P 
 formula: begin P1 & P2 v P3 end[0m
-[31mve:0 - vo:1 - output: error: data/test1/or-02-0.frm - lexer error - at line 1: P 
+[32mve:0 - vo:0 - output:  P OR P OR P ok: data/test1/or-02-0.frm 
 formula: begin P1 v P2 v p3 end[0m
 [31mve:0 - vo:1 - output: error: data/test1/and-01-0.frm - lexer error - at line 1: P 
 formula: begin P1 & P2 end[0m
-[31mve:0 - vo:1 - output: error: data/test1/or-01-0.frm - lexer error - at line 1: P 
+[32mve:0 - vo:0 - output:  P OR P ok: data/test1/or-01-0.frm 
 formula: begin P1 v P2 end[0m
-[31mve:0 - vo:1 - output: error: data/test1/prop-01-0.frm - lexer error - at line 1: P 
+[32mve:0 - vo:0 - output:  P ok: data/test1/prop-01-0.frm 
 formula: BEGIN P1 END[0m
 -----------------------------------
-OK: 4  - ERROR: 12
+OK: 8  - ERROR: 8
