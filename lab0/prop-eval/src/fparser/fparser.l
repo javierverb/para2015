@@ -48,11 +48,13 @@ end|END         {return TK_END ;}
 
 ([-!~]*"("){NUMBER_} {
     printf("(\n");
+    f_lval.v = get_prop_var(f_text);
     return TK_OPEN;
 }
 
 (")"){NUMBER_} {
     printf(")\n");
+    f_lval.v = get_prop_var(f_text);
     return TK_CLOSE;
 }
 
@@ -77,11 +79,13 @@ end|END         {return TK_END ;}
 
 ("<-->") {
     printf("<-->\n");
+    f_lval.v = get_prop_var(f_text);
     return TK_IFF;
 }
 
 (-{1,2}>) {
     printf("%s\n", f_text);
+    f_lval.v = get_prop_var(f_text);
     return TK_IMPL;
 }
 
@@ -92,8 +96,16 @@ end|END         {return TK_END ;}
 }
 
 
-[-!~]*true {printf("TRUE\n"); return TK_TRUE;}
-[-!~]*false {printf("FALSE\n"); return TK_FALSE;}
+[-!~]*true {
+            printf("TRUE\n");
+            f_lval.v = get_prop_var(f_text);
+            return TK_TRUE;
+}
+[-!~]*false {
+             printf("FALSE\n");
+             f_lval.v = get_prop_var(f_text);
+             return TK_FALSE;
+}
 
 
 . {

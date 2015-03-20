@@ -20,11 +20,8 @@ extern char* aname;
     /*Ignoro cualquier clase de tabulación o espacio o salto de línea*/
 }
 
-((P|p)0.){NUMBER_} {
-    printf("REJECTED: Only accept Pi or pi:i!=0\n");
-}
 
-(p[0-9]+(","|"\n")?){NUMBER_}|(P[0-9]+(","|"\n")?){NUMBER_} {
+(p[^0](","|"\n")?){NUMBER_}|(P[^0](","|"\n")?){NUMBER_} {
     printf("%s\n", f_text);
     f_lval.v = get_prop_var(f_text);
     return TK_PROP;
