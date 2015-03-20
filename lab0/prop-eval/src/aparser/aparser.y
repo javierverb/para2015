@@ -20,8 +20,6 @@
  
  Asgmnt *asg; 
  char *aname;
- /*nodo temporal que se usa para crear el Asgmnt. */
- Asgmnt *n;
 %}
 %union {
   Asgmnt *a;
