@@ -1,0 +1,35 @@
+Ejecutando tests sobre carpeta: data/test1
+Extension de las Formulas: *.asg
+-----------------------------------
+[32mve:0 - vo:0 - output: [P1] [:] [false] ok: data/test1/as-04-0.asg 
+formula: P1:0[0m
+[31mve:0 - vo:1 - output: error: data/test1/as-08-0.asg - parser error - syntax error [P1] [:] [true] [P2] 
+formula: P1:true P2:false P3:True P4:False[0m
+[32mve:0 - vo:0 - output: [P1] [:] [true] ok: data/test1/as-01-0.asg 
+formula: P1:True[0m
+[32mve:1 - vo:1 - output: error: data/test1/as-11-1.asg - lexer error - at line 1: [;] [P1] [:] [false] [,] [P2] [:] [false] 
+formula: P1:0,P2:0;P3:1,P4:1[0m
+[32mve:1 - vo:1 - output: error: data/test1/as-12-1.asg - parser error - syntax error [P1] [:] [false] [,] [P2] [:] [false] [,] [P3] [:] [true] [P4] 
+formula: P1:0,P2:0,P3:1 P4:1[0m
+[32mve:1 - vo:1 - output: error: data/test1/as-06-1.asg - lexer error - at line 1: [P] 
+formula: P01:True[0m
+[32mve:1 - vo:1 - output: error: data/test1/as-15-1.asg - parser error - syntax error [P1] [:] [true] [,] [P2] [:] [false] [P3] 
+formula: P1:1,P2:0 P3:True, P4:1[0m
+[32mve:0 - vo:0 - output: [P1] [:] [true] ok: data/test1/as-03-0.asg 
+formula: P1:1[0m
+[31mve:0 - vo:1 - output: error: data/test1/as-09-0.asg - parser error - syntax error [P1] [:] [false] [P2] 
+formula: P1:0 P2:0 P3:1 P4:1[0m
+[31mve:0 - vo:1 - output: error: data/test1/as-14-0.asg - parser error - syntax error [P1] [:] [true] [,] [P2] [:] [false] [P3] 
+formula: P1:1,P2:0 P3:True P4:1[0m
+[32mve:0 - vo:0 - output: [P1] [:] [true] [,] [P2] [:] [false] [,] [P3] [:] [true] [,] [P4] [:] [false] ok: data/test1/as-07-0.asg 
+formula: P1:true,P2:false,P3:True,P4:False[0m
+[32mve:1 - vo:1 - output: error: data/test1/as-13-1.asg - lexer error - at line 1: [A] [P1] [:] [false] [,] [P2] [:] [false] [,] [P3] [:] 
+formula: P1:0,P2:0,P3:A,P4:1[0m
+[32mve:1 - vo:1 - output: error: data/test1/as-05-1.asg - lexer error - at line 1: [-] [P1] 
+formula: P1-True[0m
+[32mve:0 - vo:0 - output: [P1] [:] [false] [,] [P2] [:] [false] [,] [P3] [:] [true] [,] [P4] [:] [true] ok: data/test1/as-10-0.asg 
+formula: P1:0,P2:0,P3:1,P4:1[0m
+[32mve:0 - vo:0 - output: [P1] [:] [false] ok: data/test1/as-02-0.asg 
+formula: P1:False[0m
+-----------------------------------
+OK: 12  - ERROR: 3

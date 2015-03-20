@@ -10,28 +10,36 @@
 #include "misc.h"
 #include "aparser.tab.h"
 #include <stdio.h>
-int a_lval;
 extern char* aname;
 %}
 
 			
 %%
-[ \t\n]* {
+[ \t]* {
     /*Ignoro cualquier clase de tabulación o espacio o salto de línea*/
 }
 
+[":"] {
+    printf("[%s]\n", a_text);
+    return TK_COLON;
+}
 
-(p[^0](","|"\n")?){NUMBER_}|(P[^0](","|"\n")?){NUMBER_} {
-    printf("%s\n", f_text);
-    f_lval.v = get_prop_var(f_text);
+((p|P)[^0]) {
+    printf("[%s]\n", a_text);
+    a_lval.v = get_prop_var(a_text);
     return TK_PROP;
 }
 
-true|"1" {printf("TRUE\n"); return TK_TRUE;}
-false|"0" {printf("FALSE\n"); return TK_FALSE;}
+(","|\n){1} {
+    printf("[%s]\n", a_text);
+    return TK_SEPARATOR;
+}
+
+True|"1" {printf("[true]\n"); return TK_TRUE;}
+False|"0" {printf("[false]\n"); return TK_FALSE;}
 
 
 . {
-    log_error(" %s - lexer error - at line %d: %s\n",aname,a_lineno,a_text); 
+    log_error(" %s - lexer error - at line %d: [%s]\n",aname,a_lineno,a_text); 
 }      
 %%

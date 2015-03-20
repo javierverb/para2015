@@ -22,29 +22,26 @@
  char *aname;
 %}
 %union {
-  Asgmnt *a;
   int v;
 }
 
 /* COMPLETAR AQUI */
 %token <v> TK_PROP
-%token TK_TRUE
-%token TK_FALSE
-%token TK_COMA
-%token TK_NEW_LINE
-
-%type <a> asgmnt vval prop bool
-
+%token <v> TK_TRUE
+%token <v> TK_FALSE
+%token TK_COLON
+%token TK_SEPARATOR
+%type <v> prop bool
 %%
 asgmnt: vval
-        | vval TK_COMA asgmnt {}
-        | vvaln TK_NEW_LINE asgmnt
+        | vval TK_SEPARATOR asgmnt {;}
 ;
-vval: prop TK_COLON bool {};
+vval: prop TK_COLON bool {ASSIGNMENT_ADD(asg, $1, $3);}
 ;
-prop: TK_PROP {};
+prop: TK_PROP {$$=$1;}
 ;
-bool: TK_TRUE {$$=$1;}| TK_FALSE {$$=$2}
+bool: TK_TRUE {$$=$1;}
+    | TK_FALSE {$$=$1;}
 ;
 
 

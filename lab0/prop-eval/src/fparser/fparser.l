@@ -70,7 +70,7 @@ end|END         {return TK_END ;}
     return TK_AND;
 }
 
-(v[^v"|"]|"|"[^v"|"]) {
+((v|"|")[^v"|"]) {
     printf("OR\n");
     f_lval.v = get_prop_var(f_text); 
     return TK_OR;

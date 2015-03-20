@@ -7,6 +7,9 @@
 
 int eval(ASTNode *f, Asgmnt *a)
 {
+/* Definir recursivamente 
+eval(PX, a) = a find(x) 
+eval (P ^ Q) = eval(P) ^ eval(Q)*/
   return 0;
 }
 

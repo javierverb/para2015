@@ -44,6 +44,8 @@ int main(int argc, char **argv)
   /* /\* COMPLETAR AQUI *\/ */
   /* ---------------------- */
 
+    /* llamar a los parseadores en aparser.y y fparser.y*/
+
   switch(eval(ast,asg))
     {
     case 1:
