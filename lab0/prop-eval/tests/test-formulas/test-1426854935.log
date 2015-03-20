@@ -19,57 +19,61 @@ formula: begin P1 P2 <--> end[0m
 formula: begin P1 | P2 | | p3 | P4 | P6 | P7 | P8 end[0m
 [32mve:0 - vo:0 - output: P1 AND P2 OR P3 ok: data/test2/and-or-04-0.frm 
 formula: begin P1 ^ P2 | P3 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-06-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P4 OR P1 OR -P3 OR P2 AND -P3 OR P1 OR -P2 AND -P2 OR -P3 AND -P1 OR -P4 AND -P4 OR -P2 OR P1 AND -P2 AND -P3 OR P4 OR P1 ok: data/test2/cnf-06-0.frm 
 formula: begin -P4 v P1 v -P3 v P2; -P3 v P1 v -P2; -P2 v -P3; -P1 v -P4; -P4 v -P2 v P1; -P2; -P3 v P4 v P1 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/iff-05-0.frm - lexer error - at line 2: [(] 
+[32mve:0 - vo:0 - output: ( ( -P4 OR P3 ) <--> ( P3 OR -P4 ) ) OR ( -P3 OR P1 OR P4 OR P2 --> ( -P4 OR -P1 OR -P2 ) ) ok: data/test2/iff-05-0.frm 
 formula: begin ((-P4 v P3) <--> -(P3 v -P4)) v (-P3 v P1 v P4 v P2 --> -(-P4 v -P1 v -P2)) end[0m
-[31mve:0 - vo:1 - output: error: data/test2/imp-05-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P3 OR -P4 OR -P1 OR P2 --> -P1 OR P3 OR P2 OR P4 ok: data/test2/imp-05-0.frm 
 formula: begin -P3 v -P4 v -P1 v P2 --> -P1 v P3 v P2 v P4 end[0m
-[32mve:1 - vo:1 - output: error: data/test2/imp-05-1.frm - lexer error - at line 2: [(] 
+[32mve:0 - vo:0 - output: P1 AND FALSE OR P200 ok: data/test2/and-or-06-0.frm 
+formula: BEGIN P1 ^ false v P200 END[0m
+[32mve:1 - vo:1 - output: error: data/test2/imp-05-1.frm - parser error - syntax error ( ( -P4 AND P4 ) <--> -P1 ) <--> ( P4 OR P1 ) AND 
 formula: begin ((-P4 & P4) <--> -P1) <--> (P4 v P1); end[0m
 [32mve:0 - vo:0 - output: P1 AND P2 AND p3 AND P4 AND P6 AND P7 AND P8 ok: data/test2/and-14-0.frm 
 formula: begin P1 ^ P2 ; p3 & P4 ; P6 ^ P7 & P8 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/iff-03-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P3 OR -P4 OR -P1 OR P2 <--> -P1 OR P3 OR P2 OR P4 ok: data/test2/iff-03-0.frm 
 formula: begin -P3 v -P4 v -P1 v P2 <--> -P1 v P3 v P2 v P4 end[0m
 [32mve:1 - vo:1 - output: error: data/test2/and-04-1.frm - parser error - syntax error P1 AND P2 AND p3 AND P4 AND P6 AND AND 
 formula: begin P1 & P2 & p3 & P4 & P6 & & P7 & P8 end[0m
-[32mve:1 - vo:1 - output: error: data/test2/prop-05-1.frm - parser error - syntax error REJECTED: Only accept Pi or pi:i!=0 
+[32mve:1 - vo:1 - output: error: data/test2/prop-05-1.frm - lexer error - at line 2: [P] 
 formula: BEGIN P09 END[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-05-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P4 AND P4 AND -P1 AND -P1 AND P4 OR P1 AND -P2 OR -P4 OR -P3 OR P1 AND -P2 ok: data/test2/cnf-05-0.frm 
 formula: begin -P4; P4; -P1; -P1; P4 v P1; -P2 v -P4 v -P3 v P1; -P2 end[0m
 [32mve:1 - vo:1 - output: error: data/test2/and-11-1.frm - parser error - syntax error P1 AND P2 AND p3 AND P4 AND P6 AND AND 
 formula: begin P1 ; P2 ; p3 ; P4 ; P6 ; ; P7 ; P8 end[0m
-[32mve:1 - vo:1 - output: error: data/test2/imp-07-1.frm - lexer error - at line 2: [-] P3 OR P1 
+[32mve:1 - vo:1 - output: error: data/test2/imp-07-1.frm - parser error - syntax error P3 OR P1 --> --> 
 formula: begin P3 v P1 --> --> -P2 v P3 v -P4 end[0m
 [32mve:0 - vo:0 - output: P1 AND P2 OR P3 OR P4 AND P6 OR P8 ok: data/test2/and-or-03-0.frm 
 formula: begin P1 & P2 v P3 v P4 & P6 v P8 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-04-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P1 OR P2 OR -P4 AND -P3 OR -P1 AND P1 OR -P2 OR -P3 AND -P3 OR P1 AND -P4 OR -P1 OR -P2 AND -P1 OR P2 OR -P3 OR -P4 AND -P2 OR P4 OR P3 ok: data/test2/cnf-04-0.frm 
 formula: begin -P1 v P2 v -P4; -P3 v -P1; P1 v -P2 v -P3; -P3 v P1; -P4 v -P1 v -P2; -P1 v P2 v -P3 v -P4; -P2 v P4 v P3 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-03-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P4 OR P2 OR -P3 AND P1 OR -P4 OR -P3 OR P2 AND -P4 OR P3 OR -P1 AND P4 AND -P3 AND -P1 OR P2 OR -P4 AND -P3 OR -P2 OR -P4 ok: data/test2/cnf-03-0.frm 
 formula: begin -P4 v P2 v -P3; P1 v -P4 v -P3 v P2; -P4 v P3 v -P1; P4; -P3; -P1 v P2 v -P4; -P3 v -P2 v -P4 end[0m
 [32mve:1 - vo:1 - output: error: data/test2/imp-03-1.frm - lexer error - at line 2: [-] P1 
 formula: begin P1 ---> P2 end[0m
 [32mve:0 - vo:0 - output: p1 ok: data/test2/prop-03-0.frm 
 formula: begin p1 end[0m
+[32mve:0 - vo:0 - output: P1 AND TRUE OR P200 AND FALSE ok: data/test2/and-or-07-0.frm 
+formula: BEGIN P1 ^ true v P200 ; false END[0m
 [32mve:1 - vo:1 - output: error: data/test2/and-13-1.frm - parser error - syntax error P1 AND P2 AND p3 AND P4 AND AND 
 formula: begin P1 ^ P2 ; p3 & P4 ^ ; P6 ^ ^ P7 ^ P8 end[0m
 [32mve:0 - vo:0 - output: P1 OR P2 OR p3 OR P4 OR P6 OR P7 OR P8 ok: data/test2/or-03-0.frm 
 formula: begin P1 v P2 v p3 v P4 v P6 v P7 v P8 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/iff-04-0.frm - lexer error - at line 2: [(] 
+[32mve:0 - vo:0 - output: ( ( -P4 AND P4 ) <--> -P1 ) <--> ( P4 OR P1 ) ok: data/test2/iff-04-0.frm 
 formula: begin ((-P4 & P4) <--> -P1) <--> (P4 v P1) end[0m
 [32mve:1 - vo:1 - output: error: data/test2/and-12-1.frm - parser error - syntax error P1 AND P2 AND p3 AND P4 AND P6 AND AND 
 formula: begin P1 ^ P2 ^ p3 ^ P4 ^ P6 ^ ^ P7 ^ P8 end[0m
-[32mve:1 - vo:1 - output: error: data/test2/imp-08-1.frm - lexer error - at line 2: [(] 
+[32mve:1 - vo:1 - output: error: data/test2/imp-08-1.frm - parser error - syntax error ( ( -P4 AND P4 ) --> -P1 ) --> ( P4 OR P1 ) AND 
 formula: begin ((-P4 & P4) --> -P1) --> (P4 v P1); end[0m
-[31mve:0 - vo:1 - output: error: data/test2/not-02-0.frm - lexer error - at line 2: [!] 
+[32mve:0 - vo:0 - output: !P1 ok: data/test2/not-02-0.frm 
 formula: BEGIN !P1 END[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-09-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P1 OR -P2 AND P3 AND -P3 OR -P2 OR -P4 AND -P2 OR P4 OR -P1 AND -P1 OR -P2 AND -P2 OR -P1 AND -P2 OR -P1 OR P4 ok: data/test2/cnf-09-0.frm 
 formula: begin -P1 v -P2; P3; -P3 v -P2 v -P4; -P2 v P4 v -P1; -P1 v -P2; -P2 v -P1; -P2 v -P1 v P4 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-08-0.frm - lexer error - at line 3: [-] P3 OR P1 AND 
+[32mve:0 - vo:0 - output: P3 OR P1 AND -P2 OR P3 OR -P4 AND P4 OR P1 OR P2 AND -P2 OR -P3 OR P1 OR P4 AND P1 OR -P3 AND P3 AND -P2 ok: data/test2/cnf-08-0.frm 
 formula: begin P3 v P1; -P2 v P3 v -P4; P4 v P1 v P2; -P2 v -P3 v P1 v P4; P1 v -P3; P3; -P2 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/not-01-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P1 ok: data/test2/not-01-0.frm 
 formula: BEGIN -P1 END[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-07-0.frm - lexer error - at line 3: [-] P1 AND 
+[32mve:0 - vo:0 - output: P1 AND -P1 OR P4 OR P2 OR -P3 AND -P3 AND P3 OR P1 OR -P4 OR P2 AND -P3 OR P2 OR P4 OR -P1 AND -P3 OR -P1 OR -P4 AND -P3 ok: data/test2/cnf-07-0.frm 
 formula: begin P1; -P1 v P4 v P2 v -P3; -P3; P3 v P1 v -P4 v P2; -P3 v P2 v P4 v -P1; -P3 v -P1 v -P4; -P3 end[0m
 [32mve:0 - vo:0 - output: P1 OR P2 OR p3 OR P4 OR P6 OR P7 OR P8 ok: data/test2/or-07-0.frm 
 formula: begin P1 | P2 | p3 | P4 | P6 | P7 | P8 end[0m
@@ -83,9 +87,9 @@ formula: begin P1 & P2 & p3 end[0m
 formula: begin P1 ; P2 ; p3 end[0m
 [32mve:0 - vo:0 - output: P1 AND P2 OR P3 OR P4 ok: data/test2/and-or-02-0.frm 
 formula: begin P1 & P2 v P3 v P4 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/iff-01-0.frm - lexer error - at line 2: [<] P1 
+[32mve:0 - vo:0 - output: P1 <--> P2 ok: data/test2/iff-01-0.frm 
 formula: begin P1 <--> P2 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/iif-06-0.frm - lexer error - at line 2: [t] 
+[32mve:0 - vo:0 - output: TRUE OR P1 OR -P3 OR P2 <--> FALSE OR P1 OR -P2 AND -P2 OR TRUE AND FALSE OR -P4 AND -P4 OR -P2 OR P1 --> -P2 AND -P3 OR P4 OR P1 ok: data/test2/iif-06-0.frm 
 formula: begin true v P1 v -P3 v P2 <--> -false v P1 v -P2; -P2 v -true; false v -P4; -P4 v -P2 v P1 --> -P2; -P3 v P4 v P1 end[0m
 [32mve:0 - vo:0 - output: P1 AND P2 ok: data/test2/and-08-0.frm 
 formula: begin P1 ^ P2 end[0m
@@ -93,15 +97,15 @@ formula: begin P1 ^ P2 end[0m
 formula: begin P1 ^ P2 ^ p3 end[0m
 [32mve:0 - vo:0 - output: P1 AND P2 AND p3 AND P4 AND P6 AND P7 AND P8 ok: data/test2/and-03-0.frm 
 formula: begin P1 & P2 & p3 & P4 & P6 & P7 & P8 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-01-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P3 OR -P4 OR -P1 OR P2 AND -P1 OR P3 OR P2 OR P4 AND P2 AND P4 OR -P3 AND -P4 OR -P1 OR P2 OR -P3 AND -P2 OR P3 OR P4 AND P3 OR P2 OR -P1 OR P4 ok: data/test2/cnf-01-0.frm 
 formula: begin -P3 v -P4 v -P1 v P2; -P1 v P3 v P2 v P4; P2; P4 v -P3; -P4 v -P1 v P2 v -P3; -P2 v P3 v P4; P3 v P2 v -P1 v P4 end[0m
 [32mve:1 - vo:1 - output: error: data/test2/or-04-1.frm - parser error - syntax error P1 OR P2 OR OR 
 formula: begin P1 v P2 v v p3 v P4 v P6 v P7 v P8 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/imp-02-0.frm - lexer error - at line 2: [-] P1 
+[32mve:0 - vo:0 - output: P1 -> P2 ok: data/test2/imp-02-0.frm 
 formula: begin P1 -> P2 end[0m
 [32mve:0 - vo:0 - output: P1 AND P2 OR P3 ok: data/test2/and-or-01-0.frm 
 formula: begin P1 & P2 v P3 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/imp-01-0.frm - lexer error - at line 2: [-] P1 
+[32mve:0 - vo:0 - output: P1 --> P2 ok: data/test2/imp-01-0.frm 
 formula: begin P1 --> P2 end[0m
 [32mve:0 - vo:0 - output: P1 OR P2 OR p3 ok: data/test2/or-02-0.frm 
 formula: begin P1 v P2 v p3 end[0m
@@ -115,15 +119,15 @@ formula: begin P1 v P2 end[0m
 formula: BEGIN P1 END[0m
 [32mve:0 - vo:0 - output: P1 AND P2 AND p3 AND P4 AND P6 AND P7 AND P8 ok: data/test2/and-09-0.frm 
 formula: begin P1 ; P2 ; p3 ; P4 ; P6 ; P7 ; P8 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-02-0.frm - lexer error - at line 2: [-] P3 OR P4 OR 
+[32mve:0 - vo:0 - output: P3 OR P4 OR -P1 AND P3 OR -P4 OR -P1 OR -P2 AND P2 OR -P1 AND P4 OR P3 OR -P1 OR P2 AND P1 OR P3 OR -P4 AND P1 OR P4 AND -P1 OR -P4 OR -P3 ok: data/test2/cnf-02-0.frm 
 formula: begin P3 v P4 v -P1; P3 v -P4 v -P1 v -P2; P2 v -P1; P4 v P3 v -P1 v P2; P1 v P3 v -P4; P1 v P4; -P1 v -P4 v -P3 end[0m
 [32mve:1 - vo:1 - output: error: data/test2/or-10-1.frm - parser error - syntax error P1 OR P2 OR p3 OR OR 
 formula: begin P1 | P2 v p3 | v P4 v P6 | P7 v P8 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/not-03-0.frm - lexer error - at line 2: [~] 
+[32mve:0 - vo:0 - output: ~P1 ok: data/test2/not-03-0.frm 
 formula: BEGIN ~P1 END[0m
-[31mve:0 - vo:1 - output: error: data/test2/cnf-10-0.frm - lexer error - at line 2: [-] 
+[32mve:0 - vo:0 - output: -P4 OR P3 AND P3 OR -P4 AND P3 OR P1 OR P4 OR P2 AND -P4 OR -P1 OR -P2 AND P2 OR P1 OR P4 AND P3 OR -P1 AND -P3 ok: data/test2/cnf-10-0.frm 
 formula: begin -P4 v P3; P3 v -P4; P3 v P1 v P4 v P2; -P4 v -P1 v -P2; P2 v P1 v P4; P3 v -P1; -P3 end[0m
-[31mve:0 - vo:1 - output: error: data/test2/imp-06-0.frm - lexer error - at line 2: [(] 
+[32mve:0 - vo:0 - output: ( ( -P4 AND P4 ) --> -P1 ) --> ( P4 OR P1 ) ok: data/test2/imp-06-0.frm 
 formula: begin ((-P4 & P4) --> -P1) --> (P4 v P1) end[0m
 -----------------------------------
-OK: 40  - ERROR: 22
+OK: 64  - ERROR: 0

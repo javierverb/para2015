@@ -38,22 +38,30 @@
 %token TK_TRUE
 %token TK_NOT
 %token TK_IMPL
+%token TK_OPEN
+%token TK_CLOSE
+%token TK_IFF
  /* Define el tipo de datos que retorna la bnf*/
-%type <a> input phi prop
+%type <a> forms phi prop
 /* Precedencia del and vs ord */
 %left TK_OR
 %left TK_AND
+%right TK_NOT
+%right TK_OPEN
+%left TK_CLOSE
 %%
 /* Simbolo inicial */
-input: TK_BEGIN phi TK_END {ast = $2;};
+forms: TK_BEGIN phi TK_END {ast = $2;};
 
 /* COMPLETAR ACA */
 phi: prop
     | phi TK_OR phi {ASTNODE_OR(n, $1, $3); $$=n;}
     | phi TK_AND phi {ASTNODE_AND(n, $1, $3); $$=n;}
     | phi TK_IMPL phi {ASTNODE_IMPL(n, $1, $3); $$=n;}
+    | phi TK_IFF phi {ASTNODE_IFF(n, $1, $3); $$=n;}
     | phi TK_NOT {ASTNODE_NOT(n, $1); $$=n;}
     | TK_TRUE {ASTNODE_TRUE(n); $$=n;} | TK_FALSE {ASTNODE_FALSE(n); $$=n;}
+    | TK_OPEN phi TK_CLOSE {$$=n;}
 ;
 prop: TK_PROP {ASTNODE_PROP(n,$1); $$ =n ;}
 ;

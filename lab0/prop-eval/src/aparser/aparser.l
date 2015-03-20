@@ -16,5 +16,25 @@ extern char* aname;
 
 			
 %%
-.                             { log_error(" %s - lexer error - at line %d: %s\n",aname,a_lineno,a_text); }      
+[ \t\n]* {
+    /*Ignoro cualquier clase de tabulación o espacio o salto de línea*/
+}
+
+((P|p)0.){NUMBER_} {
+    printf("REJECTED: Only accept Pi or pi:i!=0\n");
+}
+
+(p[0-9]+(","|"\n")?){NUMBER_}|(P[0-9]+(","|"\n")?){NUMBER_} {
+    printf("%s\n", f_text);
+    f_lval.v = get_prop_var(f_text);
+    return TK_PROP;
+}
+
+true|"1" {printf("TRUE\n"); return TK_TRUE;}
+false|"0" {printf("FALSE\n"); return TK_FALSE;}
+
+
+. {
+    log_error(" %s - lexer error - at line %d: %s\n",aname,a_lineno,a_text); 
+}      
 %%

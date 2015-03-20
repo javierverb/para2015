@@ -20,11 +20,34 @@
  
  Asgmnt *asg; 
  char *aname;
+ /*nodo temporal que se usa para crear el Asgmnt. */
+ Asgmnt *n;
 %}
+%union {
+  Asgmnt *a;
+  int v;
+}
 
 /* COMPLETAR AQUI */
+%token <v> TK_PROP
+%token TK_TRUE
+%token TK_FALSE
+%token TK_COMA
+%token TK_NEW_LINE
+
+%type <a> asgmnt vval prop bool
 
 %%
+asgmnt: vval
+        | vval TK_COMA asgmnt {}
+        | vvaln TK_NEW_LINE asgmnt
+;
+vval: prop TK_COLON bool {};
+;
+prop: TK_PROP {};
+;
+bool: TK_TRUE {$$=$1;}| TK_FALSE {$$=$2}
+;
 
 
 

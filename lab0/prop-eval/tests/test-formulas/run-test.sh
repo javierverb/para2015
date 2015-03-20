@@ -13,7 +13,7 @@ for logs in *.log; do
 done
 
 if [ $totalLogs -gt $MAX_LOGS ]; then
-	echo "TotalLogs is:" $totalLogs "then remove old logs \n"
+	echo "TotalLogs is:" $totalLogs "then remove old logs "
 	rm *.log
 fi
 # End adding

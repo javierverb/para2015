@@ -41,37 +41,60 @@ NUMBER_    [0-9]*
 begin|BEGIN     {return TK_BEGIN ;}
 end|END         {return TK_END ;}
 
-
 [ \t\n]* {
     /*Ignoro cualquier clase de tabulación o espacio o salto de línea*/
 }
 
 
-((P|p)0.){NUMBER_} {
-    printf("REJECTED: Only accept Pi or pi:i!=0\n");
-}
-
-("(".")"){NUMBER_} {
+([-!~]*"("){NUMBER_} {
     printf("(\n");
+    return TK_OPEN;
 }
 
-(p[0-9]+|P[0-9]+){NUMBER_} {
+(")"){NUMBER_} {
+    printf(")\n");
+    return TK_CLOSE;
+}
+
+([-!~]*p[^0]|[-!~]*P[^0]){NUMBER_} {
     printf("%s\n", f_text);
     f_lval.v = get_prop_var(f_text);
     return TK_PROP;
 }
 
-(&[^&"^";]|"^"[^&"^";]|;[^&"^";]){NUMBER_} {
+(&[^&"^";]|"^"[^&"^";]|;[^&"^";]) {
     printf("AND\n");
     f_lval.v = get_prop_var(f_text); 
     return TK_AND;
 }
 
-(v[^v"|"]|"|"[^v"|"]){NUMBER_} {
+(v[^v"|"]|"|"[^v"|"]) {
     printf("OR\n");
     f_lval.v = get_prop_var(f_text); 
     return TK_OR;
 }
+
+
+("<-->") {
+    printf("<-->\n");
+    return TK_IFF;
+}
+
+(-{1,2}>) {
+    printf("%s\n", f_text);
+    return TK_IMPL;
+}
+
+((-|~|!)[^-!~]) {
+    printf("NOT\n");
+    f_lval.v = get_prop_var(f_text);     
+    return TK_NOT;
+}
+
+
+[-!~]*true {printf("TRUE\n"); return TK_TRUE;}
+[-!~]*false {printf("FALSE\n"); return TK_FALSE;}
+
 
 . {
     log_error(" %s - lexer error - at line %d: [%s]\n",fname,f_lineno,f_text); 
