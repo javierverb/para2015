@@ -37,8 +37,8 @@ NUMBER    [0-9]*
 /* * la linea (sin espacios antes), ya que flex considera cada linea que  */
 /* * empieza con espacio como una linea de codigo valida. *\/ */
 %%
-"begin"|"BEGIN"                       {printf("%s\n", f_text); return TK_BEGIN ;}
-"end"|"END"                           {printf("%s\n", f_text); return TK_END ;}
+begin|BEGIN                       {printf("%s\n", f_text); return TK_BEGIN ;}
+end|END                           {printf("%s\n", f_text); return TK_END ;}
 
 [ \t\n]*                              {/* COME CARACTERES VACIOS*/}
 

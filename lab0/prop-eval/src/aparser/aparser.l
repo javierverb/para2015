@@ -19,24 +19,24 @@ extern char* aname;
     /*Ignoro cualquier clase de tabulación o espacio o salto de línea*/
 }
 
-[":"] {
-    printf("[%s]\n", a_text);
+[:] {
+    printf("%s\n", a_text);
     return TK_COLON;
 }
 
-((p|P)[^0]) {
+((p|P)[^0][0-9]*) {
     printf("[%s]\n", a_text);
     a_lval.v = get_prop_var(a_text);
     return TK_PROP;
 }
 
-(","|\n){1} {
-    printf("[%s]\n", a_text);
+(,|\n){1} {
+    printf("%s\n", a_text);
     return TK_SEPARATOR;
 }
 
-True|"1" {printf("[true]\n"); return TK_TRUE;}
-False|"0" {printf("[false]\n"); return TK_FALSE;}
+True|1 {printf("%s\n", a_text); return TK_TRUE;}
+False|0 {printf("%s\n", a_text); return TK_FALSE;}
 
 
 . {
