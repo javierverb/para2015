@@ -1,4 +1,4 @@
-/* Archivo:: formula.y
+/* Archivo:: phi.y
  * Descripcion:: Archivo de especificacion utilizado por bison. 
  */
 
@@ -34,46 +34,49 @@
 %token TK_END
 %token TK_OR
 %token TK_AND
-%token TK_FALSE
-%token TK_TRUE
 %token TK_NOT
 %token TK_IMPL
-%token TK_OPEN
-%token TK_CLOSE
 %token TK_IFF
+%token TK_TRUE
+%token TK_FALSE
+%token TK_OP
+%token TK_CP
+
+
  /* Define el tipo de datos que retorna la bnf*/
-%type <a> forms phi prop
-/* Precedencia del and vs ord */
+%type <a> form phi prop
+
+/* Precedencia del and vs or */
 %left TK_OR
 %left TK_AND
 %right TK_NOT
-%right TK_OPEN
-%left TK_CLOSE
+%right TK_OP
+%left TK_CP
 %%
 /* Simbolo inicial */
-forms: TK_BEGIN phi TK_END {ast = $2;};
+form: TK_BEGIN phi TK_END {ast = $2;};
 
 /* COMPLETAR ACA */
-phi: prop
-    | phi TK_OR phi {ASTNODE_OR(n, $1, $3); $$=n;}
-    | phi TK_AND phi {ASTNODE_AND(n, $1, $3); $$=n;}
-    | phi TK_IMPL phi {ASTNODE_IMPL(n, $1, $3); $$=n;}
-    | phi TK_IFF phi {ASTNODE_IFF(n, $1, $3); $$=n;}
-    | phi TK_NOT {ASTNODE_NOT(n, $1); $$=n;}
-    | TK_TRUE {ASTNODE_TRUE(n); $$=n;} | TK_FALSE {ASTNODE_FALSE(n); $$=n;}
-    | TK_OPEN phi TK_CLOSE {$$=n;}
+phi: prop 
+    | TK_TRUE                    {ASTNODE_TRUE(n); $$=n ;}
+    | TK_FALSE                   {ASTNODE_FALSE(n); $$=n ;}
+    | phi TK_IFF phi     {ASTNODE_IMPL(n,$1,$3); $$ =n ;}
+    | phi TK_IMPL phi    {ASTNODE_IMPL(n,$1,$3); $$ =n ;} 
+    | phi TK_OR phi      {ASTNODE_OR(n,$1,$3); $$ =n ;} 
+    | phi TK_AND phi     {ASTNODE_AND(n,$1,$3); $$ =n ;} 
+    | TK_NOT phi             {ASTNODE_NOT(n,$2); $$ =n ;} 
+    | TK_OP phi TK_CP        {$$=n ;}
 ;
-prop: TK_PROP {ASTNODE_PROP(n,$1); $$ =n ;}
-;
-%%
+prop: TK_PROP                         {ASTNODE_PROP(n,$1); $$ =n ;} 
 
+%%
 /* Funcion que se provee para parsear una formula en un archivo.*/
 void parse_formula(FILE * input)
 {
   f_lineno = 1;
   f_in = input;
   if (!f_in)
-    log_error("parse_formula: no input file.");
+    log_error("parse_phi: no input file.");
   f_parse();
   f_lex_destroy();
 }

@@ -25,7 +25,7 @@ extern char* fname;
 %}
 
 
-NUMBER_    [0-9]*
+NUMBER    [0-9]*
 
 /* Seccion de Patrones y Acciones:: En esta seccion se listan */
 /* los patrones que debe identificar el lexer y las acciones a ejecutar*/
@@ -37,80 +37,33 @@ NUMBER_    [0-9]*
 /* * la linea (sin espacios antes), ya que flex considera cada linea que  */
 /* * empieza con espacio como una linea de codigo valida. *\/ */
 %%
+"begin"|"BEGIN"                       {printf("%s\n", f_text); return TK_BEGIN ;}
+"end"|"END"                           {printf("%s\n", f_text); return TK_END ;}
 
-begin|BEGIN     {return TK_BEGIN ;}
-end|END         {return TK_END ;}
+[ \t\n]*                              {/* COME CARACTERES VACIOS*/}
 
-[ \t\n]* {
-    /*Ignoro cualquier clase de tabulación o espacio o salto de línea*/
-}
+\(                                    {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_OP ;}
 
+\)                                    {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_CP ;}
 
-([-!~]*"("){NUMBER_} {
-    printf("(\n");
-    f_lval.v = get_prop_var(f_text);
-    return TK_OPEN;
-}
+[!-~]                                 {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_NOT ; }
 
-(")"){NUMBER_} {
-    printf(")\n");
-    f_lval.v = get_prop_var(f_text);
-    return TK_CLOSE;
-}
+(p|P)[^0]{NUMBER}                     {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_PROP ;}
 
-([-!~]*p[^0]|[-!~]*P[^0]){NUMBER_} {
-    printf("%s\n", f_text);
-    f_lval.v = get_prop_var(f_text);
-    return TK_PROP;
-}
+([&\^;][^&\^;])                       {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_AND ;}
 
-(&[^&"^";]|"^"[^&"^";]|;[^&"^";]) {
-    printf("AND\n");
-    f_lval.v = get_prop_var(f_text); 
-    return TK_AND;
-}
+([v\|][^v\|])                         {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_OR ;}
 
-((v|"|")[^v"|"]) {
-    printf("OR\n");
-    f_lval.v = get_prop_var(f_text); 
-    return TK_OR;
-}
+((\-\->|\->)[^(\-\->|\->)])           {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_IMPL ;}
 
+(<\-\->[^(<\-\->)])                   {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_IFF ;}
 
-("<-->") {
-    printf("<-->\n");
-    f_lval.v = get_prop_var(f_text);
-    return TK_IFF;
-}
+true                                  {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_TRUE ;}
 
-(-{1,2}>) {
-    printf("%s\n", f_text);
-    f_lval.v = get_prop_var(f_text);
-    return TK_IMPL;
-}
+false                                 {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_FALSE ;}
 
-((-|~|!)[^-!~]) {
-    printf("NOT\n");
-    f_lval.v = get_prop_var(f_text);     
-    return TK_NOT;
-}
+.                                     { log_error(" %s - lexer error - at line %d: %s\n",fname,f_lineno,f_text); }      
 
-
-[-!~]*true {
-            printf("TRUE\n");
-            f_lval.v = get_prop_var(f_text);
-            return TK_TRUE;
-}
-[-!~]*false {
-             printf("FALSE\n");
-             f_lval.v = get_prop_var(f_text);
-             return TK_FALSE;
-}
-
-
-. {
-    log_error(" %s - lexer error - at line %d: [%s]\n",fname,f_lineno,f_text); 
-}
 %%
 /*Seccion de Codigo:: en esta seccion se puede colocar el codigo C
 * necesario para ejecutar las acciones. Es comun agregar aca una rutina
