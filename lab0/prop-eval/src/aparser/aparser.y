@@ -31,17 +31,15 @@
 %token <v> TK_FALSE
 %token TK_COLON
 %token TK_SEPARATOR
-%type <v> prop bool
+%type <v> bool
 %%
 asgmnt: vval
         | vval TK_SEPARATOR asgmnt {;}
 ;
-vval: prop TK_COLON bool {ASSIGNMENT_ADD(asg, $1, $3);}
+vval: TK_PROP TK_COLON bool {ASSIGNMENT_ADD(asg, $1, $3);}
 ;
-prop: TK_PROP {$$=$1;}
-;
-bool: TK_TRUE {$$=$1;}
-    | TK_FALSE {$$=$1;}
+bool: TK_TRUE {$$=1;}
+    | TK_FALSE {$$=0;}
 ;
 
 
