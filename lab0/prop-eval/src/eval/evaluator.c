@@ -17,11 +17,11 @@ int eval(ASTNode *f, Asgmnt *a) {
                 a_result->value = eval(f->l_succ, a) * eval(f->r_succ, a);
                 break;
             case OR:
-                a_result->value = eval(f->l_succ, a) - eval(f->r_succ, a);
+                a_result->value = (int)(eval(f->l_succ, a) + eval(f->r_succ, a)) > 0;
                 break;
             case NOT:
-                (1 + eval(f->l_succ, a)) % 2;
-                (1 + eval(f->r_succ, a)) % 2;
+                a_result->value = (1 + eval(f->l_succ, a)) % 2;
+                a_result->value = (1 + eval(f->r_succ, a)) % 2;
                 break;
             case IFF:
                 a_result->value = (int)(eval(f->l_succ, a) == eval(f->r_succ, a));
