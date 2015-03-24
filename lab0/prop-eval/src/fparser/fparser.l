@@ -40,29 +40,29 @@ NUMBER    [0-9]*
 begin|BEGIN                       {return TK_BEGIN ;}
 end|END                           {return TK_END ;}
 
-[ \t\n]*                              {/* COME CARACTERES VACIOS*/}
+[ \t\n]*                          {/* COME CARACTERES VACIOS*/}
 
-\(                                    {f_lval.v = get_prop_var(f_text); return TK_OP ;}
+\(                                {return TK_OP ;}
 
-\)                                    {f_lval.v = get_prop_var(f_text); return TK_CP ;}
+\)                                {return TK_CP ;}
 
-[!-~]                                 {f_lval.v = get_prop_var(f_text); return TK_NOT ; }
+[!-~]                             {return TK_NOT ; }
 
-(p|P)[^0]{NUMBER}                     {f_lval.v = get_prop_var(f_text); return TK_PROP ;}
+(p|P)[^0]{NUMBER}                 {f_lval.v = get_prop_var(f_text); return TK_PROP ;}
 
-([&\^;][^&\^;])                       {f_lval.v = get_prop_var(f_text); return TK_AND ;}
+([&\^;][^&\^;])                   {return TK_AND ;}
 
-([v\|][^v\|])                         {f_lval.v = get_prop_var(f_text); return TK_OR ;}
+([v\|][^v\|])                     {return TK_OR ;}
 
-((\-\->|\->)[^(\-\->|\->)])           {f_lval.v = get_prop_var(f_text); return TK_IMPL ;}
+((\-\->|\->)[^(\-\->|\->)])       {return TK_IMPL ;}
 
-(<\-\->[^(<\-\->)])                   {f_lval.v = get_prop_var(f_text); return TK_IFF ;}
+(<\-\->[^(<\-\->)])               {return TK_IFF ;}
 
-true                                  {f_lval.v = get_prop_var(f_text); return TK_TRUE ;}
+true                              {return TK_TRUE ;}
 
-false                                 {f_lval.v = get_prop_var(f_text); return TK_FALSE ;}
+false                             {return TK_FALSE ;}
 
-.                                     { log_error(" %s - lexer error - at line %d: %s\n",fname,f_lineno,f_text); }      
+.                                 { log_error(" %s - lexer error - at line %d: %s\n",fname,f_lineno,f_text); }      
 
 %%
 /*Seccion de Codigo:: en esta seccion se puede colocar el codigo C
