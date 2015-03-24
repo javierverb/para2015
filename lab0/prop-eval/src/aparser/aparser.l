@@ -19,7 +19,7 @@ extern char* aname;
     /*Ignoro cualquier clase de tabulación o espacio*/
 }
 
-[:] {
+:{1} {
     return TK_COLON;
 }
 

@@ -9,10 +9,10 @@
 int eval(ASTNode *f, Asgmnt *a) {
 
     Asgmnt *a_result = calloc(1, sizeof(struct Asgmnt));
-    
+    int test = 0;
     switch(f->type) {
-        case AND: 
-            eval(f->l_succ, a) * eval(f->r_succ, a);
+        case AND:
+            test = eval(f->l_succ, a) * eval(f->r_succ, a);
             break;
         case OR:
             eval(f->l_succ, a) - eval(f->r_succ, a);
@@ -27,8 +27,11 @@ int eval(ASTNode *f, Asgmnt *a) {
         case IMPL:
             break;
         case PROP:
+            // ASSIGNMENT_PRINT(a);
             ASSIGNMENT_FIND(a, &f->id, a_result);
-            break;
+            return a_result->value;
+        default:
+            printf("Ningun caso base detectado\n");
+            return -1;
     }
-    return a_result->value;
 }
