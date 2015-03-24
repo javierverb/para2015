@@ -11,7 +11,7 @@ formula: begin P1; P2 end[0m
 formula: begin p1 & p2 ^ p3 end[0m
 [32mve:1 - vo:1 - output: error: data/test2/imp-04-1.frm - parser error - syntax error 
 formula: begin P1 P2 ---> end[0m
-[32mve:1 - vo:1 - output: error: data/test2/prop-02-1.frm - parser error - syntax error 
+[32mve:1 - vo:1 - output: error: data/test2/prop-02-1.frm - lexer error - at line 2: A 
 formula: BEGIN A1 END[0m
 [32mve:0 - vo:0 - output: ok: data/test2/prop-04-0.frm 
 formula: BEGIN p9876543210 END[0m
@@ -43,7 +43,7 @@ formula: begin -P3 v -P4 v -P1 v P2 <--> -P1 v P3 v P2 v P4 end[0m
 formula: begin P1 & P2 & p3 & P4 & P6 & & P7 & P8 end[0m
 [32mve:0 - vo:0 - output: ok: data/test2/cnf-11-0.frm 
 formula: BEGIN -(p1 v (P2 & p3)) end[0m
-[32mve:1 - vo:1 - output: error: data/test2/prop-05-1.frm - parser error - syntax error 
+[32mve:1 - vo:1 - output: error: data/test2/prop-05-1.frm - lexer error - at line 2: P 
 formula: BEGIN P09 END[0m
 [32mve:1 - vo:1 - output: error: data/test2/and-or-06-1.frm - parser error - syntax error 
 formula: BEGIN P1 & v P2 END[0m

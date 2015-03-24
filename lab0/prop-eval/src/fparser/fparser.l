@@ -46,7 +46,7 @@ end|END                           {return TK_END ;}
 
 \)                                {return TK_CP ;}
 
-[!-~]                             {return TK_NOT ; }
+(!|-|~){1}                             {return TK_NOT ; }
 
 ((p|P)[^0]){NUMBER}           {f_lval.v = get_prop_var(f_text); return TK_PROP ;}
 

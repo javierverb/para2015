@@ -32,8 +32,8 @@ NUMBER [0-9]*
     return TK_SEPARATOR;
 }
 
-True|1 {return TK_TRUE;}
-False|0 {return TK_FALSE;}
+true|1 {return TK_TRUE;}
+false|0 {return TK_FALSE;}
 
 . {
     log_error(" %s - lexer error - at line %d: %s\n",aname,a_lineno,a_text); 
