@@ -76,7 +76,7 @@ void parse_formula(FILE * input)
   f_lineno = 1;
   f_in = input;
   if (!f_in)
-    log_error("parse_phi: no input file.");
+    log_error("parse_formula: no input file.");
   f_parse();
   f_lex_destroy();
 }

@@ -20,26 +20,26 @@ extern char* aname;
 }
 
 [:] {
-    printf("%s\n", a_text);
+    a_lval.v = get_prop_var(a_text);
     return TK_COLON;
 }
 
 ((p|P)[^0][0-9]*) {
-    printf("[%s]\n", a_text);
     a_lval.v = get_prop_var(a_text);
     return TK_PROP;
 }
 
 (,|\n){1} {
     printf("%s\n", a_text);
+    a_lval.v = get_prop_var(a_text);
     return TK_SEPARATOR;
 }
 
-True|1 {printf("%s\n", a_text); return TK_TRUE;}
-False|0 {printf("%s\n", a_text); return TK_FALSE;}
+True|1 {a_lval.v = get_prop_var(a_text); return TK_TRUE;}
+False|0 {a_lval.v = get_prop_var(a_text); return TK_FALSE;}
 
 
 . {
-    log_error(" %s - lexer error - at line %d: [%s]\n",aname,a_lineno,a_text); 
+    log_error(" %s - lexer error - at line %d: %s\n",aname,a_lineno,a_text); 
 }      
 %%

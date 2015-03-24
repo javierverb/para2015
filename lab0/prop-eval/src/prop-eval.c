@@ -45,7 +45,8 @@ int main(int argc, char **argv)
   /* ---------------------- */
 
     /* llamar a los parseadores en aparser.y y fparser.y*/
-
+    parse_formula(f);
+    parse_assignment(a);
   switch(eval(ast,asg))
     {
     case 1:

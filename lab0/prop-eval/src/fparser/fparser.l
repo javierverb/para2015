@@ -37,30 +37,30 @@ NUMBER    [0-9]*
 /* * la linea (sin espacios antes), ya que flex considera cada linea que  */
 /* * empieza con espacio como una linea de codigo valida. *\/ */
 %%
-begin|BEGIN                       {printf("%s\n", f_text); return TK_BEGIN ;}
-end|END                           {printf("%s\n", f_text); return TK_END ;}
+begin|BEGIN                       {return TK_BEGIN ;}
+end|END                           {return TK_END ;}
 
 [ \t\n]*                              {/* COME CARACTERES VACIOS*/}
 
-\(                                    {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_OP ;}
+\(                                    {f_lval.v = get_prop_var(f_text); return TK_OP ;}
 
-\)                                    {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_CP ;}
+\)                                    {f_lval.v = get_prop_var(f_text); return TK_CP ;}
 
-[!-~]                                 {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_NOT ; }
+[!-~]                                 {f_lval.v = get_prop_var(f_text); return TK_NOT ; }
 
-(p|P)[^0]{NUMBER}                     {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_PROP ;}
+(p|P)[^0]{NUMBER}                     {f_lval.v = get_prop_var(f_text); return TK_PROP ;}
 
-([&\^;][^&\^;])                       {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_AND ;}
+([&\^;][^&\^;])                       {f_lval.v = get_prop_var(f_text); return TK_AND ;}
 
-([v\|][^v\|])                         {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_OR ;}
+([v\|][^v\|])                         {f_lval.v = get_prop_var(f_text); return TK_OR ;}
 
-((\-\->|\->)[^(\-\->|\->)])           {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_IMPL ;}
+((\-\->|\->)[^(\-\->|\->)])           {f_lval.v = get_prop_var(f_text); return TK_IMPL ;}
 
-(<\-\->[^(<\-\->)])                   {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_IFF ;}
+(<\-\->[^(<\-\->)])                   {f_lval.v = get_prop_var(f_text); return TK_IFF ;}
 
-true                                  {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_TRUE ;}
+true                                  {f_lval.v = get_prop_var(f_text); return TK_TRUE ;}
 
-false                                 {printf("%s\n", f_text); f_lval.v = get_prop_var(f_text); return TK_FALSE ;}
+false                                 {f_lval.v = get_prop_var(f_text); return TK_FALSE ;}
 
 .                                     { log_error(" %s - lexer error - at line %d: %s\n",fname,f_lineno,f_text); }      
 
