@@ -1233,13 +1233,13 @@ yyreduce:
 
   case 5:
 #line 41 "../../src/aparser/aparser.y" /* yacc.c:1646  */
-    {(yyvsp[0].v)=1;}
+    {(yyval.v)=1;}
 #line 1238 "aparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
 #line 42 "../../src/aparser/aparser.y" /* yacc.c:1646  */
-    {(yyvsp[0].v)=0;}
+    {(yyval.v)=0;}
 #line 1244 "aparser.tab.c" /* yacc.c:1646  */
     break;
 

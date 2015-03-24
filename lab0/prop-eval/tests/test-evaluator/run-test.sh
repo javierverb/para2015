@@ -1,4 +1,19 @@
 #!/bin/bash
+
+# Evitamos llenarnos de logs al testear
+totalLogs=0
+MAX_LOGS=5
+for logs in *.log; do
+    totalLogs=$((totalLogs+1))
+done
+
+if [ $totalLogs -gt $MAX_LOGS ]; then
+    echo "TotalLogs is:" $totalLogs "then remove old logs "
+    rm *.log
+fi
+# End adding
+
+
 FOLDER=$1
 TEST=./test-eval
 TS=$(date +%s)

@@ -459,8 +459,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    57,    57,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    70
+       0,    58,    58,    61,    62,    63,    64,    65,    66,    67,
+      68,    69,    71
 };
 #endif
 
@@ -1242,61 +1242,61 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 57 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 58 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ast = (yyvsp[-1].a);}
 #line 1248 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 61 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 62 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_TRUE(n); (yyval.a)=n ;}
 #line 1254 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 62 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 63 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_FALSE(n); (yyval.a)=n ;}
 #line 1260 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 63 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 64 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_IMPL(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1266 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 64 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 65 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_IMPL(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1272 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 65 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 66 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_OR(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1278 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 66 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 67 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_AND(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1284 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 67 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 68 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_NOT(n,(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1290 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 68 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 69 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {(yyval.a)=n ;}
 #line 1296 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 70 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 71 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_PROP(n,(yyvsp[0].v)); (yyval.a) =n ;}
 #line 1302 "fparser.tab.c" /* yacc.c:1646  */
     break;
@@ -1530,7 +1530,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 72 "../../src/fparser/fparser.y" /* yacc.c:1906  */
+#line 73 "../../src/fparser/fparser.y" /* yacc.c:1906  */
 
 /* Funcion que se provee para parsear una formula en un archivo.*/
 void parse_formula(FILE * input)

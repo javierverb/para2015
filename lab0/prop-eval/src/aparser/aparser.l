@@ -12,7 +12,7 @@
 #include <stdio.h>
 extern char* aname;
 %}
-
+NUMBER [0-9]*
 			
 %%
 [ \t]* {
@@ -23,7 +23,7 @@ extern char* aname;
     return TK_COLON;
 }
 
-((p|P)[^0][0-9]*) {
+((p|P)[^0]){NUMBER} {
     a_lval.v = get_prop_var(a_text);
     return TK_PROP;
 }

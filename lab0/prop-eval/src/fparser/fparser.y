@@ -47,6 +47,7 @@
 %type <a> form phi prop
 
 /* Precedencia del and vs or */
+%left TK_PROP
 %left TK_OR
 %left TK_AND
 %right TK_NOT
