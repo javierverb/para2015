@@ -21,18 +21,14 @@ int eval(ASTNode *f, Asgmnt *a) {
                 break;
             case NOT:
                 a_result->value = (1 + eval(f->l_succ, a)) % 2;
-                a_result->value = (1 + eval(f->r_succ, a)) % 2;
                 break;
             case IFF:
                 a_result->value = (int)(eval(f->l_succ, a) == eval(f->r_succ, a));
-                /*((1 + (eval(f->l_succ, a) % 2)) + (eval(f->r_succ, a))) * ((1 + (eval(f->r_succ, a) % 2)) + (eval(f->l_succ, a)))*/
                 break;
             case IMPL:
-                a_result->value = (1 + (eval(f->l_succ, a) % 2)) + (eval(f->r_succ, a)); // mentira, aplicar lógica del implica
-
+                a_result->value = (int)(((1 + eval(f->l_succ, a)) % 2) + eval(f->r_succ, a)) > 0;
                 break;
             case PROP:
-                // ASSIGNMENT_PRINT(a);
                 ASSIGNMENT_FIND(a, &f->id, a_result);
                 break;
             default:

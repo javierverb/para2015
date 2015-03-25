@@ -48,6 +48,8 @@
 
 /* Precedencia del and vs or */
 %left TK_PROP
+%left TK_IFF
+%left TK_IMPL
 %left TK_OR
 %left TK_AND
 %right TK_NOT
@@ -61,7 +63,7 @@ form: TK_BEGIN phi TK_END {ast = $2;};
 phi: prop 
     | TK_TRUE                    {ASTNODE_TRUE(n); $$=n ;}
     | TK_FALSE                   {ASTNODE_FALSE(n); $$=n ;}
-    | phi TK_IFF phi     {ASTNODE_IMPL(n,$1,$3); $$ =n ;}
+    | phi TK_IFF phi     {ASTNODE_IFF(n,$1,$3); $$ =n ;}
     | phi TK_IMPL phi    {ASTNODE_IMPL(n,$1,$3); $$ =n ;} 
     | phi TK_OR phi      {ASTNODE_OR(n,$1,$3); $$ =n ;} 
     | phi TK_AND phi     {ASTNODE_AND(n,$1,$3); $$ =n ;} 

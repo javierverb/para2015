@@ -403,7 +403,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  10
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   34
+#define YYLAST   30
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  15
@@ -459,8 +459,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    58,    58,    61,    62,    63,    64,    65,    66,    67,
-      68,    69,    71
+       0,    60,    60,    63,    64,    65,    66,    67,    68,    69,
+      70,    71,    73
 };
 #endif
 
@@ -499,9 +499,9 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       4,     6,    15,    -6,     6,    -6,    -6,     6,    20,    -6,
-      -6,    -3,    14,    -6,     6,     6,     6,     6,    -6,    24,
-      -3,    -5,    -5
+       3,     6,     8,    -6,     6,    -6,    -6,     6,    20,    -6,
+      -6,    -6,    14,    -6,     6,     6,     6,     6,    -6,     9,
+      -6,    -1,    -5
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -531,18 +531,18 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      11,    14,    15,    12,    16,    17,    16,    17,     1,     3,
-      19,    20,    21,    22,     4,    10,     0,     5,     6,     7,
+      11,    14,    15,    12,    16,    14,    15,     1,    10,     3,
+      19,    20,    21,    22,     4,     0,    15,     5,     6,     7,
       14,    15,     0,    16,    17,    13,    14,    15,    18,    16,
-      17,    15,     0,    16,    17
+      17
 };
 
 static const yytype_int8 yycheck[] =
 {
-       4,     6,     7,     7,     9,    10,     9,    10,     4,     3,
-      14,    15,    16,    17,     8,     0,    -1,    11,    12,    13,
+       4,     6,     7,     7,     9,     6,     7,     4,     0,     3,
+      14,    15,    16,    17,     8,    -1,     7,    11,    12,    13,
        6,     7,    -1,     9,    10,     5,     6,     7,    14,     9,
-      10,     7,    -1,     9,    10
+      10
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -1242,61 +1242,61 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 58 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 60 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ast = (yyvsp[-1].a);}
 #line 1248 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 62 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 64 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_TRUE(n); (yyval.a)=n ;}
 #line 1254 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 63 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 65 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_FALSE(n); (yyval.a)=n ;}
 #line 1260 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 64 "../../src/fparser/fparser.y" /* yacc.c:1646  */
-    {ASTNODE_IMPL(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
+#line 66 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+    {ASTNODE_IFF(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1266 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 65 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 67 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_IMPL(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1272 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 66 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 68 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_OR(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1278 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 67 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 69 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_AND(n,(yyvsp[-2].a),(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1284 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 68 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 70 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_NOT(n,(yyvsp[0].a)); (yyval.a) =n ;}
 #line 1290 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 69 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 71 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {(yyval.a)=n ;}
 #line 1296 "fparser.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 71 "../../src/fparser/fparser.y" /* yacc.c:1646  */
+#line 73 "../../src/fparser/fparser.y" /* yacc.c:1646  */
     {ASTNODE_PROP(n,(yyvsp[0].v)); (yyval.a) =n ;}
 #line 1302 "fparser.tab.c" /* yacc.c:1646  */
     break;
@@ -1530,7 +1530,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 73 "../../src/fparser/fparser.y" /* yacc.c:1906  */
+#line 75 "../../src/fparser/fparser.y" /* yacc.c:1906  */
 
 /* Funcion que se provee para parsear una formula en un archivo.*/
 void parse_formula(FILE * input)

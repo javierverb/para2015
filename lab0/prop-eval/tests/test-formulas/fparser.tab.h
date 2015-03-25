@@ -56,7 +56,8 @@ extern int f_debug;
     TK_TRUE = 266,
     TK_FALSE = 267,
     TK_OP = 268,
-    TK_CP = 269
+    TK_CP = 269,
+    right = 270
   };
 #endif
 
@@ -70,7 +71,7 @@ union YYSTYPE
   ASTNode *a;
   int v;
 
-#line 74 "fparser.tab.h" /* yacc.c:1909  */
+#line 75 "fparser.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
