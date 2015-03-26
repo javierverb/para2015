@@ -1,0 +1,23 @@
+ejercicio4
+
+a = "mi vieja mula ya no es lo que era"
+b = 0
+while b<=3:
+	print a 
+	b = b+1
+
+
+-----------------------------------------------
+*** EBNF ***
+
+<prog> ::= {<sentencia>}+
+<sentencia> ::= <var> "=" <expresion> | <sentencia_while>
+<sentencia_while> ::= 'WHILE' "("<expresion>")":"\n <tabulacion> {<sentencia>}\n
+<expresion> ::= <var> | <var> <operador> <var>
+<operador> ::= '+'' | '-'| '*'' | '/'' | '<'' | '>' | '<=' | 'AND' | 'OR' 
+<var> ::= 'a' | 'b'
+
+
+
+<prog> ::= {<sentencia>}+
+<sentencia> ::= <sentencia_com> | <sentencia_while>

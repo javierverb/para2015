@@ -1,0 +1,6 @@
+ejercicio 6 
+------------------------------
+En lisp (3.(2.(1.nil)))
+Modificar la gramatica para que admita "sintactic sugar" (3 2 1)
+
+lista: "(" , valor {cola} , ")"
