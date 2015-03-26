@@ -1,0 +1,4 @@
+tree ::= "[", value, {tree}, "]"
+value ::= number, {number}
+number ::= '1' | '2' ... | '9' | '0'
+
