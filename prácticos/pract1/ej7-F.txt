@@ -1,5 +1,9 @@
 ejercicio 7
 
+Un árbol es una estructura de datos que está formada por nodos, los cuales tienen asociado
+un valor y pueden tener cero o más nodos hijos conectados. Es posible implementar dicha
+estructura utilizando solamente listas, de la siguiente forma:
+
    ______1_______
    |            |
 ___2___       __6__
@@ -8,7 +12,7 @@ ___2___       __6__
 
 [1 [[2 [[3] [4] [5]]] [6 [[7] [8]]]]]
 -------------------------------------
-BNF
+*** EBNF ***
 
 <arbol>::= "[" <valor> {<arbol>} "]" 
 <valor>::= {"1","2","3","4","5","6","7","8","9","0"}

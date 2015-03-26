@@ -1,6 +1,10 @@
-ejercicio 6 
-------------------------------
-En lisp (3.(2.(1.nil)))
-Modificar la gramatica para que admita "sintactic sugar" (3 2 1)
+ejercicio 6 ((FALTA)) 
+
+En Lisp un dotted pair es un par escrito con un punto (.) separando ambas partes del mismo,
+ej: (3 . 3). Por su parte, una lista de Lisp es una concatenaciÓn de dotted pairs que además
+termina en el átomo nil. Por ejemplo (3 . (2 . (1 . nil))) es una lista con los elementos
+3, 2 y 1. Una “syntax sugar” para esta lista es (3 2 1). Modifique la gramática de arriba para
+que admita esta forma sintáctica.
+-----------------------------------------------------------------------------------------------
 
 lista: "(" , valor {cola} , ")"
