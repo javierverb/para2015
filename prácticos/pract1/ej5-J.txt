@@ -1,0 +1,17 @@
+a) 2 . 
+No es sintácticamente correcto pues el segundo elemento del literal '.' no puede ser vacío.
+
+b) a ( b )
+No es sintácticamente correcto pues carece del literal '.' en la expresión.
+
+c) Es sintáticamente correcto. Su árbol de derivación es:
+
+'(' <s_exp> '.' <s_exp> ')'
+        |           |
+<natural> <natural>
+    |       |
+{number}+   {number}+
+    |           |
+    '3'        '3'
+
+d) No es sintácticamente correcto. Pues carece del literal '.' en la expresión.
