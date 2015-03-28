@@ -17,5 +17,7 @@ Escriba una gramática EBNF para este lenguaje
 <sentencia_while> ::= 'while' <expresion> ':' \n \t {<sentencia>\n}+ 'FIN_TAB'
 <sentencia_print> ::= 'print' <var> | {<letter>|<nummber>}
 <expresion> ::= <var> | <var> <operador> <var>
-<var> ::= 'a' | 'b'
+<var> ::= 'a' | 'bs'
 <operador> ::= '+'' | '-'| '*'' | '/'' | '<'' | '>' | '<=' | 'AND' | 'OR'
+<letter> ::= 'a' | 'b' | ... | 'z'
+<nummber> ::= '1' | '2' | ... | '0'
