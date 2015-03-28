@@ -157,6 +157,9 @@ int get_word(char *word){
 *******************************************************************/
 void put_word(char *word){
 /* completar aca  */
+	doc_out = fopen(out_file.txt, "w");
+	fprintf(doc_out, "%s\n", word);
+	fclose(doc_out);
  }
 
 /*******************************************************************
@@ -184,10 +187,12 @@ void consult_user(char *word){
   /* completar aca  */
   if(strcmp(ans,"a") == 0){
   	dict_add(word);
+  	printf("la palabra %s fue AGREGADA al diccionario\n",word);
   }
   
   if(strcmp(ans, "i") == 0){
   	ignored_add(word);
+  	printf("la palabra %s fue IGNORADA\n",word);
   }
 
   if(strcmp(ans, "r") == 0){
