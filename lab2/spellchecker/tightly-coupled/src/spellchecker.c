@@ -170,7 +170,7 @@ void put_word(char *word){
 * PARAMETERS:
 *      INPUT:
 *           char    *word       Palabra sobre la cual se consulta la 
-*                            accion a realizar.
+*                               accion a realizar.
 *
 * RETURN :
 *           Type: void
@@ -182,6 +182,20 @@ void consult_user(char *word){
     scanf("%s", ans);
   }while((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
   /* completar aca  */
+  if(strcmp(ans,"a") == 0){
+  	dict_add(word);
+  }
+  
+  if(strcmp(ans, "i") == 0){
+  	ignored_add(word);
+  }
+
+  if(strcmp(ans, "r") == 0){
+  	printf("Remplazar por:\n");
+  	scanf("%s",remplazo);
+  	/*falta*/
+  }
+
 }
 
 /*******************************************************************
