@@ -31,6 +31,14 @@
 4- ¿Se puede expresar con una gramática libre de contexto la declaración de variables con tipo?
 	  a) Verdadero. x
 	  b) Falso.
+***************************************************************************************************
+**  S = simbolo inicial  																		 **
+**  S = declaracion 																			 **
+** 																								 **
+**  declaraciom -> {var, tipo}+ 																 **
+**  var -> 'x'|'y'|'z' 																			 **
+**  tipo-> 'int'|'bool'|'char' 																	 **
+***************************************************************************************************
 
 
 5- ¿Se puede expresar con una gramática libre de contexto la asignación múltiple de variables?
@@ -61,10 +69,16 @@ una gramática...
 	  b) Ambigua. x 
 	  c) Dependiente de contexto.
 	  d) Independiente de contexto.
+***************************************************************************************************
+**  Una GIC G es ambigua si existe una cadena w ∈ Σ∗ para la cual hay dos derivaciones  		 **
+**  a izquierda diferentes.  																	 **
+**  Equivalentemente, una GIC G es ambigua si existe una cadena w ∈ Σ∗ 						     **
+**  con dos árboles de derivación diferentes.												     **
+***************************************************************************************************
 
 
 7- ¿Dada una gramática EBNF, ¿cómo se puede probar si una secuencia de tokens es válida?
-	  a) Si existe una secuencia de reglas de la gramática que puedan aplicarse sucesivamente desde el símbolo terminal de forma que su resultado sea la secuencia de tokens.
+	  a) Si existe una secuencia de reglas de la gramática que puedan aplicarse sucesivamente desde el símbolo terminal de forma que su resultado sea la secuencia de tokens. x 
 	  b) Si los tokens pertenecen al alfabeto de la gramática.
 	  c) Si podemos dar un árbol de derivación de la secuencia.
 	  d) Si la secuencia pertenece al lenguaje de la gramática.
