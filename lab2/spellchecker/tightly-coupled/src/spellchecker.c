@@ -121,6 +121,9 @@ void ignored_add(char *word){
 *******************************************************************/
 int is_known(char *word){
 /* completar aca  */
+	res = 0;
+	return res;
+
 }
 
 
@@ -141,6 +144,10 @@ int is_known(char *word){
 *******************************************************************/
 int get_word(char *word){
 /* completar aca */
+	rewind(doc_in); /*cursor en el principio del archivo*/
+	doc_in = fopen("in_file.txt", "r");
+	
+
  }
 
 /*******************************************************************
@@ -162,7 +169,7 @@ void put_word(char *word){
 	scanf("%s", word);
 	printf("ud ingresara: %s\n", word);
 	fprintf(doc_out, "%s\n", word);
-	fclose(doc_out)
+	fclose(doc_out);
  }
 
 ;/*******************************************************************
