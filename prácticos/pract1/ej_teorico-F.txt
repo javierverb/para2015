@@ -1,0 +1,84 @@
+::: Seleccione la(s) respuesta(s) correctas :::
+
+1- Una GRAMATICA describe..
+	  a) lo que significan las sentencias de un lenguaje de programación.
+	  b) las sentencias que forman parte de un lenguaje de programación.
+	  c) como se pueden escribir sentencias en un lenguaje de programación. x
+	  d) el alfabeto de un lenguaje de programación. x
+***************************************************************************************************
+** Una gramática formal es una estructura matemática con un conjunto de reglas de formación      **
+** que definen las cadenas de caracteres admisibles.                                             **
+** Una gramática formal no describe el significado de las fórmulas bien formadas,                **
+** sino solamente su forma.                                                                      **
+** http://es.wikipedia.org/wiki/Gram%C3%A1tica_formal                                            **
+***************************************************************************************************
+
+
+2- Una gramática independiente de contexto (context-free grammar)...
+  	  a) tiene predicados.
+	  b) es inambigua.
+	  c) tiene reglas de reescritura.
+	  d) describe la sintaxis de un lenguaje. x 
+	  e) es más expresiva que una gramática dependiente del contexto.
+	  f) es tan expresiva como una máquina de Turing.
+
+
+3- ¿Se puede expresar con una gramática libre de contexto la obligación de declarar una variable antes de que se use?
+	  a) Verdadero.
+	  b) Falso.
+
+
+4- ¿Se puede expresar con una gramática libre de contexto la declaración de variables con tipo?
+	  a) Verdadero. x
+	  b) Falso.
+***************************************************************************************************
+**  S = simbolo inicial  																		 **
+**  S = declaracion 																			 **
+** 																								 **
+**  declaraciom -> {var, tipo}+ 																 **
+**  var -> 'x'|'y'|'z' 																			 **
+**  tipo-> 'int'|'bool'|'char' 																	 **
+***************************************************************************************************
+
+
+5- ¿Se puede expresar con una gramática libre de contexto la asignación múltiple de variables?
+	  a) No.
+	  b) Sí, si se trata de de asignación en secuencia, y no en espejo.  x
+	  c) Sí, si se trata de un número finito de variables. x
+	  d) Todas las anteriores.
+	  e) Ninguna de las anteriores.
+***************************************************************************************************
+**  G(Vt,Vn,P,S)                                                                   		     	 **
+**  Vt = conj finito de TERMINALES. Vn = conj finito de NO TERMINALES.  						 **
+**  P = conj finito de PRODUCCIONES. S = SIMBOLO INICIAL (pertenece a Vn)						 **
+**                                                                								 **
+**  ej.																							 **
+**  x1,x2,x3 = 1,2,3  Esto no es posible la forma seria:  										 **
+**  S -> {var}+ '=' {val}+  																	 **
+**  var -> 'x'|'y'|'z' 																		 	 **
+**  val -> '1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9'|'0'												 **
+**  Deberia tener como predicado que el numero de variables, debe ser igual al numero de valores **
+**  a asignar.                                                                                   **
+**  Por lo tanto S-> {var '=' val}+ es la forma correcta de asignar multiples variables          **
+***************************************************************************************************
+
+
+6- Una gramática que puede ofrecer más de un  árbol de derivación para una misma expresión es
+una gramática...
+	  a) Incorrecta.
+	  b) Ambigua. x 
+	  c) Dependiente de contexto.
+	  d) Independiente de contexto.
+***************************************************************************************************
+**  Una GIC G es ambigua si existe una cadena w ∈ Σ∗ para la cual hay dos derivaciones  		 **
+**  a izquierda diferentes.  																	 **
+**  Equivalentemente, una GIC G es ambigua si existe una cadena w ∈ Σ∗ 						     **
+**  con dos árboles de derivación diferentes.												     **
+***************************************************************************************************
+
+
+7- ¿Dada una gramática EBNF, ¿cómo se puede probar si una secuencia de tokens es válida?
+	  a) Si existe una secuencia de reglas de la gramática que puedan aplicarse sucesivamente desde el símbolo terminal de forma que su resultado sea la secuencia de tokens. x 
+	  b) Si los tokens pertenecen al alfabeto de la gramática.
+	  c) Si podemos dar un árbol de derivación de la secuencia.
+	  d) Si la secuencia pertenece al lenguaje de la gramática.

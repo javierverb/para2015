@@ -150,6 +150,10 @@ int is_known(char *word) {
 *******************************************************************/
 int get_word(char *word){
 /* completar aca */
+	rewind(doc_in); /*cursor en el principio del archivo*/
+	doc_in = fopen("in_file.txt", "r");
+	
+
  }
 
 /*******************************************************************
@@ -166,9 +170,15 @@ int get_word(char *word){
 *******************************************************************/
 void put_word(char *word){
 /* completar aca  */
+	doc_out = fopen("out_file.txt", "a");
+	printf("ingrese palabra a agregar: ");
+	scanf("%s", word);
+	printf("ud ingresara: %s\n", word);
+	fprintf(doc_out, "%s\n", word);
+	fclose(doc_out);
  }
 
-/*******************************************************************
+;/*******************************************************************
 * NAME :            void consult_user(char *word)
 *
 * DESCRIPTION :     Consulta al usuario sobre que accion realizar 
@@ -179,7 +189,7 @@ void put_word(char *word){
 * PARAMETERS:
 *      INPUT:
 *           char    *word       Palabra sobre la cual se consulta la 
-*                            accion a realizar.
+*                               accion a realizar.
 *
 * RETURN :
 *           Type: void
@@ -191,6 +201,22 @@ void consult_user(char *word){
     scanf("%s", ans);
   }while((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
   /* completar aca  */
+  if(strcmp(ans,"a") == 0){
+  	dict_add(word);
+  	printf("la palabra %s fue AGREGADA al diccionario\n",word);
+  }
+  
+  if(strcmp(ans, "i") == 0){
+  	ignored_add(word);
+  	printf("la palabra %s fue IGNORADA\n",word);
+  }
+
+  if(strcmp(ans, "r") == 0){
+  	printf("Remplazar por:\n");
+  	scanf("%s",remplazo);
+  	/*falta*/
+  }
+
 }
 
 /*******************************************************************
