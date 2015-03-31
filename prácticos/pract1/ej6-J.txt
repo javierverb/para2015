@@ -1,14 +1,14 @@
-
 <sexp> ::= <values> | <sugarSexp> | nil | 
-'(' <sexp> '.' <sexp> ')' ^
+'(', <sexp>, '.', <sexp>, ')' ^
 "La última  <sexp> utilizada del lado derecho debe ser nil"
 
-<sugarSexp> ::= '(' { <values> }+ ')'
+<sugarSexp> ::= '(', <values>, {<espace>, <values>}+, ')'
 values ::= <atomicsymbol> | <natural>
 
-<atomicsymbol> ::=  <letter>  <atompart> |':' <atompart> 
-<natural> ::= { <number> }+
-<atompart> ::=  <empty> | <letter>  <atompart> | <number>  <atompart> 
+<atomicsymbol> ::=  <letter>, <atompart> |':', <atompart> 
+<natural> ::= {<number>}+
+<atompart> ::=  <empty> | <letter>, <atompart> | <number>, <atompart> 
 <letter> ::= 'a'|'b'|...|'z'
 <number> ::= '1'|'2'|...|'9'
 <empty> ::= ''
+<espace> ::= ?character_espace?

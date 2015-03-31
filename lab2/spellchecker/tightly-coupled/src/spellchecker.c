@@ -21,6 +21,14 @@ FILE *doc_in;
 /* Documento de salida */
 FILE *doc_out;
 
+/* 
+Sugerencia de los profes al comenzar: asignar tamaño de SOBRA en la
+variable global dict_main y al finalizar el lab regular su longitud 
+Al comienzo valdrá: 
+
+dict_main = calloc(1000, sizeof(char*)); 
+*/
+
 /*******************************************************************
 * NAME :            void dict_load(char *fname)
 *
@@ -119,8 +127,9 @@ void ignored_add(char *word){
 *           Values: 1 si la palabra es conocida
 *                   0 si la palabra no es conocida
 *******************************************************************/
-int is_known(char *word){
-/* completar aca  */
+int is_known(char *word) {
+    dict_main
+    dict_ignored
 }
 
 

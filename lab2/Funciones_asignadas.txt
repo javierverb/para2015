@@ -1,0 +1,10 @@
+process_document: J 
+dict_load: F
+main: F
+consult_user: J
+put_word: J
+is_know: J
+dict_save: F
+get_word: F
+dict_add: F
+ignored_add: J

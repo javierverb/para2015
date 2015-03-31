@@ -404,8 +404,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 15
-#define YY_END_OF_BUFFER 16
+#define YY_NUM_RULES 16
+#define YY_END_OF_BUFFER 17
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -415,11 +415,11 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[51] =
     {   0,
-        3,    3,   16,   14,    3,    3,    6,   14,    4,    5,
-        6,   14,   14,   14,   14,   14,   14,   14,   14,   14,
-        3,    8,    0,    0,    0,    0,    0,    7,    0,    0,
-        0,    0,    9,   10,    0,    0,    2,    7,    0,    0,
-        0,    0,    0,    0,    0,   12,   11,    1,   13,    0
+        3,    3,   17,   15,    3,    3,    6,   15,    4,    5,
+        6,   15,   15,   15,    7,   15,   15,   15,   15,   15,
+        3,    9,    0,    0,    0,    0,    0,    8,    0,    0,
+        0,    0,   10,   11,    0,    0,    2,    8,    0,    0,
+        0,    0,    0,    0,    0,   13,   12,    1,   14,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -521,9 +521,9 @@ static yyconst flex_int16_t yy_chk[137] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[16] =
+static yyconst flex_int32_t yy_rule_can_match_eol[17] =
     {   0,
-0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,     };
+0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -881,56 +881,61 @@ YY_RULE_SETUP
 {return TK_NOT ; }
 	YY_BREAK
 case 7:
-/* rule 7 can match eol */
 YY_RULE_SETUP
-#line 51 "../../src/fparser/fparser.l"
-{f_lval.v = get_prop_var(f_text); return TK_PROP ;}
+#line 50 "../../src/fparser/fparser.l"
+
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 53 "../../src/fparser/fparser.l"
-{return TK_AND ;}
+#line 51 "../../src/fparser/fparser.l"
+{f_lval.v = get_prop_var(f_text); return TK_PROP ;}
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 55 "../../src/fparser/fparser.l"
-{return TK_OR ;}
+#line 53 "../../src/fparser/fparser.l"
+{return TK_AND ;}
 	YY_BREAK
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 57 "../../src/fparser/fparser.l"
-{return TK_IMPL ;}
+#line 55 "../../src/fparser/fparser.l"
+{return TK_OR ;}
 	YY_BREAK
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
+#line 57 "../../src/fparser/fparser.l"
+{return TK_IMPL ;}
+	YY_BREAK
+case 12:
+/* rule 12 can match eol */
+YY_RULE_SETUP
 #line 59 "../../src/fparser/fparser.l"
 {return TK_IFF ;}
 	YY_BREAK
-case 12:
+case 13:
 YY_RULE_SETUP
 #line 61 "../../src/fparser/fparser.l"
 {return TK_TRUE ;}
 	YY_BREAK
-case 13:
+case 14:
 YY_RULE_SETUP
 #line 63 "../../src/fparser/fparser.l"
 {return TK_FALSE ;}
 	YY_BREAK
-case 14:
+case 15:
 YY_RULE_SETUP
 #line 65 "../../src/fparser/fparser.l"
 { log_error(" %s - lexer error - at line %d: %s\n",fname,f_lineno,f_text); }      
 	YY_BREAK
-case 15:
+case 16:
 YY_RULE_SETUP
 #line 67 "../../src/fparser/fparser.l"
 ECHO;
 	YY_BREAK
-#line 934 "fparser.c"
+#line 939 "fparser.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
