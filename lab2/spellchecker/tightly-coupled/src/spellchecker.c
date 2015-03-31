@@ -212,27 +212,27 @@ void put_word(char *word){
 *           Type: void
 *******************************************************************/
 void consult_user(char *word){
-  char ans[2];
-  do{
-    printf("Palabra no reconocida: %s\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
-    scanf("%s", ans);
-  }while((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
-  /* completar aca  */
-  if(strcmp(ans,"a") == 0){
-    dict_add(word);
-    printf("la palabra %s fue AGREGADA al diccionario\n",word);
-  }
+    char ans[2];
+    do{
+        printf("Palabra no reconocida: %s\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
+        scanf("%s", ans);
+    }while((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
+    /* completar aca  */
+    if(strcmp(ans,"a") == 0){
+        dict_add(word);
+        printf("la palabra %s fue AGREGADA al diccionario\n",word);
+    }
   
-  if(strcmp(ans, "i") == 0){
-    ignored_add(word);
-    printf("la palabra %s fue IGNORADA\n",word);
-  }
+    if(strcmp(ans, "i") == 0){
+        ignored_add(word);
+        printf("la palabra %s fue IGNORADA\n",word);
+    }
 
-  if(strcmp(ans, "r") == 0){
-    printf("Remplazar por:\n");
-    scanf("%s",remplazo);
-    /*falta*/
-  }
+    if(strcmp(ans, "r") == 0){
+        printf("Remplazar por:\n");
+        scanf("%s",remplazo);
+        /*falta*/
+    }
 
 }
 
