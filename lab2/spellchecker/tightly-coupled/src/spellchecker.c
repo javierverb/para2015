@@ -118,7 +118,7 @@ void ignored_add(char *word) {
         // se realocará espacio.
         // Add word in the first NULL occurrence in dict array 
         if (dict_ignored[i] == NULL) {
-            new_word_to_add = calloc(1, sizeof(strlen(word)));
+            new_word_to_add = calloc(1, sizeof(word));
             dict_ignored[i] = strcpy(new_word_to_add, word);
             // exit
             break;
