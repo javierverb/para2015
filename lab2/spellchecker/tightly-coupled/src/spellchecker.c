@@ -275,7 +275,7 @@ void process_document(char *fname){
 *******************************************************************/
 int main(int argc, char **argv){
     char *dict;
-   /* Verificamos el nro de argumentos. */
+    /* Verificamos el nro de argumentos. */
     if (argc < 2) {
         printf("spellchecker.c: nro de argumentos erroneo. Deben ser <documento> [<diccionario>].\n");
         return (1);
@@ -285,5 +285,9 @@ int main(int argc, char **argv){
     dict = (argc >=3) ? argv[2] : "dict.txt";
 
     /* completar aca */
+    dict_load(dict);
+    process_document(argv[1]);
+    dict_save(dict);
+
     printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
 }
