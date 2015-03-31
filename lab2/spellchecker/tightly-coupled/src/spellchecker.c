@@ -5,7 +5,8 @@
 
 //tamaño maximo de una palabra
 #define MAX_WORD_SIZE 30
-
+#define MAX_LENGTH_DICT_MAIN 200
+#define MAX_LENGTH_DICT_IGNORED 100
 /* diccionario principal */
 char **dict_main;
 /*tamaño inicial del diccionario principal*/
@@ -128,8 +129,25 @@ void ignored_add(char *word){
 *                   0 si la palabra no es conocida
 *******************************************************************/
 int is_known(char *word) {
-    dict_main
-    dict_ignored
+    
+
+    int i, exist_in_main, exist_in_ignored = 0; // Convertion implicit to bool
+    int found = 0;
+
+    // for each dictionary, check if my word is equal to some word in dict
+    for (i = 0; i < MAX_LENGTH_DICT_MAIN && !exist_in_main; ++i) {
+        exist_in_main = strcmp(dict_main[i], word) == 0;
+    }
+
+    if (!exist_in_some_dictionary) {
+        for (i = 0; i < MAX_LENGTH_DICT_IGNORED && !exist_in_ignored; ++i) {
+        exist_in_ignored = strcmp(dict_ignored[i], word) == 0;
+    }
+
+    // if the found the word, return 1 (equal to true)
+    found = exist_in_ignored == 1 || exist_in_main == 1;
+
+    return found;
 }
 
 
