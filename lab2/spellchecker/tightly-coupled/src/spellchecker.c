@@ -141,7 +141,7 @@ int is_known(char *word) {
 
     if (!exist_in_some_dictionary) {
         for (i = 0; i < MAX_LENGTH_DICT_IGNORED && !exist_in_ignored; ++i) {
-        exist_in_ignored = strcmp(dict_ignored[i], word) == 0;
+          exist_in_ignored = strcmp(dict_ignored[i], word) == 0;
     }
 
     // if the found the word, return 1 (equal to true)
@@ -168,11 +168,11 @@ int is_known(char *word) {
 *******************************************************************/
 int get_word(char *word){
 /* completar aca */
-	rewind(doc_in); /*cursor en el principio del archivo*/
-	doc_in = fopen("in_file.txt", "r");
-	
+  rewind(doc_in); /*cursor en el principio del archivo*/
+  doc_in = fopen("in_file.txt", "r");
+  
 
- }
+}
 
 /*******************************************************************
 * NAME :            void put_word(char *word)
@@ -188,12 +188,12 @@ int get_word(char *word){
 *******************************************************************/
 void put_word(char *word){
 /* completar aca  */
-	doc_out = fopen("out_file.txt", "a");
-	printf("ingrese palabra a agregar: ");
-	scanf("%s", word);
-	printf("ud ingresara: %s\n", word);
-	fprintf(doc_out, "%s\n", word);
-	fclose(doc_out);
+  doc_out = fopen("out_file.txt", "a");
+  printf("ingrese palabra a agregar: ");
+  scanf("%s", word);
+  printf("ud ingresara: %s\n", word);
+  fprintf(doc_out, "%s\n", word);
+  fclose(doc_out);
  }
 
 ;/*******************************************************************
@@ -220,19 +220,19 @@ void consult_user(char *word){
   }while((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
   /* completar aca  */
   if(strcmp(ans,"a") == 0){
-  	dict_add(word);
-  	printf("la palabra %s fue AGREGADA al diccionario\n",word);
+    dict_add(word);
+    printf("la palabra %s fue AGREGADA al diccionario\n",word);
   }
   
   if(strcmp(ans, "i") == 0){
-  	ignored_add(word);
-  	printf("la palabra %s fue IGNORADA\n",word);
+    ignored_add(word);
+    printf("la palabra %s fue IGNORADA\n",word);
   }
 
   if(strcmp(ans, "r") == 0){
-  	printf("Remplazar por:\n");
-  	scanf("%s",remplazo);
-  	/*falta*/
+    printf("Remplazar por:\n");
+    scanf("%s",remplazo);
+    /*falta*/
   }
 
 }
