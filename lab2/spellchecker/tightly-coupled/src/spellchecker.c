@@ -186,7 +186,7 @@ int get_word(char *word){
 *           Type: void
 *******************************************************************/
 void put_word(char *word){
-    /* completar aca  */
+/* completar aca  */
     doc_out = fopen("out_file.txt", "a");
     printf("ingrese palabra a agregar: ");
     scanf("%s", word);
