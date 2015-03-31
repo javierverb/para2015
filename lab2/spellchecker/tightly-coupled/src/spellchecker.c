@@ -168,9 +168,8 @@ int is_known(char *word) {
 *******************************************************************/
 int get_word(char *word){
 /* completar aca */
-  rewind(doc_in); /*cursor en el principio del archivo*/
-  doc_in = fopen("in_file.txt", "r");
-  
+    rewind(doc_in); /*cursor en el principio del archivo*/
+    doc_in = fopen("in_file.txt", "r");
 
 }
 
@@ -187,14 +186,14 @@ int get_word(char *word){
 *           Type: void
 *******************************************************************/
 void put_word(char *word){
-/* completar aca  */
-  doc_out = fopen("out_file.txt", "a");
-  printf("ingrese palabra a agregar: ");
-  scanf("%s", word);
-  printf("ud ingresara: %s\n", word);
-  fprintf(doc_out, "%s\n", word);
-  fclose(doc_out);
- }
+    /* completar aca  */
+    doc_out = fopen("out_file.txt", "a");
+    printf("ingrese palabra a agregar: ");
+    scanf("%s", word);
+    printf("ud ingresara: %s\n", word);
+    fprintf(doc_out, "%s\n", word);
+    fclose(doc_out);
+}
 
 ;/*******************************************************************
 * NAME :            void consult_user(char *word)
