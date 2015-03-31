@@ -108,8 +108,22 @@ void dict_add(char *word){
 *    1) La lista que representa el diccionario de palabras ignoradas 
 *       debe agrandarse a medida que se agregan palabras.
 *******************************************************************/
-void ignored_add(char *word){
-/* completar aca  */
+void ignored_add(char *word) {
+
+    char *new_word_to_add = NULL;
+    for (int i = 0; i < MAX_LENGTH_DICT_IGNORED; ++i) {
+        
+        //  WARNING: eventualmente el diccionario se llenará
+        // por ahora no analizamos ese caso, sin embargo, al analizarlo
+        // se realocará espacio.
+        // Add word in the first NULL occurrence in dict array 
+        if (dict_ignored[i] == NULL) {
+            new_word_to_add = calloc(1, sizeof(strlen(word)));
+            dict_ignored[i] = strcpy(new_word_to_add, word);
+            // exit
+            break;
+        }
+    }
 }
 
 /*******************************************************************
@@ -166,8 +180,8 @@ int is_known(char *word) {
 *           Values: 0 si no hay mas palabras para leer.  
 *                   1 si hay mas palabras para leer.
 *******************************************************************/
-int get_word(char *word){
-/* completar aca */
+int get_word(char *word) {
+    /* completar aca */
     rewind(doc_in); /*cursor en el principio del archivo*/
     doc_in = fopen("in_file.txt", "r");
 
@@ -188,9 +202,6 @@ int get_word(char *word){
 void put_word(char *word){
 /* completar aca  */
     doc_out = fopen("out_file.txt", "a");
-    printf("ingrese palabra a agregar: ");
-    scanf("%s", word);
-    printf("ud ingresara: %s\n", word);
     fprintf(doc_out, "%s\n", word);
     fclose(doc_out);
 }
@@ -263,19 +274,16 @@ void process_document(char *fname){
 *                   principal.
 *******************************************************************/
 int main(int argc, char **argv){
-   char *dict;
+    char *dict;
    /* Verificamos el nro de argumentos. */
-   if (argc < 2)
-     {
-       printf("spellchecker.c: nro de argumentos erroneo. Deben ser <documento> [<diccionario>].\n");
-       return (1);
-     }
-   /* si se especifico un diccionario lo usamos,  */
-   /* caso contrario usamos el diccionario por defecto */
-   dict = (argc >=3) ? argv[2] : "dict.txt";
-  
-   /* completar aca */
-  
-   printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
-}
+    if (argc < 2) {
+        printf("spellchecker.c: nro de argumentos erroneo. Deben ser <documento> [<diccionario>].\n");
+        return (1);
+    }
+    /* si se especifico un diccionario lo usamos,  */
+    /* caso contrario usamos el diccionario por defecto */
+    dict = (argc >=3) ? argv[2] : "dict.txt";
 
+    /* completar aca */
+    printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
+}
