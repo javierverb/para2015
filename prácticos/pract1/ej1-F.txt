@@ -15,3 +15,4 @@ Escriba una EBNF aumentada con los predicados necesarios para poder expresar:
                      <char>::={a-zA-Z}+
                      <bool>::= 'true'|'false'
 --------------------------------------------------------------------------------
+TERMINADO

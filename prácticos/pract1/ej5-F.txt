@@ -62,3 +62,4 @@ Podria interpretarse como que no hay espacios(EMPTY) y por lo tanto es posible (
 es necesario '.' <sexp> ')' por lo que no es sintacticamente posible.
 Si se interpreta que hay espacios, tampoco es sintacticamente posible.
 ---------------------------------------------------------------------------------------------------
+TERMINADO

@@ -1,4 +1,3 @@
-ejercicio4 ((CORREGIDO))
 
 a = "mi vieja mula ya no es lo que era"
 b = 0
@@ -8,7 +7,7 @@ while b<=3:
 
 ¿Como sería el tokenizer para reconocer las expresiones de un lenguaje de programación así?
 Escriba una gramática EBNF para este lenguaje
------------------------------------------------
+---------------------------------------------------------------------------------------------------
 *** EBNF ***
 
 <prog> ::= {<sentencia>}+
@@ -21,3 +20,5 @@ Escriba una gramática EBNF para este lenguaje
 <operador> ::= '+'' | '-'| '*'' | '/'' | '<'' | '>' | '<=' | 'AND' | 'OR'
 <letter> ::= 'a' | 'b' | ... | 'z'
 <nummber> ::= '1' | '2' | ... | '0'
+---------------------------------------------------------------------------------------------------
+SEMI-TERMINADO
