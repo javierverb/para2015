@@ -52,7 +52,7 @@ dict_main = calloc(1000, sizeof(char*));
 *       strings en C terminan en \0.
 *******************************************************************/
 void dict_load(char *fname){
-   /* completar aca */
+    /* completar aca */
 }
 
 /*******************************************************************
@@ -150,12 +150,16 @@ int is_known(char *word) {
 
     // for each dictionary, check if my word is equal to some word in dict
     for (i = 0; i < MAX_LENGTH_DICT_MAIN && !exist_in_main; ++i) {
-        exist_in_main = strcmp(dict_main[i], word) == 0;
+        if (dict_main[i] != NULL) {
+            exist_in_main = strcmp(dict_main[i], word) == 0;
+        }
     }
 
     if (!exist_in_some_dictionary) {
         for (i = 0; i < MAX_LENGTH_DICT_IGNORED && !exist_in_ignored; ++i) {
-          exist_in_ignored = strcmp(dict_ignored[i], word) == 0;
+            if (dict_ignored[i] != NULL) {
+                exist_in_ignored = strcmp(dict_ignored[i], word) == 0;
+            }
     }
 
     // if the found the word, return 1 (equal to true)
@@ -181,10 +185,8 @@ int is_known(char *word) {
 *                   1 si hay mas palabras para leer.
 *******************************************************************/
 int get_word(char *word) {
-    /* completar aca */
     rewind(doc_in); /*cursor en el principio del archivo*/
     doc_in = fopen("in_file.txt", "r");
-
 }
 
 /*******************************************************************
@@ -200,13 +202,13 @@ int get_word(char *word) {
 *           Type: void
 *******************************************************************/
 void put_word(char *word){
-/* completar aca  */
+    /* completar aca  */
     doc_out = fopen("out_file.txt", "a");
     fprintf(doc_out, "%s\n", word);
     fclose(doc_out);
 }
 
-;/*******************************************************************
+/*******************************************************************
 * NAME :            void consult_user(char *word)
 *
 * DESCRIPTION :     Consulta al usuario sobre que accion realizar 
@@ -260,10 +262,45 @@ void consult_user(char *word){
 * RETURN :
 *           Type: void
 *******************************************************************/
-void process_document(char *fname){
-   char current_word[MAX_WORD_SIZE];
-   /* completar aca */
- }
+void process_document(char *fname) {
+    char current_word[MAX_WORD_SIZE];
+
+    //open a file
+    FILE *my_document;
+    my_document = fopen(fname, "a");
+
+    if (my_document == NULL) {
+        printf("ERROR: couldn't open document\n");
+        exit(EXIT_FAILURE);
+    }
+    else {
+        
+    }
+
+}
+
+/*******************************************************************
+* NAME: bool is_valid_character(char* character)
+*
+* DESCRIPTION: Dada una lista de caracteres permitidos, evalúa si el
+*              caracter recibido es válido.
+*
+* PARAMETERS:
+*      INPUT:
+*           char    *character   Caracter a evaluar.
+*
+* RETURN :
+*           Type: bool
+*******************************************************************/
+bool is_valid_character(char *character) {
+    bool is_valid = false;
+    char *list_characters = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    
+    // check if my character is in list_characters
+    is_valid = strstr(list_characters, character) != NULL;
+
+    return is_valid;
+}
 
 /*******************************************************************
 * NAME :            int main(int argc, char **argv)
