@@ -1,0 +1,64 @@
+Un programa Lisp está compuesto por una sucesión de expresiones simbólicas denominadas
+S-expressions o sexp. Estas se definen formalmente como sigue:
+
+<sexp>::= <atomic symbol> | <natural> | ”(” <sexp> ”.” <sexp> ”)”
+<atomic symbol>::= <letter> <atom part> | ”:” <atom part>
+<natural>::= {<number>}+
+<atom part>::= <empty> | <letter> <atom part> | <number> <atom part>          (esto es alfanumerico o EMPTY)
+<letter>::= ”a” | ”b” | ... | ”z”
+<number>::= ”1” | ”2” | ... | ”9”
+<empty> : : = ””
+Determine cuáles de los siguientes son programas sintácticamente correctos.
+Derive, para los que efectivamente sean programas Lisp, el árbol sintáctico correspondiente.
+
+a) 2 .
+b) a ( b )
+c) (3 . 3)
+d) (3 2 1)
+---------------------------------------------------------------------------------------------------
+a) No es sintacticamente correcto. 
+                 <sexp>                               <sexp>
+                    |                                    |
+                <natural>                    '(' <sexp> '.' <sexp> ')'
+                    |                                    |
+               {<number>}+                   '(' <natural> '.' ... 
+                    |
+                   '2'
+Como <sexp> pede ser <natural> o '(' <sexp> '.' <sexp> ')'
+La expresion no es sintacticamente correcta, de ninguna de las formas
+se llega a 2 .
+---------------------------------------------------------------------------------------------------
+b) No es sintacticamente correcto.
+            <sexp>
+              |
+       <atomic symbol>
+              |
+      <letter> <atom part> --> esto puede ser EMPTY o caracter alfanumerico(abc,ab3,3ab 111,12c)
+         |                     pero no acepta '(', por lo tanto '('b')' no es posible
+        'a'      
+---------------------------------------------------------------------------------------------------
+c) Es correcto sintacticamente.
+             <sexp>
+                |
+    '(' <sexp> '.' <sexp> ')'
+          |           |
+      <natural>   <natural>
+          |           |
+     {<number>}+  {<number>}+
+          |           |
+          3           3
+---------------------------------------------------------------------------------------------------
+d) No es sintacticamente correcto
+                <sexp>
+                   |
+       '(' <sexp> '.' <sexp> ')'
+              |
+          <natural>
+              |
+          {<number>}+
+              |
+              321
+Podria interpretarse como que no hay espacios(EMPTY) y por lo tanto es posible (321 perosintacticamente
+es necesario '.' <sexp> ')' por lo que no es sintacticamente posible.
+Si se interpreta que hay espacios, tampoco es sintacticamente posible.
+---------------------------------------------------------------------------------------------------

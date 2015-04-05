@@ -1,0 +1,17 @@
+Escriba una EBNF aumentada con los predicados necesarios para poder expresar:
+  i) que una variable debe ser declarada antes de ser usada.
+  ii)asignación múltiple de variables, con un número arbitrario de variables.
+--------------------------------------------------------------------------------
+  
+  i) <declaracion>::= <tipo> espacio <var>
+     <tipo>::= 'int'|'char'|'bool'|'long'|...
+     <var>::= 'x'|'y'|'z'
+     espacio = ? caracter_espacio?
+
+ ii) <asignacion>::= <var> {';'<var>} '=' <val> {';'<val>}  (* #var = #val and 
+                     <var>::= 'x'|'y'|'z'                     (i) var tiene que
+                     <val>::= <int>|<char>|<bool>             estar declarada *)
+                     <int>::= {0-9}+
+                     <char>::={a-zA-Z}+
+                     <bool>::= 'true'|'false'
+--------------------------------------------------------------------------------
