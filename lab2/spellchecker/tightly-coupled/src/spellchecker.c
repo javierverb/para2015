@@ -215,6 +215,33 @@ void put_word(char *word){
 }
 
 /*******************************************************************
+* NAME:               void replace_word(char *word, char replace)
+*
+* DESCRIPTION:        Remplaza la palabra word por replace
+*
+* PARAMETERS:
+*      INPUT:
+*            char     *word    Palabra a ser remplazada.
+*            char     replace  Palabra por la que se remplazara.
+*
+* RETURN:
+*         Type: void
+*******************************************************************/
+void replace_word(char *word, char replace){
+
+    file = fopen(doc_in, "r");
+    while(feof(file) == 0){ //para recorrer todo el archivo
+        char *ptr;
+        char *palabra;
+        ptr = malloc(sizeof(char));
+        palabra = fgets(ptr, MAX_WORD_SIZE, file);
+
+
+    }
+}
+
+
+/*******************************************************************
 * NAME :            void consult_user(char *word)
 *
 * DESCRIPTION :     Consulta al usuario sobre que accion realizar 
@@ -251,7 +278,7 @@ void consult_user(char *word){
     if(strcmp(ans, "r") == 0){
         printf("Remplazar por:\n");
         scanf("%s",replace);
-        /*falta*/
+        replace_word(word,repalce);
     }
 
 }
@@ -281,6 +308,17 @@ void process_document(char *fname) {
         exit(EXIT_FAILURE);
     }
     else {
+        while(feof(my_document) == 0){
+            char *ptr;
+            ptr = malloc(sizeof(char));
+            current_word = gets(ptr, MAX_WORD_SIZE, my_document); // ALGO PARECIDO A ESTO PORQUE gets devuelve un char*
+            know = is_known(current_word);
+            if(know == 0){         // la palabra es desconocida
+                consult_user(current_word);
+            }
+            free(ptr);
+            ptr = NULL;
+        }
         
     }
 
