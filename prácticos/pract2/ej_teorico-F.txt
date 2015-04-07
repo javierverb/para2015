@@ -1,0 +1,126 @@
+1-La semántica de los lenguajes de programación debe reflejar formalmente...
+	a) la intención del programador.
+	b) los efectos de un programa en una computadora. x
+***************************************************************************************************
+*                                                                                                **
+*  La semántica es el campo que tiene que ver con el estudio riguroso desde un punto de vista    **
+*  matemático del significado de los lenguajes de programación.                                  **
+*  La semántica describe el proceso que una computadora sigue cuando ejecuta un programa         **
+*  en ese lenguaje específico.                                                                   **
+*                                                                                                **
+*  WIKIPEDIA                                                                                     **
+*                                                                                                **
+***************************************************************************************************
+
+
+---------------------------------------------------------------------------------------------------
+2-La semántica operacional...
+	a) describe el significado de un programa como una secuencia de transiciones de estado a
+       estado. x
+	b) usa una máquina abstracta para representar el significado de un programa. x
+	c) tiene un conjunto de operaciones para definir la semántica de un programa.
+***************************************************************************************************
+*                                                                                                **
+*  Una representacion abstracta de la ejecucion de un programa, como secuencia de transiciones   **
+*  entre estados (en una maquina abstracta).                                                     **
+*  Los estados son una descripcion abstracta de la memoria y estructuras de datos.               **
+*  Las transiciones siguen la estructura de la sintaxis                                          **
+*                                                                                                **
+***************************************************************************************************
+
+
+---------------------------------------------------------------------------------------------------
+3-La semántica denotacional...
+	a) explica el significado de un programa paso a paso.
+	b) explica un programa como una función (parcial) de estados a estados.  x
+	c) son una traducción de un programa en cualquier lenguaje a cualquier otro lenguaje. ((NO SE))
+***************************************************************************************************
+*                                                                                                **
+*  Semantica matematica para programas.                                                          **
+*  El significado de un programa es una FUNCION MATEMATICA, de estado en estado, no un algoritmo **
+*  Un estado es una funcion que representa los valores en memoria en un momento determinado      **
+*  durante la ejecucucion de un programa.                                                        **
+*                                                                                                **
+*  No solo para imperativos sino tambien para funcionales, en principio, cualquier programa      **
+*  imperativo se puede escribir como un programa funcional puro(en otro lenguaje)                **
+*                                                                                                **
+***************************************************************************************************
+
+
+---------------------------------------------------------------------------------------------------
+4-Los activation records...
+	a) muestran el estado de una máquina abstracta en un momento de la ejecución.
+	b) se corresponden con los bloques en el texto del programa.
+	c) se apilan en la pila de ejecución.
+	d) todos los anteriores.
+	e) ninguno de los anteriores
+***************************************************************************************************
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+***************************************************************************************************
+
+
+---------------------------------------------------------------------------------------------------
+5-El siguiente código es código espagueti porque...
+
+  10 IF (X .GT. 1 ) GO TO 30
+  20 X = −X
+    IF (X . LT . 1 ) GO TO 60
+  30 IF (X∗Y . LT . 1 ) GO TO 40
+    X = X−Y−Y
+  40 X = X+Y
+  60 CONTINUE
+    X = A
+    Y = B−A
+    GO TO 20
+
+	a) tiene bloques.
+	b) las líneas están numeradas.
+	c) no podemos armar un árbol sintáctico del programa.
+	d) usa expresiones GOTO
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+6-El identificador de una variable es...
+	a) la dirección de memoria donde se encuentra un valor que se usa en un programa.
+	b) el string que se usa en el texto de un programa para referirse a una variable.
+	c) el tipo del valor de la variable.
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+7-Las variables están compuestas de... (elija la opción más precisa)
+	a) un nombre y un valor.
+	b) un l-valor y un r-valor.
+	c) un identificador y un valor.
+	d) un identificador que está ligado a un valor que está ligado a una dirección en memoria.
+	e) un identificador que está ligado a una dirección en memoria que contiene un valor.
+	f) una dirección de memoria, un valor y un identificador en el texto del programa.
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+8-Los “huecos” (regiones del programa en los que una variable no se puede acceder) en el alcance
+de una variable (identificador de variable) se dan porque...
+
+	a) el identificador de la variable se usa para ligarse a otra variable.
+	b) el lifetime de la variable no llega hasta ah ́ı.
+	c) tenemos un programa no estructurado.
+
+9-En el siguiente programa, la segunda ocurrencia de P es libre o ligada?
+
+declare P in
+proc { P X }
+    if X > 0 then { P X−1 } end
+end
+
+a) libre
+b) ligada
+---------------------------------------------------------------------------------------------------

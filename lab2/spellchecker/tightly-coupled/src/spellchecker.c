@@ -53,6 +53,8 @@ dict_main = calloc(1000, sizeof(char*));
 *******************************************************************/
 void dict_load(char *fname){
     /* completar aca */
+    doc_in = fopen("dict_in.txt", "r");
+
 }
 
 /*******************************************************************
@@ -69,7 +71,18 @@ void dict_load(char *fname){
 *           Type: void
 *******************************************************************/
 void dict_save(char *fname){
-/* completar aca  */
+    /* completar aca  */
+    char *word = NULL;
+    char *ptr = NULL;
+    FILE *file_save;
+    doc_in = fopen("doct_in.txt", "r");           // abro el diccionario principal
+    file_save = fopen(fname, "a");                // abro el documento donde se va a guardar
+    while(feof(doc_in) == 0){                     // mientras no llegue a EOF
+        ptr = malloc(sizeof(char));
+        word = gets(ptr, MAX_WORD_SIZE,doc_in);   // leo la palabra y la guardo en ptr
+
+
+    }
 }
 
 /*******************************************************************
@@ -310,14 +323,16 @@ void process_document(char *fname) {
     else {
         while(feof(my_document) == 0){
             char *ptr;
+            char *word;
             ptr = malloc(sizeof(char));
-            current_word = gets(ptr, MAX_WORD_SIZE, my_document); // ALGO PARECIDO A ESTO PORQUE gets devuelve un char*
-            know = is_known(current_word);
+            word = gets(ptr, MAX_WORD_SIZE, my_document); // ALGO PARECIDO A ESTO PORQUE gets devuelve un char*
+            know = is_known(word);
             if(know == 0){         // la palabra es desconocida
-                consult_user(current_word);
+                consult_user(word);
             }
             free(ptr);
             ptr = NULL;
+            word = NULL;
         }
         
     }
@@ -366,7 +381,6 @@ int main(int argc, char **argv){
     /* caso contrario usamos el diccionario por defecto */
     dict = (argc >=3) ? argv[2] : "dict.txt";
 
-    /* completar aca */
     dict_load(dict);
     process_document(argv[1]);
     dict_save(dict);
