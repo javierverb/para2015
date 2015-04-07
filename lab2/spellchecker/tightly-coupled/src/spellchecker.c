@@ -204,9 +204,42 @@ int get_word(char *word) {
 void put_word(char *word){
     /* completar aca  */
     doc_out = fopen("out_file.txt", "a");
-    fprintf(doc_out, "%s\n", word);
+    if(doc_out == NULL){
+        printf("Error al abrir archivo");
+    }
+    else{
+        fprintf(doc_out, "%s\n", word);
+        printf("Ud ingreso: %s\n",word);
+    }
     fclose(doc_out);
 }
+
+/*******************************************************************
+* NAME:               void replace_word(char *word, char replace)
+*
+* DESCRIPTION:        Remplaza la palabra word por replace
+*
+* PARAMETERS:
+*      INPUT:
+*            char     *word    Palabra a ser remplazada.
+*            char     replace  Palabra por la que se remplazara.
+*
+* RETURN:
+*         Type: void
+*******************************************************************/
+void replace_word(char *word, char replace){
+
+    file = fopen(doc_in, "r");
+    while(feof(file) == 0){ //para recorrer todo el archivo
+        char *ptr;
+        char *palabra;
+        ptr = malloc(sizeof(char));
+        palabra = fgets(ptr, MAX_WORD_SIZE, file);
+
+
+    }
+}
+
 
 /*******************************************************************
 * NAME :            void consult_user(char *word)
@@ -226,6 +259,7 @@ void put_word(char *word){
 *******************************************************************/
 void consult_user(char *word){
     char ans[2];
+    char replace[MAX_WORD_SIZE];
     do{
         printf("Palabra no reconocida: %s\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
         scanf("%s", ans);
@@ -243,8 +277,8 @@ void consult_user(char *word){
 
     if(strcmp(ans, "r") == 0){
         printf("Remplazar por:\n");
-        scanf("%s",remplazo);
-        /*falta*/
+        scanf("%s",replace);
+        replace_word(word,repalce);
     }
 
 }
@@ -274,6 +308,17 @@ void process_document(char *fname) {
         exit(EXIT_FAILURE);
     }
     else {
+        while(feof(my_document) == 0){
+            char *ptr;
+            ptr = malloc(sizeof(char));
+            current_word = gets(ptr, MAX_WORD_SIZE, my_document); // ALGO PARECIDO A ESTO PORQUE gets devuelve un char*
+            know = is_known(current_word);
+            if(know == 0){         // la palabra es desconocida
+                consult_user(current_word);
+            }
+            free(ptr);
+            ptr = NULL;
+        }
         
     }
 
