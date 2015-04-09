@@ -13,6 +13,7 @@
 ***************************************************************************************************
 
 
+
 ---------------------------------------------------------------------------------------------------
 2-La semántica operacional...
 	a) describe el significado de un programa como una secuencia de transiciones de estado a
@@ -27,6 +28,7 @@
 *  Las transiciones siguen la estructura de la sintaxis                                          **
 *                                                                                                **
 ***************************************************************************************************
+
 
 
 ---------------------------------------------------------------------------------------------------
@@ -47,80 +49,122 @@
 ***************************************************************************************************
 
 
+
 ---------------------------------------------------------------------------------------------------
 4-Los activation records...
 	a) muestran el estado de una máquina abstracta en un momento de la ejecución.
-	b) se corresponden con los bloques en el texto del programa.
-	c) se apilan en la pila de ejecución.
+	b) se corresponden con los bloques en el texto del programa.  X
+	c) se apilan en la pila de ejecución.   X
 	d) todos los anteriores.
 	e) ninguno de los anteriores
 ***************************************************************************************************
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+*                              																     **
+*  Los registros de activación se guardan en la pila 											 **
+*    -cada nuevo bloque apila (push) un nuevo registro de activación en la pila 			     **
+*    -cada vez que se termina un bloque se saca (pop) el registro de arriba de la pila 			 **
+*    -la pila tiene todos los registros que son activos en un determinado momento de la 		 **
+*     ejecución, con el que se usó más recientemente en la punta. 								 **
+* 																							     **
+*  Guardan la información de un bloque:  														 **
+*     -variables locales 																		 **
+*     -control link al que ha llamado al activation record, para volver 						 **
+*     -variables temporales y resultados intermedios 										     **
+*  Entran y salen de la pila (stack), eso hace que puedan usarse llamados anidados 				 **
+* 																								 **
 ***************************************************************************************************
+
 
 
 ---------------------------------------------------------------------------------------------------
 5-El siguiente código es código espagueti porque...
 
-  10 IF (X .GT. 1 ) GO TO 30
+  10 IF (X.GT.1) GOTO 30
   20 X = −X
-    IF (X . LT . 1 ) GO TO 60
-  30 IF (X∗Y . LT . 1 ) GO TO 40
-    X = X−Y−Y
+     IF (X.LT.1) GOTO 60
+  30 IF (X∗Y.LT.1) GOTO 40
+     X = X−Y−Y
   40 X = X+Y
   60 CONTINUE
-    X = A
-    Y = B−A
-    GO TO 20
+     X = A
+     Y = B−A
+     GOTO 20
 
 	a) tiene bloques.
-	b) las líneas están numeradas.
+	b) las líneas están numeradas. X
 	c) no podemos armar un árbol sintáctico del programa.
-	d) usa expresiones GOTO
----------------------------------------------------------------------------------------------------
+	d) usa expresiones GOTO X
+***************************************************************************************************
+*                                                                                                **
+*  El código espagueti tradicionalmente suele asociarse este estilo de programación              ** 
+*  con lenguajes básicos y antiguos, donde el flujo se controlaba mediante sentencias de control **
+*  muy primitivas como GOTO y utilizando NUMERO DE LINEA.                                        **
+*                                                                                                **
+***************************************************************************************************	
+
+
+
 ---------------------------------------------------------------------------------------------------
 6-El identificador de una variable es...
-	a) la dirección de memoria donde se encuentra un valor que se usa en un programa.
-	b) el string que se usa en el texto de un programa para referirse a una variable.
+	a) la dirección de memoria donde se encuentra un valor que se usa en un programa.  X
+	b) el string que se usa en el texto de un programa para referirse a una variable.  X
 	c) el tipo del valor de la variable.
----------------------------------------------------------------------------------------------------
+***************************************************************************************************
+* 																								 **
+*  Al declarar una variable la estamos ligando a una 											 **
+*  ubicación en memoria, de forma que el nombre de la                                            **
+*  variable es el identificador de la ubicación en memoria. 									 **
+*          																						 **
+*  La ubicación puede ser global, en la pila o en el heap.              					     **
+*  																								 **
+***************************************************************************************************
+
+
+
 ---------------------------------------------------------------------------------------------------
 7-Las variables están compuestas de... (elija la opción más precisa)
 	a) un nombre y un valor.
-	b) un l-valor y un r-valor.
+	b) un l-valor y un r-valor.  X
 	c) un identificador y un valor.
 	d) un identificador que está ligado a un valor que está ligado a una dirección en memoria.
-	e) un identificador que está ligado a una dirección en memoria que contiene un valor.
-	f) una dirección de memoria, un valor y un identificador en el texto del programa.
----------------------------------------------------------------------------------------------------
+	e) un identificador que está ligado a una dirección en memoria que contiene un valor. X
+	f) una dirección de memoria, un valor y un identificador en el texto del programa.  X
+***************************************************************************************************
+*  																								 **
+*  al declarar una variable la estamos ligando a una ubicación en memoria, 						 **
+*  de forma que el nombre de la variable es el identificador de la ubicación en memoria 		 **
+*    - la ubicación puede ser global, en la pila o en el heap 									 **
+*    • l-valor: ubicación en memoria (dirección de memoria) 									 **
+*    • r-valor: valor que se guarda en la ubicación de memoria identificada por el l-valor  	 **
+* 																								 **
+***************************************************************************************************
+
+
+
 ---------------------------------------------------------------------------------------------------
 8-Los “huecos” (regiones del programa en los que una variable no se puede acceder) en el alcance
 de una variable (identificador de variable) se dan porque...
 
 	a) el identificador de la variable se usa para ligarse a otra variable.
-	b) el lifetime de la variable no llega hasta ah ́ı.
+	b) el lifetime de la variable no llega hasta ahí.
 	c) tenemos un programa no estructurado.
+***************************************************************************************************
+*
+*
+*
+*
+*  PDF(PAG_29) IMPERATIVO
+*
+*
+*
+***************************************************************************************************
 
 9-En el siguiente programa, la segunda ocurrencia de P es libre o ligada?
 
 declare P in
-proc { P X }
-    if X > 0 then { P X−1 } end
+proc {PX}
+    if X > 0 then {PX−1} end
 end
 
-a) libre
-b) ligada
+    a) libre
+    b) ligada
 ---------------------------------------------------------------------------------------------------
