@@ -1,0 +1,20 @@
+Dé informalmente (explicando con lenguaje cotidiano, sin necesidad de notación matemática)
+la semántica denotacional de estas dos funciones, es decir, explique informalmente qué es lo
+que hacen. Son equivalentes?
+function foo (x) is:
+    if predicate(x) then
+        return foo(bar(x))
+    else
+        return baz (x)
+
+function foo (x) is:
+    while predicate(x) do :
+        x <−− bar(x)
+    return baz(x)
+***************************************************************************************************
+* 																								 **
+*  El primer programa es recursivo, el segundo es iterativo. 									 **
+* 																								 **
+* 																								 **
+* 																								 **
+***************************************************************************************************
