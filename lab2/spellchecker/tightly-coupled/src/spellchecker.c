@@ -389,14 +389,16 @@ void process_document(char *fname) {
     else {
         while(feof(my_document) == 0){
             char *ptr;
+            char *word;
             ptr = malloc(sizeof(char));
-            current_word = gets(ptr, MAX_WORD_SIZE, my_document); // ALGO PARECIDO A ESTO PORQUE gets devuelve un char*
-            know = is_known(current_word);
+            word = gets(ptr, MAX_WORD_SIZE, my_document); // ALGO PARECIDO A ESTO PORQUE gets devuelve un char*
+            know = is_known(word);
             if(know == 0){         // la palabra es desconocida
-                consult_user(current_word);
+                consult_user(word);
             }
             free(ptr);
             ptr = NULL;
+            word = NULL;
         }
         
     }
@@ -476,7 +478,6 @@ int main(int argc, char **argv){
     /* caso contrario usamos el diccionario por defecto */
     dict = (argc >=3) ? argv[2] : "dict.txt";
 
-    /* completar aca */
     dict_load(dict);
     process_document(argv[1]);
     dict_save(dict);
