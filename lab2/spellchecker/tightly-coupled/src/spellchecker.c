@@ -5,15 +5,22 @@
 
 //tamaño maximo de una palabra
 #define MAX_WORD_SIZE 30
+
+// tamaño máximo de un diccionario en PRIMERA INSTANCIA
 #define MAX_LENGTH_DICT_MAIN 200
-#define MAX_LENGTH_DICT_IGNORED 100
+#define MAX_LENGTH_DICT_IGNORED 1
+
+// posición actual del índice del diccionario
+#define CURRENT_INDEX_DICT_MAIN 0
+
+
 /* diccionario principal */
-char **dict_main;
-/*tamaño inicial del diccionario principal*/
+char **dict_main = NULL;
+/*tamaño inicial del diccionario principal */
 int main_size = 10;
 
 /* diccionario de palabras ignoradas */
-char **dict_ignored;
+char **dict_ignored = NULL;
 /*tamaño inicial del diccionario de palabras ignoradas*/
 int ignored_size = 0;
 
@@ -51,8 +58,47 @@ dict_main = calloc(1000, sizeof(char*));
 *    2) Recordar borrar el \n y \r al final de cada palabra y que los 
 *       strings en C terminan en \0.
 *******************************************************************/
-void dict_load(char *fname){
-    /* completar aca */
+void dict_load(char *fname) {
+    /* 
+    IMPORTANT Note: Free memory when calling this function 
+    */
+
+    FILE *dict_to_load;
+    dict_to_load = fopen(fname, "r");
+    char *line_to_read = NULL;
+
+    dict_main = calloc(MAX_LENGTH_DICT_MAIN, sizeof(char*));
+    size_t len = 0; // Is dinamic!
+    if (dict_to_load != NULL) {
+    
+        while (feof(dict_to_load) == 0) {
+        
+            if (getline(&line_to_read, &len, dict_to_load) != -1) {
+                
+                if (i >= MAX_LENGTH_DICT_MAIN) {
+                    MAX_LENGTH_DICT_MAIN *= 2; // increased my limit of words
+                    dict_main = realloc(dict_main, 
+                                        (MAX_LENGTH_DICT_MAIN)*sizeof(char*));
+                }
+
+                dict_main[i] = line_to_read;
+                
+                // lost a reference for my pointer
+                line_to_read = NULL;
+                i++;
+            }
+        }
+    }
+    else {
+        printf("Error al abrir archivo");
+        return EXIT_FAILURE;
+    }
+
+    // realloc to exact total words save in dict 
+    MAX_LENGTH_DICT_MAIN = i;
+    dict_main = realloc(dict_main, MAX_LENGTH_DICT_MAIN*sizeof(char*));
+    
+    fclose(dict_to_load);
 }
 
 /*******************************************************************
@@ -68,8 +114,22 @@ void dict_load(char *fname){
 * RETURN :
 *           Type: void
 *******************************************************************/
-void dict_save(char *fname){
-/* completar aca  */
+void dict_save(char *fname) {
+
+    FILE *dict_to_save;
+    dict_to_save = fopen(fname, "w");
+    
+    if (dict_to_save != NULL) {
+        
+        for (int i = 0; i < MAX_LENGTH_DICT_MAIN; ++i) {
+            fprintf(dict_to_save, dict_main[i]);
+        }
+    }
+    else {
+        printf("Error al abrir archivo");
+        return EXIT_FAILURE;
+    }
+    fclose(dict_to_save);
 }
 
 /*******************************************************************
@@ -89,7 +149,19 @@ void dict_save(char *fname){
 *       lugar "de sobra".
 *******************************************************************/
 void dict_add(char *word){
-/* completar aca */
+
+    assert(word != NULL);
+    
+    char *new_word_to_add = NULL;
+    
+    // space for new slot in dict
+    MAX_LENGTH_DICT_MAIN++;
+    dict_main = realloc(dict_main, MAX_LENGTH_DICT_MAIN*sizeof(char *));
+
+    // space for new value in slot
+    new_word_to_add = calloc(strlen(word)+1, sizeof(char));
+    // add
+    dict_main[MAX_LENGTH_DICT_MAIN-1] = strcpy(new_word_to_add, word);
 }
 
 /*******************************************************************
@@ -110,20 +182,26 @@ void dict_add(char *word){
 *******************************************************************/
 void ignored_add(char *word) {
 
+    assert(word != NULL);
+
     char *new_word_to_add = NULL;
-    for (int i = 0; i < MAX_LENGTH_DICT_IGNORED; ++i) {
-        
-        //  WARNING: eventualmente el diccionario se llenará
-        // por ahora no analizamos ese caso, sin embargo, al analizarlo
-        // se realocará espacio.
-        // Add word in the first NULL occurrence in dict array 
-        if (dict_ignored[i] == NULL) {
-            new_word_to_add = calloc(1, sizeof(word));
-            dict_ignored[i] = strcpy(new_word_to_add, word);
-            // exit
-            break;
-        }
+    // create new dict_ignored if have a null space
+    if (dict_ignored == NULL) {
+        // and add the new word
+        dict_ignored = calloc(MAX_LENGTH_DICT_IGNORED, sizeof(char*));
+        new_word_to_add = calloc(strlen(word) + 1, sizeof(char));
+        dict_ignored[MAX_LENGTH_DICT_IGNORED-1] = strcpy(new_word_to_add, word);
     }
+    else {
+        // space for my new slot in dictionary
+        MAX_LENGTH_DICT_IGNORED++;
+        dict_ignored = realloc(dict_ignored, MAX_LENGTH_DICT_IGNORED*sizeof(char*));
+        // space for my new value in slot
+        new_word_to_add = calloc(strlen(word) + 1, sizeof(char));
+        // add
+        dict_ignored[MAX_LENGTH_DICT_IGNORED-1] = strcpy(new_word_to_add, word);
+    }
+
 }
 
 /*******************************************************************
@@ -155,7 +233,7 @@ int is_known(char *word) {
         }
     }
 
-    if (!exist_in_some_dictionary) {
+    if (!exist_in_main) {
         for (i = 0; i < MAX_LENGTH_DICT_IGNORED && !exist_in_ignored; ++i) {
             if (dict_ignored[i] != NULL) {
                 exist_in_ignored = strcmp(dict_ignored[i], word) == 0;
@@ -163,9 +241,11 @@ int is_known(char *word) {
     }
 
     // if the found the word, return 1 (equal to true)
-    found = exist_in_ignored == 1 || exist_in_main == 1;
-
-    return found;
+    if (exist_in_ignored || exist_in_main) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -236,7 +316,6 @@ void replace_word(char *word, char replace){
         ptr = malloc(sizeof(char));
         palabra = fgets(ptr, MAX_WORD_SIZE, file);
 
-
     }
 }
 
@@ -278,7 +357,7 @@ void consult_user(char *word){
     if(strcmp(ans, "r") == 0){
         printf("Remplazar por:\n");
         scanf("%s",replace);
-        replace_word(word,repalce);
+        replace_word(word,replace);
     }
 
 }
@@ -347,6 +426,37 @@ bool is_valid_character(char *character) {
     return is_valid;
 }
 
+/****************************************************************************
+* NAME :            void dict_destroy(char **dict_to_free, TOTAL_STORED_WORDS)
+*
+* DESCRIPTION :     Libera completamente el espacio alocado en algún
+*                   diccionario.
+*
+* PARAMETERS:
+*      IMPUT:
+*           char    **dict_to_free      Diccionario a liberar.
+*           int     TOTAL_STORED_WORDS  Cantidad total de palabras almacenadas 
+*                                        en el diccionario a liberar
+*
+* OBSERVATIONS :
+*    1) Utiliza como tamaño de memoria a liberar la cantidad de palabras
+*       máximas que se han almacenado en el diccionario definido por:
+*       MAX_LENGTH_DICT_MAIN para el caso de dict_main, 
+*       MAX_LENGTH_DICT_IGNORED para el caso de dict_ignored
+*
+*    2) Un mal uso de estas variables globales puede conllevar a liberaciones
+*       insuficientes o excesivas. 
+*
+*******************************************************************/
+void dict_destroy(char **dict_to_free, int TOTAL_STORED_WORDS) {
+    assert (dict_to_free != NULL);
+
+    for (int i = 0; i < TOTAL_STORED_WORDS; ++i) {
+        free(dict_to_free[i]);
+    }
+    free(dict_to_free);
+}
+
 /*******************************************************************
 * NAME :            int main(int argc, char **argv)
 *
@@ -371,5 +481,9 @@ int main(int argc, char **argv){
     process_document(argv[1]);
     dict_save(dict);
 
+    dict_destroy(dict_main, MAX_LENGTH_DICT_MAIN);
+    dict_destroy(dict_ignored, MAX_LENGTH_DICT_IGNORED);
+
     printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
+    return EXIT_SUCCESS;
 }
