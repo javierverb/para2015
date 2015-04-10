@@ -5,3 +5,4 @@ spellchk: spellchecker.c
 
 clean:	
 	rm spellchk
+	rm a.out
