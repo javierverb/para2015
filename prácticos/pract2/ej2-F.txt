@@ -1,0 +1,35 @@
+Diagrame los estados de la pila de ejecución en los diferentes momentos de la ejecución del
+siguiente programa, mostrando cómo se apilan y desapilan los diferentes activation records
+a medida que se va ejecutando el programa. Puede representar los activation records con la
+información de variables locales y control links.
+
+{int x=2 
+    {int y=3; x=y +2;
+    }
+}
+***************************************************************************************************
+*
+*  --------------       --------------      --------------
+*  | space for  |  ---> | space for  | ---> | space for  |
+*  | global var |       | global var |      | global var |
+*  --------------       --------------      --------------
+*                       | space for x|      | space for x|
+*                       --------------      --------------
+*                                           | space for y|
+*                                           --------------
+*--------------------------------------------------------------------------------------------------
+*   ----------------
+*   | CONTROL LINK |
+*   ----------------
+*   |  x   |   2   | <--
+*   ----------------   |
+*                      |
+*   ----------------   |
+*   | CONTROL LINK |----
+*   ----------------
+*   |  y   |   3   |
+*   |  x   |   5   |
+*   ----------------
+*
+*
+***************************************************************************************************
