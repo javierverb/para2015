@@ -1,17 +1,15 @@
+#include <assert.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 //tamaño maximo de una palabra
 #define MAX_WORD_SIZE 30
 
 // tamaño máximo de un diccionario en PRIMERA INSTANCIA
-#define MAX_LENGTH_DICT_MAIN 200
-#define MAX_LENGTH_DICT_IGNORED 1
-
-// posición actual del índice del diccionario
-#define CURRENT_INDEX_DICT_MAIN 0
+int MAX_LENGTH_DICT_MAIN  = 200;
+int MAX_LENGTH_DICT_IGNORED = 1;
 
 
 /* diccionario principal */
@@ -66,11 +64,12 @@ void dict_load(char *fname) {
     FILE *dict_to_load;
     dict_to_load = fopen(fname, "r");
     char *line_to_read = NULL;
+    int i = 0;
 
     dict_main = calloc(MAX_LENGTH_DICT_MAIN, sizeof(char*));
     size_t len = 0; // Is dinamic!
     if (dict_to_load != NULL) {
-    
+
         while (feof(dict_to_load) == 0) {
         
             if (getline(&line_to_read, &len, dict_to_load) != -1) {
@@ -90,8 +89,8 @@ void dict_load(char *fname) {
         }
     }
     else {
-        printf("Error al abrir archivo");
-        return EXIT_FAILURE;
+        printf("Error al abrir archivo\n");
+        exit(EXIT_FAILURE);
     }
 
     // realloc to exact total words save in dict 
@@ -118,16 +117,16 @@ void dict_save(char *fname) {
 
     FILE *dict_to_save;
     dict_to_save = fopen(fname, "w");
-    
+
     if (dict_to_save != NULL) {
         
         for (int i = 0; i < MAX_LENGTH_DICT_MAIN; ++i) {
-            fprintf(dict_to_save, dict_main[i]);
+            fprintf(dict_to_save, "%s", dict_main[i]);
         }
     }
     else {
-        printf("Error al abrir archivo");
-        return EXIT_FAILURE;
+        printf("Error al abrir archivo\n");
+        exit(EXIT_FAILURE);
     }
     fclose(dict_to_save);
 }
@@ -223,29 +222,32 @@ void ignored_add(char *word) {
 int is_known(char *word) {
     
 
-    int i, exist_in_main, exist_in_ignored = 0; // Convertion implicit to bool
+    int i, exist_in_dict_main, exist_in_dict_ignored = 0; // Convertion implicit to bool
     int found = 0;
 
+    printf("ME LLAMARON?\n");
+
     // for each dictionary, check if my word is equal to some word in dict
-    for (i = 0; i < MAX_LENGTH_DICT_MAIN && !exist_in_main; ++i) {
+    for (i = 0; i < MAX_LENGTH_DICT_MAIN && exist_in_dict_main != 0; ++i) {
+        printf("5\n");
         if (dict_main[i] != NULL) {
-            exist_in_main = strcmp(dict_main[i], word) == 0;
+            printf("6\n");
+            exist_in_dict_main = strcmp(dict_main[i], word) == 0;
         }
     }
 
-    if (!exist_in_main) {
-        for (i = 0; i < MAX_LENGTH_DICT_IGNORED && !exist_in_ignored; ++i) {
+    if (!exist_in_dict_main && dict_ignored) {
+        for (i = 0; i < MAX_LENGTH_DICT_IGNORED && exist_in_dict_ignored != 0; ++i) {
+            printf("7\n");
             if (dict_ignored[i] != NULL) {
-                exist_in_ignored = strcmp(dict_ignored[i], word) == 0;
+                printf("8\n");
+                exist_in_dict_ignored = strcmp(dict_ignored[i], word) == 0;
             }
+        }
     }
 
     // if the found the word, return 1 (equal to true)
-    if (exist_in_ignored || exist_in_main) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return exist_in_dict_ignored || exist_in_dict_main;
 }
 
 
@@ -267,6 +269,7 @@ int is_known(char *word) {
 int get_word(char *word) {
     rewind(doc_in); /*cursor en el principio del archivo*/
     doc_in = fopen("in_file.txt", "r");
+    return 0;
 }
 
 /*******************************************************************
@@ -285,7 +288,8 @@ void put_word(char *word){
     /* completar aca  */
     doc_out = fopen("out_file.txt", "a");
     if(doc_out == NULL){
-        printf("Error al abrir archivo");
+        printf("Error al abrir archivo\n");
+        exit(EXIT_FAILURE);
     }
     else{
         fprintf(doc_out, "%s\n", word);
@@ -295,7 +299,7 @@ void put_word(char *word){
 }
 
 /*******************************************************************
-* NAME:               void replace_word(char *word, char replace)
+* NAME:               void replace_word(char *word, char *replace)
 *
 * DESCRIPTION:        Remplaza la palabra word por replace
 *
@@ -307,18 +311,13 @@ void put_word(char *word){
 * RETURN:
 *         Type: void
 *******************************************************************/
-void replace_word(char *word, char replace){
+void replace_word(char *word, char *replace) {
 
-    file = fopen(doc_in, "r");
-    while(feof(file) == 0){ //para recorrer todo el archivo
-        char *ptr;
-        char *palabra;
-        ptr = malloc(sizeof(char));
-        palabra = fgets(ptr, MAX_WORD_SIZE, file);
-
-    }
+    char *destroy_old_word = NULL;
+    destroy_old_word = word;
+    word = replace;
+    // free(destroy_old_word);
 }
-
 
 /*******************************************************************
 * NAME :            void consult_user(char *word)
@@ -338,7 +337,7 @@ void replace_word(char *word, char replace){
 *******************************************************************/
 void consult_user(char *word){
     char ans[2];
-    char replace[MAX_WORD_SIZE];
+    char *replace;
     do{
         printf("Palabra no reconocida: %s\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
         scanf("%s", ans);
@@ -356,12 +355,12 @@ void consult_user(char *word){
 
     if(strcmp(ans, "r") == 0){
         printf("Remplazar por:\n");
-        scanf("%s",replace);
-        replace_word(word,replace);
+        scanf("%s", replace);
+        replace = calloc(1, sizeof(char*));
+        replace_word(word, replace);
     }
 
 }
-
 /*******************************************************************
 * NAME :            void process_document(char *fname)
 *
@@ -377,57 +376,56 @@ void consult_user(char *word){
 *******************************************************************/
 void process_document(char *fname) {
     char current_word[MAX_WORD_SIZE];
-
+    char *word_to_save = NULL;
+    char* line_readed = NULL;
+    int lenght_line_readed = 0;
+    int i = 0;
+    int j = 0;
+    size_t len = 0;
     //open a file
-    FILE *my_document;
-    my_document = fopen(fname, "a");
+    doc_in = fopen(fname, "r");
 
-    if (my_document == NULL) {
+    if (doc_in == NULL) {
         printf("ERROR: couldn't open document\n");
-        exit(EXIT_FAILURE);
+        // exit(EXIT_FAILURE);
     }
     else {
-        while(feof(my_document) == 0){
-            char *ptr;
-            char *word;
-            ptr = malloc(sizeof(char));
-            word = gets(ptr, MAX_WORD_SIZE, my_document); // ALGO PARECIDO A ESTO PORQUE gets devuelve un char*
-            know = is_known(word);
-            if(know == 0){         // la palabra es desconocida
-                consult_user(word);
+        while (feof(doc_in) == 0) {
+            // printf("1\n");
+            lenght_line_readed = getline(&line_readed, &len, doc_in);
+            if (lenght_line_readed != -1) {
+
+                while(i < lenght_line_readed) {
+                    
+                    // the new word init in slot 0
+                    word_to_save = calloc(MAX_WORD_SIZE, sizeof(char));
+                    j = 0;
+                    
+                    while (isalpha(line_readed[i]) != 0) {
+                        printf("i++:%d\n", i);
+                        word_to_save[j] = line_readed[i];
+                        printf("isalpha:%c\n", word_to_save[i]);
+                        i++;
+                        j++;
+                    }
+
+                    // process document:
+                    if (is_known(word_to_save) != 1) {
+                        printf("Consultar:\n");
+                        consult_user(word_to_save);
+                    }
+                    printf("i--:%d\n",i);
+                    put_word(word_to_save);
+                    free(word_to_save);
+                    i++;
+                }
+                i = 0;
             }
-            free(ptr);
-            ptr = NULL;
-            word = NULL;
+            printf("lenght_line_readed=%d\n",lenght_line_readed);
         }
-        
+    fclose(doc_in);
     }
-
 }
-
-/*******************************************************************
-* NAME: bool is_valid_character(char* character)
-*
-* DESCRIPTION: Dada una lista de caracteres permitidos, evalúa si el
-*              caracter recibido es válido.
-*
-* PARAMETERS:
-*      INPUT:
-*           char    *character   Caracter a evaluar.
-*
-* RETURN :
-*           Type: bool
-*******************************************************************/
-bool is_valid_character(char *character) {
-    bool is_valid = false;
-    char *list_characters = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-    
-    // check if my character is in list_characters
-    is_valid = strstr(list_characters, character) != NULL;
-
-    return is_valid;
-}
-
 /****************************************************************************
 * NAME :            void dict_destroy(char **dict_to_free, TOTAL_STORED_WORDS)
 *
@@ -478,12 +476,15 @@ int main(int argc, char **argv){
     /* caso contrario usamos el diccionario por defecto */
     dict = (argc >=3) ? argv[2] : "dict.txt";
 
+    printf("Load\n");
     dict_load(dict);
+    printf("process_document\n");
     process_document(argv[1]);
+    printf("dict_save\n");
     dict_save(dict);
 
     dict_destroy(dict_main, MAX_LENGTH_DICT_MAIN);
-    dict_destroy(dict_ignored, MAX_LENGTH_DICT_IGNORED);
+    // dict_destroy(dict_ignored, MAX_LENGTH_DICT_IGNORED);
 
     printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
     return EXIT_SUCCESS;
