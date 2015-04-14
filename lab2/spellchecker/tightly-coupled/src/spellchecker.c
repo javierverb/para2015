@@ -261,8 +261,9 @@ int is_known(char *word) {
 *                   1 si hay mas palabras para leer.
 *******************************************************************/
 int get_word(char *word) {
-    // rewind(doc_in); /*cursor en el principio del archivo*/
     char *end_of_str = "\0";
+    fpos_t last_position;
+
     if (!doc_out) {
         printf("couldn open a file\n");
         exit(EXIT_FAILURE);
@@ -277,8 +278,12 @@ int get_word(char *word) {
         } else {
             word[i] = *end_of_str;
             if (character_readed != EOF) {
-                fprintf(doc_out, "%c", character_readed);
-                // printf("%c\n", character_readed);
+                if (i == 0) {
+                    fprintf(doc_out, "%c", character_readed);
+                }
+                else {
+                    fseek(doc_in, -1, SEEK_CUR);
+                }
                 return 1;
             }
         }
