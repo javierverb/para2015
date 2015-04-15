@@ -330,10 +330,15 @@ void put_word(char *word){
 *******************************************************************/
 void replace_word(char *word, char *replace) {
 
-    char *destroy_old_word = NULL;
-    destroy_old_word = word;
-    word = replace;
+    //char *destroy_old_word = NULL;
+    //destroy_old_word = word;
+    //word = replace;
     // free(destroy_old_word);
+    //word = NULL;        // word deja de apuntar a la palabra
+    //word = replace;     // ahora es igual a la palabra a remplazar
+    //replace = NULL;
+    replace = word;
+    word = NULL;
 }
 
 /*******************************************************************
@@ -354,7 +359,7 @@ void replace_word(char *word, char *replace) {
 *******************************************************************/
 void consult_user(char *word){
     char ans[2];
-    char *replace;
+    char *replace = NULL;
     do{
         printf("Palabra no reconocida: [%s]\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
         scanf("%s", ans);
@@ -371,10 +376,16 @@ void consult_user(char *word){
     }
 
     if(strcmp(ans, "r") == 0){
+        replace = calloc(MAX_WORD_SIZE, sizeof(char));
         printf("Remplazar por:\n");
         scanf("%s", replace);
-        replace = calloc(1, sizeof(char*));
-        replace_word(word, replace);
+        printf("esto es replace: %s\n", replace);
+        //replace_word(word, replace);
+        word = NULL;
+        word = replace;
+        printf("ahora word es %s\n",word);
+        replace = NULL;
+        free(replace);
     }
 
 }
