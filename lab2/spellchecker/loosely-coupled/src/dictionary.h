@@ -5,7 +5,8 @@
 struct Dictionary;
 typedef struct Dictyonary *dict_s;
 
-void dict_load(*char filename);
+
+void dict_load(*char filename, dict_s d);
 /*******************************************************************
 * NAME :            void dict_load(char *fname)
 *
@@ -29,7 +30,7 @@ void dict_load(*char filename);
 *******************************************************************/
 
 
-void dict_save(char* fname);
+void dict_save(char* fname, dict_s d);
 /*******************************************************************
 * NAME :            void dict_save(char *fname)
 *
@@ -45,7 +46,7 @@ void dict_save(char* fname);
 *******************************************************************/
 
 
-void dict_add(char* word);
+void dict_add(char* word, dict_s d);
 /*******************************************************************
 * NAME :            void dict_add(char *word)
 *
@@ -65,9 +66,56 @@ void dict_add(char* word);
 
 
 dict_contains();
-dict_new();
-dict_destroy();
 
-ignored_add();
+dict_s dict_new(void);
+/*******************************************************************
+* NAME :            dict_s dict_new(void)
+*
+* DESCRIPTION :     Crea un nuevo diccionario
+*
+* PARAMETERS:
+*      INPUT:
+*           void
+
+* RETURN :
+*           Type: dict_s
+* OBSERVATIONS :
+*    1) el parametro de entrada podria ser dict_s d ??
+*******************************************************************/
+
+
+dict_s dict_destroy(dict_s d);
+/*******************************************************************
+* NAME :            dict_s dict_destroy(dict_s d)
+*
+* DESCRIPTION :     Elimina el diccionario vaciando todos sus 
+*                   contenidos.
+*
+* PARAMETERS:
+*      INPUT:
+*           dict_s    d       Diccionario a eliminar
+
+* RETURN :
+*           Type: dict_s
+*******************************************************************/
+
+
+void ignored_add(char* word, dict_s d);
+/*******************************************************************
+* NAME :            void ignored_add(char *word)
+*
+* DESCRIPTION :     Agrega una palabra al diccionario de palabras 
+*                   ignoradas.
+*
+* PARAMETERS:
+*      INPUT:
+*           char    *word       Palabra a ser agregada.
+
+* RETURN :
+*           Type: void
+* OBSERVATIONS :
+*    1) La lista que representa el diccionario de palabras ignoradas 
+*       debe agrandarse a medida que se agregan palabras.
+*******************************************************************/
 
 #endif
