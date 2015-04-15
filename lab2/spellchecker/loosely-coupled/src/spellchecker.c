@@ -3,6 +3,9 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "dictionary.h"
+#include "document.h"
+
 
 /* tamaño maximo de una palabra */
 #define MAX_WORD_SIZE 30
@@ -99,6 +102,10 @@ int main(int argc, char **argv){
    dict = (argc >=3) ? argv[2] : "dict.txt";
 
    /* completar aca */
+   dict_new();
+   dict_load(dict);
+   process_document(argv[1]);
+
 
    printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
 }
