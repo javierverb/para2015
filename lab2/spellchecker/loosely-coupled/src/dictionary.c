@@ -20,6 +20,7 @@ void dict_load(*char filename, dict_s d){
     FILE* dict_to_load;
     dict_to_load = fopen(filename, "r");
     char *line_to_read = NULL;
+    char* end_of_str = "\0";
     int i = 0;
     size_t len = 0;
 
@@ -39,7 +40,7 @@ void dict_load(*char filename, dict_s d){
                 }
 
                 d->dict[i] = line_to_read;
-                
+                d->dict[i][strlen(line_to_read)-1] = *end_of_str;
                 // lost a reference for my pointer
                 line_to_read = NULL;
                 i++;
@@ -96,6 +97,7 @@ void dict_add(char* word, dict_s d){
 ignored_add(char* word, dict_s d){
     
     assert(word != NULL);
+    assert(d != NULL);
 
     char *new_word_to_add = NULL;
     // create new dict_ignored if have a null space
@@ -119,17 +121,38 @@ ignored_add(char* word, dict_s d){
 }
 /*****************************************************************************/
 
-dict_contains();
+int dict_contains(char* word, dict_s d){
+
+    assert(d != NULL);
+    assert(word != NULL);
+
+    int found = 1;
+    int not_found = 0;
+
+    if(d->dict != NULL){
+        int pos = 0;
+        while(pos < d->size){
+            if(d->dict[pos] != NULL){
+                if(strcmp(d->dict[pos], word) == 0){
+                    return found;
+                }
+                pos++;
+            }
+        }
+    }
+
+    return not_found;
+}
 
 /*****************************************************************************/
 
 dict_s dict_new(void){
     
     dict_s new_dict = NULL;
-    new_dict = calloc(1,sizeof(struct Dictionary));
+    new_dict = calloc(1,sizeof(struct (Dictionary)));
 
     new_dict->dict = NULL;
-    new_dict->size = 0;
+    new_dict->size = 10;
 
     return new_dict;
 }
