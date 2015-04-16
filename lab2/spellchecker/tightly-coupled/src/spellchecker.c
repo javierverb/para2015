@@ -61,6 +61,7 @@ void dict_load(char *fname) {
     FILE *dict_to_load;
     dict_to_load = fopen(fname, "r");
     char *line_to_read = NULL;
+    char *end_of_str = "\0";
     int i = 0;
 
     dict_main = calloc(main_size, sizeof(char*));
@@ -78,7 +79,7 @@ void dict_load(char *fname) {
                 }
 
                 dict_main[i] = line_to_read;
-                
+                dict_main[i][strlen(line_to_read)-1] = *end_of_str;
                 // lost a reference for my pointer
                 line_to_read = NULL;
                 i++;
@@ -118,7 +119,7 @@ void dict_save(char *fname) {
     if (dict_to_save != NULL) {
         
         for (int i = 0; i < main_size; ++i) {
-            fprintf(dict_to_save, "%s", dict_main[i]);
+            fprintf(dict_to_save, "%s\n", dict_main[i]);
         }
     }
     else {
@@ -147,8 +148,6 @@ void dict_save(char *fname) {
 void dict_add(char *word){
 
     assert(word != NULL);
-    char *end_of_str = "\n";
-    
     char *new_word_to_add = NULL;
     
     // space for new slot in dict
@@ -159,8 +158,6 @@ void dict_add(char *word){
     new_word_to_add = calloc(strlen(word)+1, sizeof(char));
     // add
     strcpy(new_word_to_add, word);
-    new_word_to_add[strlen(new_word_to_add)] = *end_of_str;
-
 
     dict_main[main_size-1] = new_word_to_add;
 }
@@ -232,6 +229,7 @@ int is_known(char *word) {
     // for each dictionary, check if my word is equal to some word in dict
     for (int i = 0; i < main_size; ++i) {
         if (dict_main[i] != NULL) {
+            printf("[(%s) vs (%s)]\n", dict_main[i], word);
             if (strcmp(dict_main[i], word) == 0) {
                 return found;
             }
@@ -360,18 +358,8 @@ void consult_user(char *word){
         replace = calloc(MAX_WORD_SIZE, sizeof(char));
         printf("Remplazar por:\n");
         scanf("%s", replace);
-<<<<<<< HEAD
-        printf("esto es replace: %s\n", replace);
-        //replace_word(word, replace);
-        //word = NULL;
-        memcpy(word,replace,sizeof(replace));
-        printf("ahora word es %s\n",word);
-        replace = NULL;
-        free(replace);
-=======
-        replace[strlen(replace)] = *end_of_str;
         memcpy(word, replace, sizeof(char)*strlen(replace));
->>>>>>> 9900ac6103867fb30784d681ec578fa407529482
+        replace[strlen(replace)] = *end_of_str;
     }
 
 }
