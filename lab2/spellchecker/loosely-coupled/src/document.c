@@ -4,17 +4,19 @@
 
 
 struct Document {
-    FILE *doc;
-    char **buffer;
+    FILE *doc = NULL;
+    char **buffer = NULL;
+    unsigned int size_buffer = 0;
 };
 
-int doc_get_word(char* word, doc_s document) {
+int doc_get_word(char *word, doc_s doc_in) {
+    
     char *end_of_str = "\0";
     fpos_t last_position;
 
     int character_readed, i = 0;
-    while (!feof(doc_in)) {
-        character_readed = fgetc(doc_in);
+    while (!feof(doc_in->doc)) {
+        character_readed = fgetc(doc_in->doc);
 
         if (isalpha(character_readed)) {
             word[i] = character_readed;
@@ -22,10 +24,11 @@ int doc_get_word(char* word, doc_s document) {
             word[i] = *end_of_str;
             if (character_readed != EOF) {
                 if (i == 0) {
-                    fprintf(doc_out, "%c", character_readed);
+                    doc_in->buffer[doc_in->size_buffer] = character_readed;
+                    doc_in->size_buffer++;
                 }
                 else {
-                    fseek(doc_in, -1, SEEK_CUR);
+                    fseek(doc_in->doc, -1, SEEK_CUR);
                 }
                 return 1;
             }
@@ -35,13 +38,16 @@ int doc_get_word(char* word, doc_s document) {
     return 0;
 }
 
-}
+doc_s doc_open(char *doc_to_open) {
+    assert(doc_to_open != NULL);
+    doc_s document = calloc(1, sizeof(struct Document));
+    document->buffer = calloc(1, sizeof(char*));
+    document->size_buffer++;
+    document->doc = fopen(doc_to_open);
 
-doc_s doc_open(FILE doc_to_open, char *fname, char *permissions) {
-    
-    document = fopen(fname, permissions);
-    if (!document) {
+    if (!document->doc) {
         printf("ERROR: couldn't open document\n");
+        free(document);
         exit(EXIT_FAILURE);
     }
 }

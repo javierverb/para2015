@@ -39,8 +39,8 @@ void doc_put_word(doc_s document, char* word);
 *******************************************************************/
 
 
-doc_s doc_open(FILE doc_to_open, char *fname, char *permissions);
+doc_s doc_open(char *doc_to_open);
 
-void doc_close(doc_s document, char *fname);
+void doc_close(doc_s document);
 
 #endif
