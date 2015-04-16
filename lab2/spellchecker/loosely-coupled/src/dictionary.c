@@ -13,7 +13,7 @@ struct sDictionary {
 };
 /******************************************************************************/
 
-void dict_load(*char filename, Dictionary d){
+void dict_load(char* filename, Dictionary d){
 
     assert(d != NULL);
 
@@ -55,7 +55,7 @@ void dict_load(*char filename, Dictionary d){
 }
 /******************************************************************************/
 
-void dict_save(char* fnamem, Dictionary d){
+void dict_save(char* fname, Dictionary d){
     
     assert(d != NULL);
 
@@ -94,7 +94,7 @@ void dict_add(char* word, Dictionary d){
 }
 /******************************************************************************/
 
-ignored_add(char* word, Dictionary d){
+void ignored_add(char* word, Dictionary d){
     
     assert(word != NULL);
     assert(d != NULL);
@@ -146,10 +146,10 @@ int dict_contains(char* word, Dictionary d){
 
 /*****************************************************************************/
 
-Dictionary dict_new(void){
+Dictionary dict_new(void) {
     
     Dictionary new_dict = NULL;
-    new_dict = calloc(1,sizeof(struct (Dictionary)));
+    new_dict = calloc(1, sizeof(struct (sDictionary)));
 
     new_dict->dict = NULL;
     new_dict->size = 10;
@@ -162,14 +162,14 @@ Dictionary dict_destroy(Dictionary d){
 
     int pos = 0;
     /* liberamos todo el dict */
-    for(pos; pos < d->size; i++){
-        free(d->dict[pos])
+    for(pos; pos < d->size; pos++){
+        free(d->dict[pos]);
         d->dict[pos] = NULL;
         pos++;
     }
     
-    free(dict);
-    dict = NULL;
+    free(d->dict);
+    d->dict = NULL;
     
     free(d);
     d = NULL;
