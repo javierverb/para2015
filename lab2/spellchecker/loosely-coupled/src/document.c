@@ -2,15 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "document.h"
 
-struct Document {
+struct sDocument {
     FILE *doc = NULL;
     char **buffer = NULL;
     unsigned int size_buffer = 0;
 };
 /*****************************************************************************/
 
-int doc_get_word(char *word, doc_s doc_in) {
+int doc_get_word(char *word, Document doc_in) {
     
     char *end_of_str = "\0";
     fpos_t last_position;
@@ -40,9 +41,9 @@ int doc_get_word(char *word, doc_s doc_in) {
 }
 /*****************************************************************************/
 
-doc_s doc_open(char *doc_to_open) {
+Document doc_open(char *doc_to_open) {
     assert(doc_to_open != NULL);
-    doc_s document = calloc(1, sizeof(struct Document));
+    Document document = calloc(1, sizeof(struct Document));
     document->buffer = calloc(1, sizeof(char*));
     document->size_buffer++;
     document->doc = fopen(doc_to_open);
@@ -55,7 +56,7 @@ doc_s doc_open(char *doc_to_open) {
 }
 /*****************************************************************************/
 
-void doc_close(doc_s document){
+void doc_close(Document document){
 
     assert(document != NULL);
     for (int i = 0; i < size_buffer; ++i){
@@ -75,7 +76,7 @@ void doc_close(doc_s document){
 }
 /*****************************************************************************/
 
-void doc_put_word(doc_s document, char* word) {
+void doc_put_word(Document document, char* word) {
     
     assert(word != NULL);
     assert(document != NULL);

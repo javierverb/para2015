@@ -6,14 +6,14 @@
 
 #include "dictionary.h"
 
-struct Dictionary {
+struct sDictionary {
     /* Completar aqui */
     char** dict;
     int size
 };
 /******************************************************************************/
 
-void dict_load(*char filename, dict_s d){
+void dict_load(*char filename, Dictionary d){
 
     assert(d != NULL);
 
@@ -55,7 +55,7 @@ void dict_load(*char filename, dict_s d){
 }
 /******************************************************************************/
 
-void dict_save(char* fnamem, dict_s d){
+void dict_save(char* fnamem, Dictionary d){
     
     assert(d != NULL);
 
@@ -76,7 +76,7 @@ void dict_save(char* fnamem, dict_s d){
 }
 /******************************************************************************/
 
-void dict_add(char* word, dict_s d){
+void dict_add(char* word, Dictionary d){
     
     assert(word != NULL);
     assert(d != NULL);
@@ -94,7 +94,7 @@ void dict_add(char* word, dict_s d){
 }
 /******************************************************************************/
 
-ignored_add(char* word, dict_s d){
+ignored_add(char* word, Dictionary d){
     
     assert(word != NULL);
     assert(d != NULL);
@@ -121,7 +121,7 @@ ignored_add(char* word, dict_s d){
 }
 /*****************************************************************************/
 
-int dict_contains(char* word, dict_s d){
+int dict_contains(char* word, Dictionary d){
 
     assert(d != NULL);
     assert(word != NULL);
@@ -146,9 +146,9 @@ int dict_contains(char* word, dict_s d){
 
 /*****************************************************************************/
 
-dict_s dict_new(void){
+Dictionary dict_new(void){
     
-    dict_s new_dict = NULL;
+    Dictionary new_dict = NULL;
     new_dict = calloc(1,sizeof(struct (Dictionary)));
 
     new_dict->dict = NULL;
@@ -158,7 +158,7 @@ dict_s dict_new(void){
 }
 /******************************************************************************/
 
-dict_s dict_destroy(dict_s d){
+Dictionary dict_destroy(Dictionary d){
 
     int pos = 0;
     /* liberamos todo el dict */

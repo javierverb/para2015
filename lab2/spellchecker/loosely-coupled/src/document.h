@@ -2,11 +2,11 @@
 #define DOCUMENT_H
 
 /* Estos dos renglones son los que importan */
-struct Document;
-typedef struct Document *doc_s;
+struct sDocument;
+typedef struct sDocument *Document;
 
 
-int doc_get_word(char* word, doc_s document);
+int doc_get_word(char* word, Document document);
 /*******************************************************************
 * NAME :            int get_word(char *word)
 *
@@ -24,7 +24,7 @@ int doc_get_word(char* word, doc_s document);
 *******************************************************************/
 
 
-void doc_put_word(doc_s document, char* word);
+void doc_put_word(Document document, char* word);
 /*******************************************************************
 * NAME :            void put_word(char *word)
 *
@@ -39,8 +39,8 @@ void doc_put_word(doc_s document, char* word);
 *******************************************************************/
 
 
-doc_s doc_open(char *doc_to_open);
+Document doc_open(char *doc_to_open);
 
-void doc_close(doc_s document);
+void doc_close(Document document);
 
 #endif

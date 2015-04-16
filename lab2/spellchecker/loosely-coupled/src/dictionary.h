@@ -2,11 +2,11 @@
 #define DICTIONARY_H
 
 /* Estos dos renglones son los que importan */
-struct Dictionary;
-typedef struct Dictyonary *dict_s;
+struct sDictionary;
+typedef struct sDictionary *Dictionary;
 
 
-void dict_load(*char filename, dict_s d);
+void dict_load(*char filename, Dictionary d);
 /*******************************************************************
 * NAME :            void dict_load(char *fname)
 *
@@ -30,9 +30,9 @@ void dict_load(*char filename, dict_s d);
 *******************************************************************/
 
 
-void dict_save(char* fname, dict_s d);
+void Dictionaryave(char* fname, Dictionary d);
 /*******************************************************************
-* NAME :            void dict_save(char *fname)
+* NAME :            void Dictionaryave(char *fname)
 *
 * DESCRIPTION :     Guarda el diccionario principal en el archivo 
 *                   fname
@@ -46,7 +46,7 @@ void dict_save(char* fname, dict_s d);
 *******************************************************************/
 
 
-void dict_add(char* word, dict_s d);
+void dict_add(char* word, Dictionary d);
 /*******************************************************************
 * NAME :            void dict_add(char *word)
 *
@@ -65,11 +65,11 @@ void dict_add(char* word, dict_s d);
 *******************************************************************/
 
 
-int dict_contains(char* word, dict_s d);
+int dict_contains(char* word, Dictionary d);
 
-dict_s dict_new(void);
+Dictionary dict_new(void);
 /*******************************************************************
-* NAME :            dict_s dict_new(void)
+* NAME :            Dictionary dict_new(void)
 *
 * DESCRIPTION :     Crea un nuevo diccionario
 *
@@ -78,29 +78,29 @@ dict_s dict_new(void);
 *           void
 
 * RETURN :
-*           Type: dict_s
+*           Type: Dictionary
 * OBSERVATIONS :
-*    1) el parametro de entrada podria ser dict_s d ??
+*    1) el parametro de entrada podria ser Dictionary d ??
 *******************************************************************/
 
 
-dict_s dict_destroy(dict_s d);
+Dictionary dict_destroy(Dictionary d);
 /*******************************************************************
-* NAME :            dict_s dict_destroy(dict_s d)
+* NAME :            Dictionary dict_destroy(Dictionary d)
 *
 * DESCRIPTION :     Elimina el diccionario vaciando todos sus 
 *                   contenidos.
 *
 * PARAMETERS:
 *      INPUT:
-*           dict_s    d       Diccionario a eliminar
+*           Dictionary    d       Diccionario a eliminar
 
 * RETURN :
-*           Type: dict_s
+*           Type: Dictionary
 *******************************************************************/
 
 
-void ignored_add(char* word, dict_s d);
+void ignored_add(char* word, Dictionary d);
 /*******************************************************************
 * NAME :            void ignored_add(char *word)
 *
