@@ -65,7 +65,7 @@ void dict_add(char* word, dict_s d);
 *******************************************************************/
 
 
-dict_contains();
+int dict_contains(char* word, dict_s d);
 
 dict_s dict_new(void);
 /*******************************************************************

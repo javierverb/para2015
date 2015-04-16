@@ -8,6 +8,7 @@ struct Document {
     char **buffer = NULL;
     unsigned int size_buffer = 0;
 };
+/*****************************************************************************/
 
 int doc_get_word(char *word, doc_s doc_in) {
     
@@ -37,6 +38,7 @@ int doc_get_word(char *word, doc_s doc_in) {
     }
     return 0;
 }
+/*****************************************************************************/
 
 doc_s doc_open(char *doc_to_open) {
     assert(doc_to_open != NULL);
@@ -51,14 +53,42 @@ doc_s doc_open(char *doc_to_open) {
         exit(EXIT_FAILURE);
     }
 }
+/*****************************************************************************/
 
-void doc_close(doc_s document, char *fname) {
+void doc_close(doc_s document){
+
     assert(document != NULL);
-    fclose(document);
+    for (int i = 0; i < size_buffer; ++i){
+        fprintf(document->doc, "%s", document->buffer[i]);
+        free(document->buffer[i]);
+        document->buffer[i] = NULL;
+        i++;
+    }
+
+    free(document->buffer);
+    document->buffer = NULL;
+    
+    fclose(document->doc);
+
+    free(document);
+    document = NULL;
 }
+/*****************************************************************************/
 
 void doc_put_word(doc_s document, char* word) {
+    
     assert(word != NULL);
     assert(document != NULL);
-    fprintf(document, "%s", word);
+    
+    if(document->buffer == NULL){
+        document->buffer = calloc(1, sizeof(char*));
+        document->buffer[0] = word;
+    }
+
+    else{
+        document->buffer = realloc(document->buffer, (document->size_buffer + 1) * sizeof(char*))
+        document->buffer[document->size_buffer] = word;
+        document->size_buffer++;
+    }
 }
+/*****************************************************************************/
