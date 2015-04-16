@@ -1,12 +1,3 @@
-a
-franco
-telefono
-casa
-martillo
-arbol
-verde
-b
-c
 g
 qholaa
 franko
@@ -17,3 +8,4 @@ franko
 rojo
 javi
 rojo
+g
