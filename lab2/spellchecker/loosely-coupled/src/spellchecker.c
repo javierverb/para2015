@@ -97,9 +97,9 @@ void consult_user(char *word){
 *******************************************************************/
 void process_document(char *fname) {
     char current_word[MAX_WORD_SIZE];
-    doc_s document = doc_open(fname);
+    Document document = doc_open(fname);
 
-    while (doc_get_word(current_word) != 0) {
+    while (doc_get_word(current_word, document) != 0) {
         // process document:
         if (is_known(current_word) != 1) {
             consult_user(current_word);

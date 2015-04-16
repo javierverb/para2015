@@ -5,9 +5,9 @@
 #include "document.h"
 
 struct sDocument {
-    FILE *doc = NULL;
-    char **buffer = NULL;
-    unsigned int size_buffer = 0;
+    FILE *doc;
+    char **buffer;
+    unsigned int size_buffer;
 };
 /*****************************************************************************/
 
@@ -20,13 +20,13 @@ int doc_get_word(char *word, Document doc_in) {
     while (!feof(doc_in->doc)) {
         character_readed = fgetc(doc_in->doc);
 
-        if (isalpha(character_readed)) {
+        if (isalnum(character_readed)) {
             word[i] = character_readed;
         } else {
             word[i] = *end_of_str;
             if (character_readed != EOF) {
                 if (i == 0) {
-                    doc_in->buffer[doc_in->size_buffer] = character_readed;
+                    doc_in->buffer[doc_in->size_buffer] = (char)character_readed;
                     doc_in->size_buffer++;
                 }
                 else {
@@ -43,10 +43,10 @@ int doc_get_word(char *word, Document doc_in) {
 
 Document doc_open(char *doc_to_open) {
     assert(doc_to_open != NULL);
-    Document document = calloc(1, sizeof(struct Document));
+    Document document = calloc(1, sizeof(struct sDocument));
     document->buffer = calloc(1, sizeof(char*));
     document->size_buffer++;
-    document->doc = fopen(doc_to_open);
+    document->doc = fopen(doc_to_open, "rw");
 
     if (!document->doc) {
         printf("ERROR: couldn't open document\n");
@@ -59,7 +59,7 @@ Document doc_open(char *doc_to_open) {
 void doc_close(Document document){
 
     assert(document != NULL);
-    for (int i = 0; i < size_buffer; ++i){
+    for (int i = 0; i < document->size_buffer; ++i){
         fprintf(document->doc, "%s", document->buffer[i]);
         free(document->buffer[i]);
         document->buffer[i] = NULL;

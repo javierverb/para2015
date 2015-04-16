@@ -6,7 +6,7 @@ struct sDictionary;
 typedef struct sDictionary *Dictionary;
 
 
-void dict_load(*char filename, Dictionary d);
+void dict_load(char *filename, Dictionary d);
 /*******************************************************************
 * NAME :            void dict_load(char *fname)
 *

@@ -9,7 +9,7 @@
 struct sDictionary {
     /* Completar aqui */
     char** dict;
-    int size
+    int size;
 };
 /******************************************************************************/
 
