@@ -222,12 +222,13 @@ int is_known(char *word) {
     
     // value for default
     int not_found = 0;
+    int found = 1;
 
     // for each dictionary, check if my word is equal to some word in dict
     for (int i = 0; i < main_size; ++i) {
         if (dict_main[i] != NULL) {
             if (strcmp(dict_main[i], word) == 0) {
-                return 1;
+                return found;
             }
         }
     }
@@ -235,7 +236,7 @@ int is_known(char *word) {
         int i = 0;
         while (dict_ignored[i] != NULL) {
             if (strcmp(dict_ignored[i], word) == 0) {
-                return 1;
+                return found;
             }
             i++;
         }
@@ -316,32 +317,6 @@ void put_word(char *word){
 }
 
 /*******************************************************************
-* NAME:               void replace_word(char *word, char *replace)
-*
-* DESCRIPTION:        Remplaza la palabra word por replace
-*
-* PARAMETERS:
-*      INPUT:
-*            char     *word    Palabra a ser remplazada.
-*            char     replace  Palabra por la que se remplazara.
-*
-* RETURN:
-*         Type: void
-*******************************************************************/
-void replace_word(char *word, char *replace) {
-
-    //char *destroy_old_word = NULL;
-    //destroy_old_word = word;
-    //word = replace;
-    // free(destroy_old_word);
-    //word = NULL;        // word deja de apuntar a la palabra
-    //word = replace;     // ahora es igual a la palabra a remplazar
-    //replace = NULL;
-    replace = word;
-    word = NULL;
-}
-
-/*******************************************************************
 * NAME :            void consult_user(char *word)
 *
 * DESCRIPTION :     Consulta al usuario sobre que accion realizar 
@@ -360,6 +335,7 @@ void replace_word(char *word, char *replace) {
 void consult_user(char *word){
     char ans[2];
     char *replace = NULL;
+    char *end_of_str = "\0";
     do{
         printf("Palabra no reconocida: [%s]\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
         scanf("%s", ans);
@@ -379,13 +355,8 @@ void consult_user(char *word){
         replace = calloc(MAX_WORD_SIZE, sizeof(char));
         printf("Remplazar por:\n");
         scanf("%s", replace);
-        printf("esto es replace: %s\n", replace);
-        //replace_word(word, replace);
-        word = NULL;
-        word = replace;
-        printf("ahora word es %s\n",word);
-        replace = NULL;
-        free(replace);
+        replace[strlen(replace)] = *end_of_str;
+        memcpy(word, replace, sizeof(char)*strlen(replace));
     }
 
 }
