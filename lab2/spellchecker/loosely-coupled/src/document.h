@@ -6,7 +6,7 @@ struct Document;
 typedef struct Document *doc_s;
 
 
-int doc_get_word(char* word);
+int doc_get_word(char* word, doc_s document);
 /*******************************************************************
 * NAME :            int get_word(char *word)
 *
@@ -24,7 +24,7 @@ int doc_get_word(char* word);
 *******************************************************************/
 
 
-void doc_put_word(char* word);
+void doc_put_word(doc_s document, char* word);
 /*******************************************************************
 * NAME :            void put_word(char *word)
 *
@@ -39,9 +39,8 @@ void doc_put_word(char* word);
 *******************************************************************/
 
 
-doc_open();
+doc_s doc_open(FILE doc_to_open, char *fname, char *permissions);
 
-
-doc_close();
+void doc_close(doc_s document, char *fname);
 
 #endif
