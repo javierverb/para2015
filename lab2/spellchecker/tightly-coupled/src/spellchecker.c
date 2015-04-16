@@ -147,6 +147,7 @@ void dict_save(char *fname) {
 void dict_add(char *word){
 
     assert(word != NULL);
+    char *end_of_str = "\n";
     
     char *new_word_to_add = NULL;
     
@@ -157,7 +158,11 @@ void dict_add(char *word){
     // space for new value in slot
     new_word_to_add = calloc(strlen(word)+1, sizeof(char));
     // add
-    dict_main[main_size-1] = strcpy(new_word_to_add, word);
+    strcpy(new_word_to_add, word);
+    new_word_to_add[strlen(new_word_to_add)] = *end_of_str;
+
+
+    dict_main[main_size-1] = new_word_to_add;
 }
 
 /*******************************************************************
@@ -381,8 +386,8 @@ void consult_user(char *word){
         scanf("%s", replace);
         printf("esto es replace: %s\n", replace);
         //replace_word(word, replace);
-        word = NULL;
-        word = replace;
+        //word = NULL;
+        memcpy(word,replace,sizeof(replace));
         printf("ahora word es %s\n",word);
         replace = NULL;
         free(replace);
