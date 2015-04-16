@@ -273,6 +273,7 @@ int get_word(char *word) {
         exit(EXIT_FAILURE);
     }
 
+struct Document;
     int character_readed, i = 0;
     while (!feof(doc_in)) {
         character_readed = fgetc(doc_in);

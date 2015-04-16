@@ -34,8 +34,8 @@ Document doc;
 *           Values: 1 si la palabra es conocida
 *                   0 si la palabra no es conocida
 *******************************************************************/
-int is_known(char *word){
-  /* completar aca  */
+int is_known(char *word) {
+    dict_contains(word, main_dict);
 }
 
 /*******************************************************************
@@ -55,12 +55,31 @@ int is_known(char *word){
 *           Type: void
 *******************************************************************/
 void consult_user(char *word){
-  char ans[2];
-  do{
-    printf("Palabra no reconocida: %s\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
-    scanf("%s", ans);
-  }while((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
-  /* completar aca  */
+    
+    char ans[2];
+    char *replace = NULL;
+    char *end_of_str = "\0";
+
+    do {
+        printf("Palabra no reconocida: %s\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
+        scanf("%s", ans);
+    } while ((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
+    
+    if (strcmp(ans,"a") == 0) {
+        printf("la palabra %s fue AGREGADA al diccionario\n",word);
+    }
+  
+    if (strcmp(ans, "i") == 0) {
+        printf("la palabra %s fue IGNORADA\n",word);
+    }
+
+    if (strcmp(ans, "r") == 0) {
+        replace = calloc(MAX_WORD_SIZE, sizeof(char));
+        printf("Remplazar por:\n");
+        scanf("%s", replace);
+        memcpy(word, replace, sizeof(char)*strlen(replace));
+        replace[strlen(replace)] = *end_of_str;
+    }
 }
 
 /*******************************************************************
@@ -76,10 +95,19 @@ void consult_user(char *word){
 * RETURN :
 *           Type: void
 *******************************************************************/
-void process_document(char *fname){
-   char current_word[MAX_WORD_SIZE];
-   /* completar aca */
- }
+void process_document(char *fname) {
+    char current_word[MAX_WORD_SIZE];
+    doc_s document = doc_open(fname);
+
+    while (doc_get_word(current_word) != 0) {
+        // process document:
+        if (is_known(current_word) != 1) {
+            consult_user(current_word);
+        }
+        doc_put_word(document, current_word);
+    }
+    doc_close(document);
+}
 
 /*******************************************************************
 * NAME :            int main(int argc, char **argv)
@@ -90,23 +118,22 @@ void process_document(char *fname){
 *                   principal.
 *******************************************************************/
 int main(int argc, char **argv){
-   char *dict;
-   /* Verificamos el nro de argumentos. */
-   if (argc < 2)
-     {
-       printf("spellchecker.c: nro de argumentos erroneo. Deben ser <documento> [<diccionario>].\n");
-       return (1);
-     }
-   /* si se especifico un diccionario lo usamos,  */
-   /* caso contrario usamos el diccionario por defecto */
-   dict = (argc >=3) ? argv[2] : "dict.txt";
+    char *dict;
+    /* Verificamos el nro de argumentos. */
+    if (argc < 2)
+    {
+        printf("spellchecker.c: nro de argumentos erroneo. Deben ser <documento> [<diccionario>].\n");
+        return (1);
+    }
+    /* si se especifico un diccionario lo usamos,  */
+    /* caso contrario usamos el diccionario por defecto */
+    dict = (argc >=3) ? argv[2] : "dict.txt";
 
-   /* completar aca */
-   dict_new();
-   dict_load(dict);
-   process_document(argv[1]);
+    /* completar aca */
+    main_dict = dict_new();
+    ignored = dict_new();
+    dict_load(dict, main_dict);
+    process_document(argv[1]);
 
-
-   printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
+    printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
 }
-
