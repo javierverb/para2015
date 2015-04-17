@@ -5,12 +5,7 @@
 struct sDictionary;
 typedef struct sDictionary *Dictionary;
 
-
-
-void dict_load(char* filename, Dictionary d);
-
 void dict_load(char *filename, Dictionary d);
-
 /*******************************************************************
 * NAME :            void dict_load(char *fname)
 *
@@ -88,7 +83,7 @@ Dictionary dict_new(void);
 *******************************************************************/
 
 
-Dictionary dict_destroy(Dictionary d);
+void dict_destroy(Dictionary d);
 /*******************************************************************
 * NAME :            Dictionary dict_destroy(Dictionary d)
 *
@@ -100,7 +95,7 @@ Dictionary dict_destroy(Dictionary d);
 *           Dictionary    d       Diccionario a eliminar
 
 * RETURN :
-*           Type: Dictionary
+*           Type: void
 *******************************************************************/
 
 
@@ -121,5 +116,5 @@ void ignored_add(char* word, Dictionary d);
 *    1) La lista que representa el diccionario de palabras ignoradas 
 *       debe agrandarse a medida que se agregan palabras.
 *******************************************************************/
-
+void dict_save(char* fname, Dictionary d);
 #endif

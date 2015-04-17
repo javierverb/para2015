@@ -229,7 +229,6 @@ int is_known(char *word) {
     // for each dictionary, check if my word is equal to some word in dict
     for (int i = 0; i < main_size; ++i) {
         if (dict_main[i] != NULL) {
-            printf("[(%s) vs (%s)]\n", dict_main[i], word);
             if (strcmp(dict_main[i], word) == 0) {
                 return found;
             }
@@ -359,7 +358,7 @@ void consult_user(char *word){
         replace = calloc(MAX_WORD_SIZE, sizeof(char));
         printf("Remplazar por:\n");
         scanf("%s", replace);
-        memcpy(word, replace, sizeof(char)*strlen(replace));
+        strcpy(word, replace);
         replace[strlen(replace)] = *end_of_str;
     }
 
@@ -450,11 +449,8 @@ int main(int argc, char **argv){
     /* caso contrario usamos el diccionario por defecto */
     dict = (argc >=3) ? argv[2] : "dict.txt";
 
-    printf("Load\n");
     dict_load(dict);
-    printf("process_document\n");
     process_document(argv[1]);
-    printf("dict_save\n");
     dict_save(dict);
 
     dict_destroy(dict_main, main_size);

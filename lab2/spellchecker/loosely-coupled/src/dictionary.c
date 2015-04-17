@@ -28,17 +28,14 @@ void dict_load(char* filename, Dictionary d){
         printf("ERROR: no se pudo abrir el archivo %s",filename);
         exit(EXIT_FAILURE);
     }
-    else{
+    else {
         while (feof(dict_to_load) == 0) {
-        
             if (getline(&line_to_read, &len, dict_to_load) != -1) {
-                
                 if (i >= d->size) {
-                    d->size *= 2; // increased my limit of words
-                    d->dict = realloc(d->dict, 
-                                        (d->size)*sizeof(char*));
+                    // increased my limit of words
+                    d->size *= 2; 
+                    d->dict = realloc(d->dict, (d->size)*sizeof(char*));
                 }
-
                 d->dict[i] = line_to_read;
                 d->dict[i][strlen(line_to_read)-1] = *end_of_str;
                 // lost a reference for my pointer
@@ -50,7 +47,6 @@ void dict_load(char* filename, Dictionary d){
     // realloc to exact total words save in dict 
     d->size = i;
     d->dict = realloc(d->dict, d->size*sizeof(char*));
-    
     fclose(dict_to_load);
 }
 /******************************************************************************/
@@ -63,9 +59,8 @@ void dict_save(char* fname, Dictionary d){
     dict_to_save = fopen(fname, "w");
 
     if (dict_to_save != NULL) {
-        int i = 0;
-        for (i; i < d->size; ++i) {
-            fprintf(dict_to_save, "%s", d->dict[i]);
+        for (int i = 0; i < d->size; ++i) {
+            fprintf(dict_to_save, "%s\n", d->dict[i]);
         }
     }
     else {
@@ -83,10 +78,9 @@ void dict_add(char* word, Dictionary d){
     
     char *new_word_to_add = NULL;
     
-    // space for new slot in dict
     d->size++;
+    // space for new slot in dict
     d->dict = realloc(d->dict, (d->size)*sizeof(char *));
-
     // space for new value in slot
     new_word_to_add = calloc(strlen(word)+1, sizeof(char));
     // add
@@ -94,30 +88,19 @@ void dict_add(char* word, Dictionary d){
 }
 /******************************************************************************/
 
-void ignored_add(char* word, Dictionary d){
+void ignored_add(char* word, Dictionary d) {
     
     assert(word != NULL);
     assert(d != NULL);
+    
+    char *new_word_to_ignored = NULL;
+    new_word_to_ignored = calloc(strlen(word)+1, sizeof(char));
 
-    char *new_word_to_add = NULL;
-    // create new dict_ignored if have a null space
-    if (d->dict == NULL) {
-        // and add the new word
-        d->dict = calloc(1, sizeof(char*));
-        new_word_to_add = calloc(strlen(word) + 1, sizeof(char));
-        d->dict[0] = strcpy(new_word_to_add, word);
+    if (d->dict[0]) {
+        d->size++;
+        d->dict = realloc(d->dict, (d->size)*sizeof(char *));
     }
-    else {
-        // space for my new value in slot
-        new_word_to_add = calloc(strlen(word) + 1, sizeof(char));
-        // add
-        int i = 0;
-        while (d->dict[i] != NULL) {
-            i++;
-        }
-        d->dict = realloc(d->dict, (i+1)*sizeof(char*));
-        d->dict[i] = strcpy(new_word_to_add, word);
-    }
+    d->dict[d->size-1] = strcpy(new_word_to_ignored, word);
 }
 /*****************************************************************************/
 
@@ -128,19 +111,17 @@ int dict_contains(char* word, Dictionary d){
 
     int found = 1;
     int not_found = 0;
-
-    if(d->dict != NULL){
+    if(d->dict != NULL) {
         int pos = 0;
-        while(pos < d->size){
-            if(d->dict[pos] != NULL){
-                if(strcmp(d->dict[pos], word) == 0){
+        while(pos < d->size) {
+            if(d->dict[pos] != NULL) {
+                if(strcmp(d->dict[pos], word) == 0) {
                     return found;
                 }
-                pos++;
             }
+            pos++;
         }
     }
-
     return not_found;
 }
 
@@ -149,20 +130,18 @@ int dict_contains(char* word, Dictionary d){
 Dictionary dict_new(void) {
     
     Dictionary new_dict = NULL;
-    new_dict = calloc(1, sizeof(struct (sDictionary)));
-
-    new_dict->dict = NULL;
-    new_dict->size = 10;
+    new_dict = calloc(1, sizeof (struct sDictionary));
+    new_dict->dict = calloc(1, sizeof (char*));
+    new_dict->size = 1;
 
     return new_dict;
 }
 /******************************************************************************/
 
-Dictionary dict_destroy(Dictionary d){
+void dict_destroy(Dictionary d) {
 
-    int pos = 0;
     /* liberamos todo el dict */
-    for(pos; pos < d->size; pos++){
+    for(int pos = 0; pos < d->size; pos++){
         free(d->dict[pos]);
         d->dict[pos] = NULL;
         pos++;
@@ -173,7 +152,5 @@ Dictionary dict_destroy(Dictionary d){
     
     free(d);
     d = NULL;
-
-    return d;
 }
 /******************************************************************************/

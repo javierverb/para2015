@@ -35,7 +35,8 @@ Document doc;
 *                   0 si la palabra no es conocida
 *******************************************************************/
 int is_known(char *word) {
-    dict_contains(word, main_dict);
+    return (dict_contains(word, main_dict) || 
+            dict_contains(word, ignored));
 }
 
 /*******************************************************************
@@ -57,7 +58,7 @@ int is_known(char *word) {
 void consult_user(char *word){
     
     char ans[2];
-    char *replace = NULL;
+    char replace[MAX_WORD_SIZE];
     char *end_of_str = "\0";
 
     do {
@@ -66,19 +67,19 @@ void consult_user(char *word){
     } while ((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
     
     if (strcmp(ans,"a") == 0) {
+        dict_add(word, main_dict);
         printf("la palabra %s fue AGREGADA al diccionario\n",word);
     }
   
     if (strcmp(ans, "i") == 0) {
+        ignored_add(word, ignored);
         printf("la palabra %s fue IGNORADA\n",word);
     }
 
     if (strcmp(ans, "r") == 0) {
-        replace = calloc(MAX_WORD_SIZE, sizeof(char));
         printf("Remplazar por:\n");
         scanf("%s", replace);
-        memcpy(word, replace, sizeof(char)*strlen(replace));
-        replace[strlen(replace)] = *end_of_str;
+        strcpy(word, replace);
     }
 }
 
@@ -97,8 +98,8 @@ void consult_user(char *word){
 *******************************************************************/
 void process_document(char *fname) {
     char current_word[MAX_WORD_SIZE];
-    Document document = doc_open(fname);
 
+    Document document = doc_open(fname, "out.txt");
     while (doc_get_word(current_word, document) != 0) {
         // process document:
         if (is_known(current_word) != 1) {
@@ -106,6 +107,10 @@ void process_document(char *fname) {
         }
         doc_put_word(document, current_word);
     }
+    if (is_known(current_word) != 1) {
+        consult_user(current_word);
+    }
+    doc_put_word(document, current_word);
     doc_close(document);
 }
 
@@ -134,6 +139,9 @@ int main(int argc, char **argv){
     ignored = dict_new();
     dict_load(dict, main_dict);
     process_document(argv[1]);
+    dict_save(dict, main_dict);
+    dict_destroy(main_dict);
+    dict_destroy(ignored);
 
     printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
 }

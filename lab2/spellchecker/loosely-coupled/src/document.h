@@ -39,7 +39,7 @@ void doc_put_word(Document document, char* word);
 *******************************************************************/
 
 
-Document doc_open(char *doc_to_open);
+Document doc_open(char *doc_in, char *doc_out);
 
 void doc_close(Document document);
 
