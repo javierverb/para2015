@@ -1,3 +1,0 @@
-process_document:  
-consult_user: F ok?
-get_word: 
