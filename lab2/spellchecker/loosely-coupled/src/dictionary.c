@@ -51,7 +51,7 @@ void dict_load(char* filename, Dictionary d){
 }
 /******************************************************************************/
 
-void dict_save(char* fname, Dictionary d){
+void dict_save(char* fname, Dictionary d) {
     
     assert(d != NULL);
 

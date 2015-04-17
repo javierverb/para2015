@@ -337,7 +337,7 @@ void put_word(char *word){
 *******************************************************************/
 void consult_user(char *word){
     char ans[2];
-    char *replace = NULL;
+    char replace[MAX_WORD_SIZE];
     char *end_of_str = "\0";
     do{
         printf("Palabra no reconocida: [%s]\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
@@ -355,11 +355,9 @@ void consult_user(char *word){
     }
 
     if(strcmp(ans, "r") == 0){
-        replace = calloc(MAX_WORD_SIZE, sizeof(char));
         printf("Remplazar por:\n");
         scanf("%s", replace);
         strcpy(word, replace);
-        replace[strlen(replace)] = *end_of_str;
     }
 
 }
@@ -395,6 +393,9 @@ void process_document(char *fname) {
             }
             put_word(current_word);
         }
+        if (is_known(current_word) != 1) {
+            consult_user(current_word);
+        }
     }
     fclose(doc_in);
     fclose(doc_out);
@@ -428,6 +429,7 @@ void dict_destroy(char **dict_to_free, int TOTAL_STORED_WORDS) {
         free(dict_to_free[i]);
     }
     free(dict_to_free);
+    dict_to_free = NULL;
 }
 
 /*******************************************************************
@@ -454,7 +456,6 @@ int main(int argc, char **argv){
     dict_save(dict);
 
     dict_destroy(dict_main, main_size);
-    // dict_destroy(dict_ignored, MAX_LENGTH_DICT_IGNORED);
 
     printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
     return EXIT_SUCCESS;
