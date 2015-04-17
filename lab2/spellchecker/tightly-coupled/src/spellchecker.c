@@ -396,6 +396,7 @@ void process_document(char *fname) {
         if (is_known(current_word) != 1) {
             consult_user(current_word);
         }
+        put_word(current_word);
     }
     fclose(doc_in);
     fclose(doc_out);
