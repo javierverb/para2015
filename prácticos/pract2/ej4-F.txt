@@ -1,0 +1,56 @@
+Diagrame como en el ejercicio anterior.
+===================================================================
+==  bool isPalindrome(char∗ s, int len)                          ==
+==  {                                                            ==
+==    if(len < 2)                                                ==
+==        return TRUE;                                           ==
+==    else                                                       ==
+==        return s[0] == s[len−1] && isPalindrome(&s[1], len−2); ==
+==  }                                                            ==
+==  isPalindrome(‘‘ ada ’’)                                      ==
+===================================================================
+
+ bool isPalindrome(char∗ s, int len)
+|{                                                            
+|    |if(len < 2)                                            
+|    |    return TRUE;                                       
+|    |else                                                   
+|    |    return s[0] == s[len−1] && isPalindrome(&s[1], len−2); 
+|}                                                            
+ 
+isPalindrome(‘‘ ada ’’)
+*********************************************************************
+como yo lo haria:
+
+1°  isPalindrome("ada", 3)
+2°  bool isPalindrome("ada", 3)
+3°  bloq if/else(len=3)
+4°  return "a" == "a" && isPalindrome("d", 1)  
+                |               |        |
+                -----------------        v
+                         bool isPalindrome("d", 1)
+5°                       bloq if/else(len=1)
+6°                       return TRUE
+*********************************************************************
+|---------------------------|
+|      CONTROL LINK         | <-------  isPalindrome('ada',3)
+|---------------------------|        |
+|      DIR. RESULT          |        | 
+|---------------------------|        |
+|    s     |    'ada'       |        |
+|   len    |      3         |        |
+|---------------------------|        |
+|isPalindrome('d',1) | TRUE | <--    |
+-----------------------------   |    |
+                                |    |
+                                |    |
+|---------------------------|   |    |
+|      CONTROL LINK         |---|-----  isPalindrome('d',1)
+|---------------------------|   |
+|      DIR. RESULT          | ---
+|---------------------------|
+|    s     |      'd'       |
+|   len    |       1        |
+|---------------------------|
+|isPalindrome('d',1) | TRUE | 
+-----------------------------
