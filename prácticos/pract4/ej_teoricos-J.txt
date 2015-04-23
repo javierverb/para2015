@@ -1,0 +1,41 @@
+Seleccione la(s) respuesta(s) correcta(s)
+
+1. Los tipos son...
+    a) reglas sobre como usar las variables. X
+    (Definidas para ciertos operadores, los tipos limitan el mal uso de operaciones del estilo 1 + True + "Cachito")
+
+    b) analizados por el compilador posteriormente al análisis sintáctico. 
+    (Falso, a veces se hace una sobrecarga de tipo en la que este
+    se define recién en tiempo de ejecución. Ejemplo claro es en python donde se puede hacer a + "hola" y el tipo de a se definirá en tiempo de ejecución.)
+
+    c) conjuntos de valores.
+
+2. el tipado estático difiere del tipado dinámico en que...
+    a) en tipado estático no puede haber coerción (casteo) de tipos.
+    b) en tipado dinámico tiene que haber coerción (casteo) de tipos.
+    c) el tipado estático se hace en tiempo de compilación, y el dinámico en tiempo de ejecución. X (clásico c vs python)
+    d) un lenguaje con tipado estático no puede tener tipado dinámico.
+    e) en tipado estático los tipos se tienen que declarar explícitamente, mientras que en tipado dinámico no hay que declararlos. X 
+
+3. La inferencia de tipos se realiza...
+    a) en tiempo de compilación
+    b) en tiempo de ejecución.
+    c) parte en tiempo de compilación, parte en tiempo de ejecución.
+    d) con tipos explícitos.
+
+4. Un lenguaje es seguro en tipado (type safe) si...
+    a) no se permite ningún tipo de error atribuible a tipos.
+    b) se detectan como errores las discrepancias entre los tipos de variables y métodos o funciones.
+
+5. Los tipos built-in son...
+    a) los que provee el lenguaje propiamente.
+    b) el opuesto de los tipos user-defined.
+    c) todos los anteriores.
+    d) ninguno de los anteriores.
+
+6. La diferencia entre polimorfismo y sobrecarga es...
+    a) que sobrecarga se aplica sólo a algunos tipos, mientras que polimorfismo es más general.
+    b) que la sobrecarga se comprueba en tiempo de ejecución y el polimorfismo en tiempo de compilación.
+    c) que en la sobrecarga tenemos diferentes implementaciones para un mismo símbolo y en el polimorfismo tenemos una sola implementación con tipos generales.
+    d) que la sobrecarga usa tipos concretos mientras que el polimorfismo usa variables de tipo.
+    e) que la sobrecarga la analiza el compilador y el polimorfismo no.
