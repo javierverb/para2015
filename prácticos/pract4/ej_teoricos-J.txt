@@ -21,14 +21,14 @@ Seleccione la(s) respuesta(s) correcta(s)
     a) en tiempo de compilación
     b) en tiempo de ejecución.
     c) parte en tiempo de compilación, parte en tiempo de ejecución.
-    d) con tipos explícitos.
+    d) con tipos explícitos. 
 
 4. Un lenguaje es seguro en tipado (type safe) si...
     a) no se permite ningún tipo de error atribuible a tipos.
     b) se detectan como errores las discrepancias entre los tipos de variables y métodos o funciones.
 
 5. Los tipos built-in son...
-    a) los que provee el lenguaje propiamente.
+    a) los que provee el lenguaje propiamente. X ("no se podían construir tipos nuevos." Por lo tanto a mi critario se utilizan los propios del lenguaje)
     b) el opuesto de los tipos user-defined.
     c) todos los anteriores.
     d) ninguno de los anteriores.
@@ -36,6 +36,8 @@ Seleccione la(s) respuesta(s) correcta(s)
 6. La diferencia entre polimorfismo y sobrecarga es...
     a) que sobrecarga se aplica sólo a algunos tipos, mientras que polimorfismo es más general.
     b) que la sobrecarga se comprueba en tiempo de ejecución y el polimorfismo en tiempo de compilación.
-    c) que en la sobrecarga tenemos diferentes implementaciones para un mismo símbolo y en el polimorfismo tenemos una sola implementación con tipos generales.
+    c) que en la sobrecarga tenemos diferentes implementaciones para un mismo símbolo y en el polimorfismo tenemos una sola implementación con tipos generales. X 
+    (Ejemplo de sobrecarga: operador + para string y para enteros
+    Ejemplo de poliformismo sum(some type a, some type b); ¡recibo cualquier cosa!)
     d) que la sobrecarga usa tipos concretos mientras que el polimorfismo usa variables de tipo.
     e) que la sobrecarga la analiza el compilador y el polimorfismo no.
