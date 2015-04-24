@@ -1,0 +1,14 @@
+1. La parte de las excepciones que tiene alcance dinamico es...
+    a) el declare.
+    b) el raise.
+    c) el handle. X
+2. Se usa alcance dinamico en las excepciones...
+    a) para no colisionar con el alcance de las variables.
+    b) porque se busca encontrar un patron recorriendo la pila de ejecucion. X
+    c) porque el programador tiene mas claro que quiere que quien programo las librerıas.
+
+3. Las excepciones se pueden usar para optimizar codigo...
+    a) porque tienen alcance dinamico.
+    b) porque son saltos explícitos entre partes del programa. X
+    c) porque son imperativas.
+    d) porque son funcionales.
