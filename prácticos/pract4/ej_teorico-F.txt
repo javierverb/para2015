@@ -1,0 +1,64 @@
+1. Los tipos son...
+	a) reglas sobre como usar las variables.
+	b) analizados por el compilador posteriormente al analisis sintactico.
+	c) conjuntos de valores. X
+	=====================================================================
+	un tipo es una colección de valores computables que comparten alguna
+    propiedad estructural
+	=====================================================================
+
+
+2. el tipado estatico difiere del tipado dinamico en que...
+	a) en tipado estatico no puede haber coercion (casteo) de tipos.
+	b) en tipado dinamico tiene que haber coercion (casteo) de tipos.
+	c) el tipado estatico se hace en tiempo de compilacion, y el dinamico en tiempo de ejecucion. x
+	=============================================================================================
+	tipado estático: los tipos de las variables se fijan en tiempo de compilación
+    tipado dinámico: el tipo de una variable depende de su valor, y eso sólo se puede
+                     determinar en tiempo de ejecución
+	=============================================================================================
+	d) un lenguaje con tipado estatico no puede tener tipado dinamico.
+	e) en tipado estatico los tipos se tienen que declarar explıcitamente, mientras que en tipado
+       dinamico no hay que declararlos.  X
+       ========================
+       en python --> x = 12
+       en c      --> int x = 13
+       ========================
+
+
+3. La inferencia de tipos se realiza...
+	a) en tiempo de compilacion.
+	b) en tiempo de ejecucion.
+	c) parte en tiempo de compilacion, parte en tiempo de ejecucion.
+	d) con tipos explıcitos.
+
+
+
+4. Un lenguaje es seguro en tipado (type safe) si...
+	a) no se permite ningun tipo de error atribuible a tipos.  x
+	=========================================================
+	tipado fuerte: se detectan todos los errores de tipo,
+    ya sea en tiempo de compilación o de ejecución
+	=========================================================
+	b) se detectan como errores las discrepancias entre los tipos de variables y metodos o
+	   funciones.
+
+
+
+5. Los tipos built-in son...
+a) los que provee el lenguaje propiamente.  x
+
+b) el opuesto de los tipos user-defined.
+c) todos los anteriores.
+d) ninguno de los anteriores.
+
+
+
+6. La diferencia entre polimorfismo y sobrecarga es...
+	a) que sobrecarga se aplica solo a algunos tipos, mientras que polimorfismo es mas general.
+	b) que la sobrecarga se comprueba en tiempo de ejecucion y el polimorfismo en tiempo de
+	   compilacion.
+	c) que en la sobrecarga tenemos diferentes implementaciones para un mismo sımbolo y en
+       el polimorfismo tenemos una sola implementacion con tipos generales.
+	d) que la sobrecarga usa tipos concretos mientras que el polimorfismo usa variables de tipo.
+	e) que la sobrecarga la analiza el compilador y el polimorfismo no.
