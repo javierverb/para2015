@@ -6,8 +6,9 @@ import System.IO
 import Control.Monad
 
 
-type Dictionary = [String]
+type Dictionary = [String]  --data Dictionary = [Word]
 type Word = String
+
 -- Crea un nuevo diccionario vacio
 dict_new :: Dictionary
 dict_new = [""]
@@ -15,6 +16,7 @@ dict_new = [""]
 -- Agrega una palabra al diccionario especificado
 dict_add :: Word -> Dictionary -> Dictionary
 dict_add word dictionary = dictionary ++ [word]
+-- dict_add word dict = word:dict otra forma, no se si va a importar el orden 
 
 -- Verifica la existencia de una palabra en el
 -- diccionario especificado
