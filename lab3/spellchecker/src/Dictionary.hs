@@ -30,6 +30,7 @@ dict_load file_dictionary =
         definition_text <- readFile file_dictionary
         let new_dictionary = lines (definition_text)
         return new_dictionary
+        
 -- Guarda el diccionario en el archivo especificado.
 dict_save :: FilePath -> Dictionary -> IO ()
 dict_save filename_to_save list_dict_to_save = 

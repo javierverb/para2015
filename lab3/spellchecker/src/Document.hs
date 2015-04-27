@@ -40,7 +40,7 @@ cuando llega a eof solo levanta la excepcion
 doc_put_word :: Word -> Document -> IO ()
 doc_put_word word f = 
     do writeFile f word
-    // hputs
-    // hputstring busco
+    -- hputs
+    -- hputstring busco
     
        return ()
