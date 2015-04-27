@@ -8,7 +8,6 @@ import Control.Monad
 
 type Dictionary = [String]  --data Dictionary = [Word]
 type Word = String
-type FilePath = String
 
 -- Crea un nuevo diccionario vacio
 dict_new :: Dictionary
