@@ -5,6 +5,7 @@
 module Document where
 
 type Word = String
+type FilePath = String
 
 data Document = Doc Handle Handle
 
@@ -15,16 +16,18 @@ data Document = Doc Handle Handle
 -- donde se guarda el documento ya procesado.
 doc_open :: FilePath -> FilePath -> IO Document
 doc_open fp1 fp2 = 
-    do file_in <- openFile fp1 ReadMode
-       file_out <- openFile fp2 WriteMode
-       return (Doc file_in file_out)
+    do 
+        file_in <- openFile fp1 ReadMode
+        file_out <- openFile fp2 WriteMode
+        return (Doc file_in file_out)
 
 -- Cierra los archivos especificados
 doc_close :: Document -> IO ()
 doc_close (Doc f1 f2) = 
-    do hclose f1
-       hclose f2
-       return ()
+    do 
+        hclose f1
+        hclose f2
+        return ()
 
 
 -- Obtiene una palabra del documento especificado,
@@ -38,9 +41,7 @@ cuando llega a eof solo levanta la excepcion
 
 -- Escribe una palabra en el documento de salida.
 doc_put_word :: Word -> Document -> IO ()
-doc_put_word word f = 
-    do writeFile f word
-    // hputs
-    // hputstring busco
-    
-       return ()
+doc_put_word word (Doc file_in file_out) = 
+    do
+        hPutStr file_out word
+        return()
