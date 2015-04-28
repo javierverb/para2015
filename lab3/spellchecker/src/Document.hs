@@ -6,6 +6,7 @@ module Document where
 
 import System.IO
 import Control.Monad
+import Data.Char
 
 type Word = String
 data Document = Document Handle Handle
@@ -20,16 +21,27 @@ doc_open fp1 fp2 =
     do 
         file_in <- openFile fp1 ReadMode
         file_out <- openFile fp2 WriteMode
-        return (Doc file_in file_out)
+        return (Document file_in file_out)
 
 -- Cierra los archivos especificados
 doc_close :: Document -> IO ()
 doc_close (Document f1 f2) = 
     do 
-        hclose f1
-        hclose f2
+        hClose f1
+        hClose f2
         return ()
 
+
+constructWord :: Word -> Handle -> FilePath -> IO Word
+constructWord word_to_return file_in file_out = 
+    do 
+        char_readed <- hGetChar file_in
+
+        if isAlphaNum char_readed then
+            constructWord (word_to_return++[char_readed]) file_in file_out
+        else do
+            writeFile file_out [char_readed]
+            return word_to_return
 
 -- Obtiene una palabra del documento especificado,
 -- copiando todos los caracteres no alfabeticos
@@ -38,64 +50,12 @@ doc_close (Document f1 f2) =
 -- con una excepcion.
 doc_get_word :: Document -> IO Word
 doc_get_word (Document file_in file_out) =
+
     do
-        let word = ""
-        let char_readed = ""
+        valid_word = constructWord "" file_in "output.txt"
+        -- ver manejo de excepciones!!
+        return valid_word
 
-        char_readed <- hGetChar file_in
-        if isAlphaNum char_readed
-        	then word ++ char_readed
-        else do
-        	word ++ "\0"
-
-
-
-
-
-
-    let word = ""
-    let char_readed = ""
-    let i = 0
-    do
-        char_readed <- hGetChar file_in
-        if isAlphaNum char_readed then
-                                      word ++ char_readed
-                                      i = i + 1
-        else
-            do
-                word ++ "\0"
-                if i == 0 then printf
-                else fseek
-
-
-
-        
-
-
-
--- char *end_of_str = "\0";
---    int character_readed, i = 0;
---
---    while (!feof(document->doc_in)) {
---        character_readed = fgetc(document->doc_in);
---
---        if (isalpha(character_readed)) {
---            word[i] = character_readed;
---        } else {
---            word[i] = *end_of_str;
---            if (character_readed != EOF) {
---                if (i == 0) {
---                    fprintf(document->doc_out, "%c", character_readed);
---                }
---                else {
---                    fseek(document->doc_in, -1, SEEK_CUR);
---               }
---                return 1;
---            }
---        }
---        i++;
---    }
---    return 0;
 
 -- usar hgetchar no hace falta trabajar con la excepcion porq de eso se ocupa hgetchar
 -- cuando llega a eof solo levanta la excepcion
