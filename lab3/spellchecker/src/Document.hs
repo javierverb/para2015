@@ -5,9 +5,10 @@
 module Document where
 
 import System.IO
+import Control.Monad
 
 type Word = String
-data Document = Doc Handle Handle
+data Document = Document Handle Handle
 
 -- Abre los archivos especificados por los paths
 -- pasados como argumentos. El primer path repre-
@@ -37,11 +38,33 @@ doc_close (Doc f1 f2) =
 -- con una excepcion.
 doc_get_word :: Document -> IO Word
 doc_get_word (Doc file_in file_out) =
-    let word = ""
     do
+        let word = ""
+        let char_readed = ""
+
         char_readed <- hGetChar file_in
         if isAlphaNum char_readed then word ++ char_readed
+        else 
+
+
+
+
+
+
+    let word = ""
+    let char_readed = ""
+    let i = 0
+    do
+        char_readed <- hGetChar file_in
+        if isAlphaNum char_readed then
+                                      word ++ char_readed
+                                      i = i + 1
         else
+            do
+                word ++ "\0"
+                if i == 0 then printf
+                else fseek
+
 
 
         

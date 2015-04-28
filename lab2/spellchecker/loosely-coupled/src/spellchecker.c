@@ -59,7 +59,6 @@ void consult_user(char *word){
     
     char ans[2];
     char replace[MAX_WORD_SIZE];
-    char *end_of_str = "\0";
 
     do {
         printf("Palabra no reconocida: %s\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
