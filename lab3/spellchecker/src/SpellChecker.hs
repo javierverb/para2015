@@ -29,9 +29,14 @@ process_document :: Document ->
                     Dictionary ->
                     Dictionary ->
                     IO Dictionary
-process_document (Doc f_in f_out) dict dict = 
+process_document (Document f_in f_out) dic1 dic2 = 
 	do
 		doc_open path_in path_out
+        word <- doc_get_word f_in
+        if dict_contains word dic1 
+            then doc_put_word word f_out -- IO ()
+
+
 
 
 

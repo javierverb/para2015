@@ -24,7 +24,7 @@ doc_open fp1 fp2 =
 
 -- Cierra los archivos especificados
 doc_close :: Document -> IO ()
-doc_close (Doc f1 f2) = 
+doc_close (Document f1 f2) = 
     do 
         hclose f1
         hclose f2
@@ -37,14 +37,16 @@ doc_close (Doc f1 f2) =
 -- Cuando alcanza el final del documento, lo señaliza
 -- con una excepcion.
 doc_get_word :: Document -> IO Word
-doc_get_word (Doc file_in file_out) =
+doc_get_word (Document file_in file_out) =
     do
         let word = ""
         let char_readed = ""
 
         char_readed <- hGetChar file_in
-        if isAlphaNum char_readed then word ++ char_readed
-        else 
+        if isAlphaNum char_readed
+        	then word ++ char_readed
+        else do
+        	word ++ "\0"
 
 
 
@@ -100,7 +102,7 @@ doc_get_word (Doc file_in file_out) =
 
 -- Escribe una palabra en el documento de salida.
 doc_put_word :: Word -> Document -> IO ()
-doc_put_word word (Doc file_in file_out) = 
+doc_put_word word (Document file_in file_out) = 
     do
         hPutStr file_out word
         return()
