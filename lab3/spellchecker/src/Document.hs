@@ -32,7 +32,7 @@ doc_close (Document f1 f2) =
         return ()
 
 
-constructWord :: Word -> Handle -> FilePath -> IO Word
+constructWord :: Word -> Handle -> FilePath -> IO Word  -- Word -> Handle -> FilePath -> IO Word 
 constructWord word_to_return file_in file_out = 
     do 
         char_readed <- hGetChar file_in
@@ -40,7 +40,7 @@ constructWord word_to_return file_in file_out =
         if isAlphaNum char_readed then
             constructWord (word_to_return++[char_readed]) file_in file_out
         else do
-            writeFile file_out [char_readed]
+            writeFile file_out [char_readed] -- hPutChar file_out char_readed
             return word_to_return
 
 -- Obtiene una palabra del documento especificado,
@@ -53,6 +53,7 @@ doc_get_word (Document file_in file_out) =
 
     do
         valid_word = constructWord "" file_in "output.txt"
+        -- valid_word = constructWord "" file_in file_out
         -- ver manejo de excepciones!!
         return valid_word
 

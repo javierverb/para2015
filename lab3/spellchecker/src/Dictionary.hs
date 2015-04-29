@@ -5,14 +5,13 @@ module Dictionary where
 import System.IO
 import Control.Monad
 
-
 type Dictionary = [String]  --data Dictionary = [Word]
 type Word = String
 
 
 -- Crea un nuevo diccionario vacio
 dict_new :: Dictionary
-dict_new = [""]
+dict_new = [""]  -- dict_new = []
 
 
 -- Agrega una palabra al diccionario especificado
