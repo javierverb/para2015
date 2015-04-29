@@ -32,8 +32,8 @@ doc_close (Document f1 f2) =
         return ()
 
 
-constructWord :: Word -> Handle -> FilePath -> IO Word  -- Word -> Handle -> FilePath -> IO Word 
-constructWord word_to_return file_in file_out = 
+constructWord :: Word -> Handle -> FilePath -> IO Word  -- Word -> Handle -> Handle -> IO Word
+constructWord word_to_return file_in file_out =         -- Word -> Document -> IO Word
     do 
         char_readed <- hGetChar file_in
 
