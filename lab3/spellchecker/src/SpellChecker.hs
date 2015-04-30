@@ -16,6 +16,14 @@ data Params = Params
 -- Toma como argumento los argumentos de linea de comando de tipo 'Params'.
 do_spellcheck :: Params -> IO ()
 do_spellcheck = 
+    do
+        dict_ignored_w = dict_new
+        dict_added_w <- dict_load "dictionary.txt"
+        document <- doc_open "input.txt" "output.txt"
+        dict_to_save <- process_document document dict_added_w dict_ignored_w
+        dict_save "dictionary.txt" dict_to_save
+        doc_close document
+        return ()
 
         
 -- La funcion 'process_document' ejecuta el proceso de chequeo ortografico.
@@ -29,65 +37,57 @@ process_document :: Document ->
                     Dictionary ->
                     Dictionary ->
                     IO Dictionary
-process_document (Document f_in f_out) dic1 dic2 = 
+process_document (Document f_in f_out) dict_added_w dict_ignored_w = 
 	do
-		doc_open path_in path_out
-        word <- doc_get_word f_in
-        if dict_contains word dic1 
-            then doc_put_word word f_out -- IO ()
+        try:
+            word_to_process <- doc_get_word f_in
+            if dict_contains word_to_process dict_added_w then
+                doc_put_word word_to_process f_out -- IO ()
+            else do 
+                (w', d_add', d_ign') <- consult_user word_to_process dict_added_w dict_ignored_w
+                doc_put_word w' f_out
+                process_document (Document f_in f_out) d_add' d_ign'
+        except:
+            return dict_added_w
+
+clearScreen :: IO [()]
+clearScreen = sequence (replicate 80 (putChar '\n'))
 
 
-
-
-
+printMenu :: IO ()
+printMenu = 
+    do
+        clearScreen
+        putStr "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n"
+        putStr "* a: Agregar palabra al diccionario   *\n"
+        putStr "* i: Ignorar palabra                  *\n"
+        putStr "* r: Reemplazar palabra               *\n"
+        putStr "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n"
+        putStr "Ingrese una opcion y despues [Intro]   \n"
 
 -- Verifica si una palabra es conocida, en cuyo caso, continua
 -- con el procesamiento del archivo, sin realizar ninguna accion.
 -- Si la palabra no es conocida, pregunta al usuario que accion
 -- realizar con la misma. Las acciones pueden ser aceptar, ignorar
 -- o reemplazar.
-consult_user ::  Word ->
-                Dictionary ->
-                Dictionary ->
-                IO (Word, Dictionary, Dictionary)
-consult_user word dic1 dic2 = 
-	do
-        let ans = ""
-        ans <- getChar
+consult_user ::  Word -> Dictionary -> Dictionary -> IO (Word, Dictionary, Dictionary)
+consult_user w dict_added_w dict_ignored_w = 
+    do
+        printMenu
+
+        action <- getChar
+        clearScreen
         
-        case ans of
-            'a' -> dict_add word dic1
-            'i' -> dict_add word dic2
+        case action of
+            'a' -> do
+                return (w, (dict_add w dict_added_w), dict_ignored_w)
+            'i' -> do
+                return (w, dict_added_w, (dict_add w dict_ignored_w))
             'r' -> do
-                       let new_word = ""
+                putStr "Ingrese el reemplazo de la palabra      \n"
+                word_to_replace <- getLine
+                return (word_to_replace, dict_added_w, dict_ignored_w)
 
-            otherwise -> consult_user word dic1 dic2
-
-        return(word dic1 dic2)
-
-
--- void consult_user(char *word){
---    char ans[2];
---    char replace[MAX_WORD_SIZE];
---
---    do {
---        printf("Palabra no reconocida: %s\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
---        scanf("%s", ans);
---    } while ((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
---    
---    if (strcmp(ans,"a") == 0) {
---        dict_add(word, main_dict);
---        printf("la palabra %s fue AGREGADA al diccionario\n",word);
---    }
---  
---    if (strcmp(ans, "i") == 0) {
---        ignored_add(word, ignored);
---        printf("la palabra %s fue IGNORADA\n",word);
---    }
---
---    if (strcmp(ans, "r") == 0) {
---        printf("Remplazar por:\n");
---        scanf("%s", replace);
---        strcpy(word, replace);
---   }
-
+            _ -> do
+                (w, dict_add, dict_ignored_w) <- consult_user w  dict_added_w dict_ignored_w
+                return (w, dict_add, dict_ignored_w)
