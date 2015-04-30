@@ -11,7 +11,7 @@ type Word = String
 
 -- Crea un nuevo diccionario vacio
 dict_new :: Dictionary
-dict_new = [""]  -- dict_new = []
+dict_new = [""]
 
 
 -- Agrega una palabra al diccionario especificado
