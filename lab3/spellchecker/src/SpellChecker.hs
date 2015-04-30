@@ -15,7 +15,7 @@ data Params = Params
 -- diccionario y el archivo de entrada ya procesado.
 -- Toma como argumento los argumentos de linea de comando de tipo 'Params'.
 do_spellcheck :: Params -> IO ()
-do_spellcheck = 
+do_spellcheck p = 
     do
         dict_ignored_w = dict_new
         dict_added_w <- dict_load "dictionary.txt"

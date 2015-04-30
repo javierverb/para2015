@@ -43,7 +43,7 @@ constructWord word_to_return i file_in file_out =
             if i == 0 then
                 hPutChar file_out char_readed
             else
-                hseek file_in RelativeSeek -1
+                hSeek file_in RelativeSeek -1
                 constructWord word_to_return 0 file_in file_out
 
         return word_to_return
@@ -56,10 +56,10 @@ constructWord word_to_return i file_in file_out =
 doc_get_word :: Document -> IO Word
 doc_get_word (Document file_in file_out) =
 
-    do
+    catch (do
         valid_word <- constructWord "" file_in file_out
-        -- ver manejo de excepciones!!
-        return valid_word
+        return valid_word)
+          (\err -> putStrLn(show err))
 
 
 -- usar hgetchar no hace falta trabajar con la excepcion porq de eso se ocupa hgetchar
