@@ -31,22 +31,21 @@ doc_close (Document f1 f2) =
         hClose f2
         return ()
 
-
 constructWord :: Word -> Int -> Handle -> Handle -> IO Word  
 constructWord word_to_return i file_in file_out =
     do 
         char_readed <- hGetChar file_in
         
         if isAlphaNum char_readed then
-            constructWord (word_to_return++[char_readed]) i+1 file_in file_out
+            constructWord (word_to_return++[char_readed]) (i+1) file_in file_out
         else do
-            if i == 0 then
+            if (i == 0) then
                 hPutChar file_out char_readed
-            else
-                hSeek file_in RelativeSeek -1
+            else do
+                hSeek file_in RelativeSeek (-1)
                 constructWord word_to_return 0 file_in file_out
-
-        return word_to_return
+                print("")
+            return word_to_return
 
 -- Obtiene una palabra del documento especificado,
 -- copiando todos los caracteres no alfabeticos
