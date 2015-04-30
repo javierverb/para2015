@@ -30,20 +30,15 @@ doc_close (Document f1 f2) =
         hClose f2
         return ()
 
-constructWord :: Word -> Int -> Handle -> Handle -> IO Word  
-constructWord word_to_return i file_in file_out =
+constructWord :: Word -> Handle -> Handle -> IO Word  
+constructWord word_to_return file_in file_out =
     do 
         char_readed <- hGetChar file_in
         
         if isAlphaNum char_readed then
-            constructWord (word_to_return++[char_readed]) (i+1) file_in file_out
+            constructWord (word_to_return++[char_readed]) file_in file_out
         else do
-            if (i == 0) then
-                hPutChar file_out char_readed
-            else do
-                hSeek file_in RelativeSeek (-1)
-                _ <- constructWord word_to_return 0 file_in file_out
-                print("")
+            hPutChar file_out char_readed
             return word_to_return
 
 -- Obtiene una palabra del documento especificado,
@@ -54,7 +49,7 @@ constructWord word_to_return i file_in file_out =
 doc_get_word :: Document -> IO Word
 doc_get_word (Document file_in file_out) =
     do 
-        word_to_process <- constructWord "" 0 file_in file_out
+        word_to_process <- constructWord "" file_in file_out
         return word_to_process
 
 -- usar hgetchar no hace falta trabajar con la excepcion porq de eso se ocupa hgetchar

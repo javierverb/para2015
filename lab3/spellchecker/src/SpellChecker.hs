@@ -20,9 +20,11 @@ do_spellcheck (Params inputPath dictPath) =
         dict_added_w <- dict_load dictPath
         document <- doc_open inputPath "output.txt"
         dict_to_save <- process_document document dict_added_w dict_new
-        print(dict_to_save)
         dict_save dictPath dict_to_save
         doc_close document
+        putStrLn "Procesamiento completo. Ver resultado en:"
+        print(dictPath)
+        print("\noutput.txt\n")
         return ()
 
 -- La funcion 'process_document' ejecuta el proceso de chequeo ortografico.
@@ -57,7 +59,6 @@ process_document (Document f_in f_out) dict_added_w dict_ignored_w =
             where 
                 handleException :: SomeException -> IO Dictionary
                 handleException _   = do 
-                                        print(dict_added_w)
                                         return dict_added_w
 
 clearScreen :: IO [()]
