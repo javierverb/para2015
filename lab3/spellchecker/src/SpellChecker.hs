@@ -7,6 +7,7 @@ import Dictionary
 import Document
 import CommandLine
 import Control.Exception
+import System.IO
 
 -- La funcion 'do_spellcheck' es la funcion que se encarga de manejar
 -- el proceso de chequeo ortografico. Esto incluye, cargar el diccionario,
@@ -72,6 +73,7 @@ printMenu w =
         putStr "* r: Reemplazar palabra               *\n"
         putStr "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n"
         putStr "Ingrese una opcion y despues [Intro]   \n"
+        hFlush stdout
 
 -- Verifica si una palabra es conocida, en cuyo caso, continua
 -- con el procesamiento del archivo, sin realizar ninguna accion.
@@ -82,17 +84,28 @@ consult_user ::  Word -> Dictionary -> Dictionary -> IO (Word, Dictionary, Dicti
 consult_user w dict_added_w dict_ignored_w = 
     do
         printMenu w
-        action <- getChar
+        action <- getLine
         case action of
-            'a' -> do
+            "a" -> do
+                hFlush stdout
+                putStr "Palabra agregada. Presione [Intro] para continuar\n"
+                _ <- getLine
                 return (w, (dict_add w dict_added_w), dict_ignored_w)
-            'i' -> do
+            "i" -> do
+                hFlush stdout
+                putStr "Palabra agregada. Presione [Intro] para continuar\n"
+                _ <- getLine
                 return (w, dict_added_w, (dict_add w dict_ignored_w))
-            'r' -> do
-                putStr "Ingrese el reemplazo de la palabra      \n"
+            "r" -> do
+                putStr "Ingrese el reemplazo de la palabra  "
                 word_to_replace <- getLine
+                putStr "Palabra agregada. Presione [Intro] para continuar\n"
+                _ <- getLine
+                hFlush stdout
                 return (word_to_replace, dict_added_w, dict_ignored_w)
-
             _ -> do
+                putStr "Opción inválida presione [Intro] para volver al menú\n"
+                hFlush stdout
+                _ <- getLine
                 (w', d_add, d_ign) <- consult_user w  dict_added_w dict_ignored_w
                 return (w', d_add, d_ign)
