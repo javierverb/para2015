@@ -24,7 +24,7 @@ do_spellcheck (Params inputPath dictPath) =
         doc_close document
         putStrLn "Procesamiento completo. Ver resultado en:"
         print(dictPath)
-        print("\noutput.txt\n")
+        print("output.txt")
         return ()
 
 -- La funcion 'process_document' ejecuta el proceso de chequeo ortografico.
@@ -102,11 +102,11 @@ consult_user w dict_added_w dict_ignored_w =
                 _ <- getLine
                 return (w, dict_added_w, (dict_add w dict_ignored_w))
             "r" -> do
-                putStr "Ingrese el reemplazo de la palabra  "
+                hFlush stdout
+                putStr "Ingrese el reemplazo de la palabra  \n"
                 word_to_replace <- getLine
                 putStr "Palabra agregada. Presione [Intro] para continuar\n"
                 _ <- getLine
-                hFlush stdout
                 return (word_to_replace, dict_added_w, dict_ignored_w)
             _ -> do
                 putStr "Opción inválida presione [Intro] para volver al menú\n"
