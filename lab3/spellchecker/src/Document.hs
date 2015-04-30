@@ -32,16 +32,21 @@ doc_close (Document f1 f2) =
         return ()
 
 
-constructWord :: Word -> Handle -> FilePath -> IO Word  -- Word -> Handle -> Handle -> IO Word
-constructWord word_to_return file_in file_out =         -- Word -> Document -> IO Word
+constructWord :: Word -> Int -> Handle -> Handle -> IO Word  
+constructWord word_to_return i file_in file_out =
     do 
         char_readed <- hGetChar file_in
-
+        
         if isAlphaNum char_readed then
-            constructWord (word_to_return++[char_readed]) file_in file_out
+            constructWord (word_to_return++[char_readed]) i+1 file_in file_out
         else do
-            writeFile file_out [char_readed] -- hPutChar file_out char_readed
-            return word_to_return
+            if i == 0 then
+                hPutChar file_out char_readed
+            else
+                hseek file_in RelativeSeek -1
+                constructWord word_to_return 0 file_in file_out
+
+        return word_to_return
 
 -- Obtiene una palabra del documento especificado,
 -- copiando todos los caracteres no alfabeticos
@@ -52,8 +57,7 @@ doc_get_word :: Document -> IO Word
 doc_get_word (Document file_in file_out) =
 
     do
-        valid_word = constructWord "" file_in "output.txt"
-        -- valid_word = constructWord "" file_in file_out
+        valid_word <- constructWord "" file_in file_out
         -- ver manejo de excepciones!!
         return valid_word
 
