@@ -18,8 +18,9 @@ defaultParams = record Params{}
                 += program "spellchk"
 
 checkParams :: Params -> IO Bool
-checkParams p
-  null (filename p) =
-    do putStrLn $ unlines ["ERROR: Debe especificar un archivo a procesar.","Ejecuta con --help para ver las opciones de ejecucion."]
-       return False
-  otherwise = return True
+checkParams p 
+            | null (filename p) = 
+                do 
+                    putStrLn $ unlines ["ERROR: Debe especificar un archivo a procesar.","Ejecuta con --help para ver las opciones de ejecucion."]
+                    return False
+            | otherwise = return True

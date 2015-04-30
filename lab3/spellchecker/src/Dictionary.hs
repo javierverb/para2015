@@ -2,11 +2,8 @@ module Dictionary where
 
 -- Las importaciones van después de declarar el paquete/modulo
 -- Dictionary 
-import System.IO
-import Control.Monad
-
+import Document
 type Dictionary = [String]  --data Dictionary = [Word]
-type Word = String
 
 
 -- Crea un nuevo diccionario vacio
@@ -23,7 +20,7 @@ dict_add word dictionary = dictionary ++ [word]
 -- Verifica la existencia de una palabra en el
 -- diccionario especificado
 dict_contains :: Word -> Dictionary -> Bool
-dict_contains word_to_search [] = False
+dict_contains _ [] = False
 dict_contains word_to_search (word:dictionary) = 
     word_to_search == word || dict_contains word_to_search dictionary
 

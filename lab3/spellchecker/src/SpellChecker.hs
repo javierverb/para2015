@@ -6,23 +6,19 @@ module SpellChecker (do_spellcheck) where
 import Dictionary
 import Document
 import CommandLine
+import Control.Exception
 
-data Params = Params 
-
--- La fun{-# LANGUAGE ScopedTypeVariables #-}
-cion 'do_spellcheck' es la funcion que se encarga de manejar
+-- La funcion 'do_spellcheck' es la funcion que se encarga de manejar
 -- el proceso de chequeo ortografico. Esto incluye, cargar el diccionario,
 -- abrir el archivo a procesar, procesar el archivo y luego guardar el
 -- diccionario y el archivo de entrada ya procesado.
 -- Toma como argumento los argumentos de linea de comando de tipo 'Params'.
-do_spellcheck :: Params -> IO ()
-do_spellcheck p = 
+do_spellcheck :: Params -> IO () 
 do_spellcheck (Params inputPath dictPath) = 
     do
-        dict_ignored_w = dict_new
         dict_added_w <- dict_load dictPath
         document <- doc_open inputPath "output.txt"
-        dict_to_save <- process_document document dict_added_w dict_ignored_w
+        dict_to_save <- process_document document dict_added_w dict_new
         dict_save dictPath dict_to_save
         doc_close document
         return ()
@@ -40,25 +36,36 @@ process_document :: Document ->
                     IO Dictionary
 process_document (Document f_in f_out) dict_added_w dict_ignored_w = 
 	do
-        try:
-            word_to_process <- doc_get_word f_in
-            if dict_contains word_to_process dict_added_w then
-                doc_put_word word_to_process f_out -- IO ()
-            else do 
-                (w', d_add', d_ign') <- consult_user word_to_process dict_added_w dict_ignored_w
-                doc_put_word w' f_out
-                process_document (Document f_in f_out) d_add' d_ign'
-        except:
-            return dict_added_w
+        catch(
+            do
+                word_to_process <- doc_get_word (Document f_in f_out)
+                if dict_contains word_to_process dict_added_w then
+                    do
+                        doc_put_word word_to_process (Document f_in f_out)
+                        _ <- process_document (Document f_in f_out) dict_added_w dict_ignored_w
+                        print("")
+                else 
+                    do 
+                        (w', d_add', d_ign') <- consult_user word_to_process dict_added_w dict_ignored_w
+                        doc_put_word w' (Document f_in f_out)
+                        _ <- process_document (Document f_in f_out) d_add' d_ign'
+                        print("")
+                return dict_added_w) handleException
+            where 
+                handleException :: SomeException -> IO Dictionary            
+                handleException _ = return dict_added_w
 
 clearScreen :: IO [()]
 clearScreen = sequence (replicate 80 (putChar '\n'))
 
 
-printMenu :: IO ()
-printMenu = 
+printMenu :: Word -> IO ()
+printMenu w = 
     do
-        clearScreen
+        _ <- clearScreen
+        putStr "* Palabra: "
+        putStr w
+        putStr "\n"
         putStr "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n"
         putStr "* a: Agregar palabra al diccionario   *\n"
         putStr "* i: Ignorar palabra                  *\n"
@@ -74,11 +81,8 @@ printMenu =
 consult_user ::  Word -> Dictionary -> Dictionary -> IO (Word, Dictionary, Dictionary)
 consult_user w dict_added_w dict_ignored_w = 
     do
-        printMenu
-
+        printMenu w
         action <- getChar
-        clearScreen
-        
         case action of
             'a' -> do
                 return (w, (dict_add w dict_added_w), dict_ignored_w)
@@ -90,5 +94,5 @@ consult_user w dict_added_w dict_ignored_w =
                 return (word_to_replace, dict_added_w, dict_ignored_w)
 
             _ -> do
-                (w, dict_add, dict_ignored_w) <- consult_user w  dict_added_w dict_ignored_w
-                return (w, dict_add, dict_ignored_w)
+                (w', d_add, d_ign) <- consult_user w  dict_added_w dict_ignored_w
+                return (w', d_add, d_ign)

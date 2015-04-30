@@ -5,7 +5,6 @@
 module Document where
 
 import System.IO
-import Control.Monad
 import Data.Char
 
 type Word = String
@@ -43,7 +42,7 @@ constructWord word_to_return i file_in file_out =
                 hPutChar file_out char_readed
             else do
                 hSeek file_in RelativeSeek (-1)
-                constructWord word_to_return 0 file_in file_out
+                _ <- constructWord word_to_return 0 file_in file_out
                 print("")
             return word_to_return
 
@@ -54,19 +53,16 @@ constructWord word_to_return i file_in file_out =
 -- con una excepcion.
 doc_get_word :: Document -> IO Word
 doc_get_word (Document file_in file_out) =
-
-    catch (do
-        valid_word <- constructWord "" file_in file_out
-        return valid_word)
-          (\err -> putStrLn(show err))
-
+    do 
+        word_to_process <- constructWord "" 0 file_in file_out
+        return word_to_process
 
 -- usar hgetchar no hace falta trabajar con la excepcion porq de eso se ocupa hgetchar
 -- cuando llega a eof solo levanta la excepcion
 
 -- Escribe una palabra en el documento de salida.
 doc_put_word :: Word -> Document -> IO ()
-doc_put_word word (Document file_in file_out) = 
+doc_put_word word (Document _ file_out) = 
     do
         hPutStr file_out word
         return()
