@@ -36,8 +36,8 @@ dict_load file_dictionary =
 
 -- Guarda el diccionario en el archivo especificado.
 dict_save :: FilePath -> Dictionary -> IO ()
-dict_save filename_to_save list_dict_to_save = 
+dict_save filePath_to_save list_dict_to_save = 
     do 
         let data_to_save = unlines (list_dict_to_save)
-        writeFile filename_to_save data_to_save
+        writeFile filePath_to_save data_to_save
         return ()

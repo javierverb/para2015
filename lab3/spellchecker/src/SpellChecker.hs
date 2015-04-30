@@ -20,6 +20,7 @@ do_spellcheck (Params inputPath dictPath) =
         dict_added_w <- dict_load dictPath
         document <- doc_open inputPath "output.txt"
         dict_to_save <- process_document document dict_added_w dict_new
+        print(dict_to_save)
         dict_save dictPath dict_to_save
         doc_close document
         return ()
@@ -37,24 +38,27 @@ process_document :: Document ->
                     IO Dictionary
 process_document (Document f_in f_out) dict_added_w dict_ignored_w = 
 	do
-        catch(
+        catch (
             do
                 word_to_process <- doc_get_word (Document f_in f_out)
-                if dict_contains word_to_process dict_added_w then
+                let already_in_d = dict_contains word_to_process dict_added_w
+                the_last_dictionary <- if already_in_d then
                     do
                         doc_put_word word_to_process (Document f_in f_out)
-                        _ <- process_document (Document f_in f_out) dict_added_w dict_ignored_w
-                        print("")
+                        d' <- process_document (Document f_in f_out) dict_added_w dict_ignored_w
+                        return (d')
                 else 
                     do 
                         (w', d_add', d_ign') <- consult_user word_to_process dict_added_w dict_ignored_w
                         doc_put_word w' (Document f_in f_out)
-                        _ <- process_document (Document f_in f_out) d_add' d_ign'
-                        print("")
-                return dict_added_w) handleException
+                        d' <- process_document (Document f_in f_out) d_add' d_ign'
+                        return (d')
+                return the_last_dictionary) handleException
             where 
-                handleException :: SomeException -> IO Dictionary            
-                handleException _ = return dict_added_w
+                handleException :: SomeException -> IO Dictionary
+                handleException _   = do 
+                                        print(dict_added_w)
+                                        return dict_added_w
 
 clearScreen :: IO [()]
 clearScreen = sequence (replicate 80 (putChar '\n'))
