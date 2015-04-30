@@ -9,23 +9,23 @@ import CommandLine
 
 data Params = Params 
 
--- La funcion 'do_spellcheck' es la funcion que se encarga de manejar
+-- La fun{-# LANGUAGE ScopedTypeVariables #-}
+cion 'do_spellcheck' es la funcion que se encarga de manejar
 -- el proceso de chequeo ortografico. Esto incluye, cargar el diccionario,
 -- abrir el archivo a procesar, procesar el archivo y luego guardar el
 -- diccionario y el archivo de entrada ya procesado.
 -- Toma como argumento los argumentos de linea de comando de tipo 'Params'.
 do_spellcheck :: Params -> IO ()
-do_spellcheck = 
+do_spellcheck (Params inputPath dictPath) = 
     do
         dict_ignored_w = dict_new
-        dict_added_w <- dict_load "dictionary.txt"
-        document <- doc_open "input.txt" "output.txt"
+        dict_added_w <- dict_load dictPath
+        document <- doc_open inputPath "output.txt"
         dict_to_save <- process_document document dict_added_w dict_ignored_w
-        dict_save "dictionary.txt" dict_to_save
+        dict_save dictPath dict_to_save
         doc_close document
         return ()
 
-        
 -- La funcion 'process_document' ejecuta el proceso de chequeo ortografico.
 -- Para ello, procesa el archivo palabra por palabra, copiandolas al archivo
 -- de salida y consultando al usuario sobre que accion realizar ante una
