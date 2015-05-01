@@ -94,7 +94,7 @@ consult_user w dict_added_w dict_ignored_w =
             "a" -> do
                 hFlush stdout
                 putStr "Palabra agregada. Presione [Intro] para continuar\n"
-                _ <- getLine
+                _ <- getLine -- wait for response user! 
                 return (w, (dict_add w dict_added_w), dict_ignored_w)
             "i" -> do
                 hFlush stdout

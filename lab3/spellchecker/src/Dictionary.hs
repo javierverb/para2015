@@ -3,6 +3,7 @@ module Dictionary where
 -- Las importaciones van después de declarar el paquete/modulo
 -- Dictionary 
 import Document
+import Control.Exception
 type Dictionary = [String]  --data Dictionary = [Word]
 
 
@@ -39,5 +40,10 @@ dict_save :: FilePath -> Dictionary -> IO ()
 dict_save filePath_to_save list_dict_to_save = 
     do 
         let data_to_save = unlines (list_dict_to_save)
-        writeFile filePath_to_save data_to_save
-        return ()
+        -- capturamos el caso en que los datos sean vacíos
+        catch (do 
+                writeFile filePath_to_save data_to_save
+                return ()) handleDataIsEmpty
+        where
+            handleDataIsEmpty :: SomeException -> IO ()
+            handleDataIsEmpty _ = do return ()

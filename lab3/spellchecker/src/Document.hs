@@ -25,7 +25,7 @@ doc_open fp1 fp2 =
 -- Cierra los archivos especificados
 doc_close :: Document -> IO ()
 doc_close (Document f1 f2) = 
-    do 
+    do
         hClose f1
         hClose f2
         return ()
