@@ -4,6 +4,8 @@ module Dictionary where
 -- Dictionary 
 import Document
 import Control.Exception
+import System.IO
+
 type Dictionary = [String]  --data Dictionary = [Word]
 
 
@@ -28,18 +30,22 @@ dict_contains word_to_search (word:dictionary) =
 
 -- Carga un diccionario desde un archivo especificado.
 dict_load :: FilePath -> IO Dictionary
-dict_load file_dictionary = 
+dict_load file_path_dictionary = 
     do
         catch (do 
-            definition_text <- readFile file_dictionary
+            definition_text <- readFile file_path_dictionary
             let new_dictionary = lines (definition_text)
             return new_dictionary) handlePathNotExist
         where
             handlePathNotExist :: SomeException -> IO Dictionary
             handlePathNotExist _ = do 
-                print("Ruta de diccionario no encontrada")
-                print("Generando nuevo diccionario...")
-                writeFile "dict.txt" ""
+                hFlush stdout
+                putStr("Ruta de diccionario no encontrada\n")
+                putStr "Nuevo diccionario generado: "
+                print(file_path_dictionary)
+                putStr("[Intro] Para continuar\n")
+                _ <- getLine
+                writeFile file_path_dictionary ""
                 return dict_new
 
 
