@@ -30,9 +30,17 @@ dict_contains word_to_search (word:dictionary) =
 dict_load :: FilePath -> IO Dictionary
 dict_load file_dictionary = 
     do
-        definition_text <- readFile file_dictionary
-        let new_dictionary = lines (definition_text)
-        return new_dictionary
+        catch (do 
+            definition_text <- readFile file_dictionary
+            let new_dictionary = lines (definition_text)
+            return new_dictionary) handlePathNotExist
+        where
+            handlePathNotExist :: SomeException -> IO Dictionary
+            handlePathNotExist _ = do 
+                print("Ruta de diccionario no encontrada")
+                print("Generando nuevo diccionario...")
+                writeFile "dict.txt" ""
+                return dict_new
 
 
 -- Guarda el diccionario en el archivo especificado.
