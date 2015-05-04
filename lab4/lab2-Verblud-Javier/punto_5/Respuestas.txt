@@ -1,0 +1,12 @@
+Dada la siguiente funcion responde:
+
+1)¿Es esta funcion recursiva a la cola?
+2)¿Por qué?
+
+def boom(x: Int) : Int =
+if (x==0) throw new Exception("boom")
+else boom(x-1) + 1
+
+
+1-) No.
+2-) Pues dado que boom no es la última llamada si no que al último se le suma 1.

@@ -1,0 +1,28 @@
+<html>
+
+<script type="text/javascript">
+	
+	function execute() {
+		var y = 2;
+		
+		function Q(x) {
+
+			var result;
+			result = x + y; 
+			alert("Dinamico pues: x+y= " + result);
+		
+		}
+
+		function rewrite() {
+		
+			y = 3;
+			Q(90)
+		}
+		rewrite();
+	}
+	execute();
+
+
+</script>
+
+</html>
