@@ -1,0 +1,18 @@
+CONSIGNA 2
+===============================================================================
+Determine si los siguientes lenguajes son de tipado débil o tipado fuerte:
+Python, Haskell, Java, Scala, C, Javascript y Ruby.
+Para cada uno de estos lenguajes, cree un programa (simple) que lo demuestre.
+===============================================================================
+LENGUAJE DE TIPADO FUERTE.
+  Un lenguaje de programación es fuertemente tipado si no se permiten
+  violaciones de los tipos de datos, es decir, dado el valor de una variable
+  de un tipo concreto, no se puede usar como si fuera de otro tipo distinto
+  a menos que se haga una conversión.
+
+LENGUAJE DE TIPADO DEBIL.
+  Los lenguajes de programación no tipados o débilmente tipados no controlan
+  los tipos de las variables que declaran, de este modo, es posible
+  usar variables de cualquier tipo en un mismo escenario.
+  Por ejemplo, una función puede recibir como parámetro un valor entero,
+  cadena de caracteres, flotante, etc.
