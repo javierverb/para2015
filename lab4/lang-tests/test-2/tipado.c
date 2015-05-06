@@ -1,19 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+float doble(float var){
+	float result = var * 2;
+	return result;
+}
+
 int main(void){
-	int* a = NULL;
-	float b = 0.0;
-	float result = 0;
+	//int a = 123;
+	//char* b = "hola mundo";
+	//char* result ="esto es el resultado";
+	//printf("eso es b: %s\n\n",b);
+	//printf("trataremos de multiplicar\nun int con char*, C es fuertemente tipado\n sdeberia tirar error");
+	//result = a * b;
+	//printf("%s\n", result);
 
-	a = calloc(1,sizeof(int));
-	*a = 3;
-	b = 3.14;
-	printf("a es %d\n",*a);
-	printf("b es %f\n",b);
+	float a = 0.0;
 
-	result = *a + b;
-	printf("el resultado de la suma de a y b es %f\n",result);
+	a = doble(2);
+	printf("%f\n",a);
+
 
 	return 0;
 }

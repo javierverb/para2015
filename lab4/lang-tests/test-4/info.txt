@@ -1,0 +1,21 @@
+ALCANCE ESTÁTICO:
+	               el valorde las variables globales
+                 se obiene del bloque inmediatamente contenedor.
+  
+ALCANCE DINÁMICO:
+                 el valor de las variables globales
+                 se obtiene del activation record más reciente.
+
+EJEMPLO:
+=============================
+var x=1;
+function g(z) {return x+z}
+function f(y){
+    var x = y+1;
+    return g(y*x);    
+}
+
+f(3);
+=============================
+con alcance ESTÁTICO, el resultado es 13
+con alcance DINÁMICO, el resultado es 16
