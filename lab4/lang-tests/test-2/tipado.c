@@ -1,25 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-float doble(float var){
-	float result = var * 2;
-	return result;
+
+void function(char* a, int b){
+	return a * b;
 }
 
 int main(void){
-	//int a = 123;
-	//char* b = "hola mundo";
-	//char* result ="esto es el resultado";
-	//printf("eso es b: %s\n\n",b);
-	//printf("trataremos de multiplicar\nun int con char*, C es fuertemente tipado\n sdeberia tirar error");
-	//result = a * b;
-	//printf("%s\n", result);
 
-	float a = 0.0;
-
-	a = doble(2);
-	printf("%f\n",a);
-
+	int a = 123;
+	printf("\n'a' es una variable de tipo entero\n");
+	
+	char* palabra = "hola a todos";
+	printf("palabra es un string: %s\n\n", palabra);
+	
+	void result;
+	result = function(palabra, a);
 
 	return 0;
 }
+
+// PREGUNTAR PERO ES TIPADO FUERTE
+
+
