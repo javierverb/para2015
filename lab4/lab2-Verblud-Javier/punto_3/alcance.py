@@ -1,8 +1,7 @@
 # encoding: utf-8
 
+y = 2
 def execute():
-
-    y = 2 
 
     def Q(x):
         print "Estático pues: x+y=", x+y
