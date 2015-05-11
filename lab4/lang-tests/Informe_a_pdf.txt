@@ -1,0 +1,13 @@
+Paradigmas de la programación
+    Laboratorio 4: Propiedades de los lenguajes de programación
+
+Introducción:
+    En este laboratorio se intentará demostrar con programas simples los diferentes conceptos aprendidos en el teórico de la materia.
+
+    A continuación se detalla la forma de documentar la resolución de cada consigna:
+
+        <Número de la consigna>"-"<Nombre de consigna>":\n"
+        <código del programa>"\n"
+        <explicación>"\n"
+
+Resoluciones:

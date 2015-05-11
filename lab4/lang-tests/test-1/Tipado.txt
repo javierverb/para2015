@@ -1,0 +1,22 @@
+Paradigmas de la programación
+    Laboratorio 4: Propiedades de los lenguajes de programación
+
+Introducción:
+    En este laboratorio se intentará demostrar con programas simples los diferentes conceptos aprendidos en el teórico de la materia.
+
+    A continuación se detalla la forma de documentar la resolución de cada consigna:
+
+        <Número de la consigna>"-"<Nombre de consigna>":\n"
+        <código del programa>"\n"
+        <explicación>"\n"
+
+Resoluciones:
+
+
+Un lenguaje de programación es dinámicamente tipado si una misma variable puede tomar valores de distinto tipo en distintos momentos. La mayoría de lenguajes de tipado dinámico son lenguajes interpretados, como Python o Ruby. Un lenguaje que no es dinámicamente tipado se dice que es de tipado estático, o estáticamente tipado. Esta separación se suele confundir con la diferencia entre lenguajes fuertemente tipados y lenguajes débilmente o no tipados. Esta característica estuvo en el lenguaje de programación "SmallTalk"
+
+
+
+Nota:
+    Tener en cuenta que según el compilador, en C el tipado estático es relativamente permisivo respecto a la conversión o casteo implícito. Por lo que si no se aplican las flags necesarias (en este caso -Werror),
+    la compilación puede resultar exitosa.
