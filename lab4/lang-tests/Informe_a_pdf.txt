@@ -5,9 +5,12 @@ Introducción:
     En este laboratorio se intentará demostrar con programas simples los diferentes conceptos aprendidos en el teórico de la materia.
 
     A continuación se detalla la forma de documentar la resolución de cada consigna:
-
         <Número de la consigna>"-"<Nombre de consigna>":\n"
+        {<nombre del lenguaje y comentario introductorio>"\n"
         <código del programa>"\n"
         <explicación>"\n"
+        "La salida en pantalla que se obtuvo al ejecutar el código es: \n"
+        <salida por pantalla al ejecutar código>"\n"
+        "___\n"}+
 
 Resoluciones:

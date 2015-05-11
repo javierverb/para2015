@@ -1,22 +1,165 @@
-Paradigmas de la programación
-    Laboratorio 4: Propiedades de los lenguajes de programación
+1-Tipado:
 
-Introducción:
-    En este laboratorio se intentará demostrar con programas simples los diferentes conceptos aprendidos en el teórico de la materia.
+A continuación se detalla el código de C que demuestra que este lenguaje es de tipado estático y la explicación del mismo:
 
-    A continuación se detalla la forma de documentar la resolución de cada consigna:
+#include <stdlib.h>
+#include <stdio.h>
 
-        <Número de la consigna>"-"<Nombre de consigna>":\n"
-        <código del programa>"\n"
-        <explicación>"\n"
+int main() {
+    
+    int tstatic = 222;
+    // esto explotará en tiempo de compilación al asignar
+    // algo que no se corresponde con el tipo definido a 
+    // la variable siempre y cuando coloquemos -Werror en 
+    // la compilación
+    tstatic = "boom";
+    printf("%s\n", tstatic);
 
-Resoluciones:
+    return EXIT_SUCCESS;
+}
+La siguiente definición fue extraída de la wikipedia:
+
+"Un lenguaje de programación es dinámicamente tipado si una misma variable puede tomar valores de distinto tipo en distintos momentos...".
+
+Además del siguiente fragmento:
+
+"Se dice de un lenguaje de programación que usa un tipado estático cuando la comprobación de tipificación se realiza durante la compilación, y no durante la ejecución..."
+
+Aplicando estas dos definiciones/fragmentos se puede concluir que para demostrar que un lenguaje es de tipado estático basta con generar un error en tiempo de compilación relacionado con los tipos. Sin embargo, en este caso el compilador (se probó con gcc y clang) sólo genera una advertencia de conversión implícita. Para considerar esta advertencia como un error, es necesario agregar la flag -Werror.
+
+Luego de esto, se puede ver claramente que se intenta asignar un valor que NO corresponde con el tipo declarado.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ clang -Werror typed.c 
+typed.c:11:13: error: incompatible pointer to integer conversion assigning to 'int' from 'char [5]'
+      [-Werror,-Wint-conversion]
+    tstatic = "boom";
+            ^ ~~~~~~
+typed.c:12:20: error: format specifies type 'char *' but the argument has type 'int' [-Werror,-Wformat]
+    printf("%s\n", tstatic);
+            ~~     ^~~~~~~
+            %d
+2 errors generated.
+___
+
+El siguiente código escrito en python demuestra que este lenguaje es de tipado dinámico:
+
+def dynamicType():
+
+    a = 222
+    print a
+    a = "two"
+    print a
+    a = [222]
+    print a
+    a = {222:222}
+    print a
+
+dynamicType()
+
+En este caso, utilizando las mismas definiciones/fragmentos de la wikipedia se puede concluir que, al poder asignarle valores de distintos tipos a una misma variable, python es de tipo dinámico.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ python typed.py 
+222
+two
+[222]
+{222: 222}
+___
+
+De la misma forma ruby es de tipado dinámico:
+
+def dynamicType()
+
+    a = 222
+    puts a
+    a = "two"
+    puts a
+    a = [222]
+    puts a
+    a = {222 => 222}
+    puts a
+end
+
+dynamicType()
+
+Claramente se ve en el código que a la variable 'a' se le asignan diferentes valores.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ ruby typed.rb 
+222
+two
+222
+{222=>222}
+___
+
+Haskell es de tipado (muy) estático. El siguiente código no podrá ser compilado dadas las restricciones de este tipo de lenguajes en relación al sistema de tipos:
+
+import System.IO
+import Data.Char
+import Control.Monad
 
 
-Un lenguaje de programación es dinámicamente tipado si una misma variable puede tomar valores de distinto tipo en distintos momentos. La mayoría de lenguajes de tipado dinámico son lenguajes interpretados, como Python o Ruby. Un lenguaje que no es dinámicamente tipado se dice que es de tipado estático, o estáticamente tipado. Esta separación se suele confundir con la diferencia entre lenguajes fuertemente tipados y lenguajes débilmente o no tipados. Esta característica estuvo en el lenguaje de programación "SmallTalk"
+static :: Int -> IO Int
+static a = return (a + 222)
 
+checkTyped = 
+    do 
+        ok <- static 0
+        print ok
+        fail <- static "0"
+        print fail
 
+En este caso se declara una función que recibe un valor Int como parámetro. Luego, al recibirse un valor distinto al tipo esperado, surgirá un error en tiempo de compilación.
 
-Nota:
-    Tener en cuenta que según el compilador, en C el tipado estático es relativamente permisivo respecto a la conversión o casteo implícito. Por lo que si no se aplican las flags necesarias (en este caso -Werror),
-    la compilación puede resultar exitosa.
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ haskell-compiler typed.hs
+[1 of 1] Compiling Main             ( typed.hs, typed.o )
+
+typed.hs:1:1: The function `main' is not defined in module `Main'
+
+typed.hs:13:24:
+    Couldn't match expected type `Int' with actual type `[Char]'
+    In the first argument of `static', namely `"0"'
+    In a stmt of a 'do' block: fail <- static "0"
+    In the expression:
+      do { ok <- static 0;
+           print ok;
+           fail <- static "0";
+           print fail }
+___
+
+El siguiente código demuestra que Java es de tipado estático:
+
+class StrongerTyped {
+
+    public static void main(String[] args)
+    {
+
+        int tStatic = 0;
+        /* Intentamos cambiar el tipo de
+        la variable "tStatic"*/
+        
+        tStatic = "I'm a string";
+        /* Esto dará un error en tiempo de compilación: 
+        Se esperaba un int. */
+    }
+}
+
+Nuevamente aplicando la lógica de demostración usada anteriormente, si es tipado estático, el compilador no dudará en generar un error cuando a una variable de tipo X se le intenta asignar un valor que corresponde a un tipo Y. Donde (X intersection Y) = Empty
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ javac typed.java 
+typed.java:10: error: incompatible types
+        tStatic = "I'm a string";
+                  ^
+  required: int
+  found:    String
+1 error
+___
+
+me falta scala y js
