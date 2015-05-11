@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-float doble(float var){
-	float result = var * 2;
-	return result;
-}
-
 int main(void){
 
-	float a = 0.0;
-
-	a = doble(2);
-	printf("%f\n",a);
+	int num = 123;
+	printf("\n'a' es una variable de tipo entero\n");
+	
+	char* word = "hola a todos";
+	printf("palabra es un string: %s\n\n", word);
+	
+	int result;
+	result = word + num;
+	printf("el resultado es %d\n",result);
+	printf("C ES DE TIPADO DEBIL\n");
 
 	return 0;
 }
+// c es de tipado DEBIL

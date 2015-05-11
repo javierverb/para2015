@@ -31,3 +31,7 @@ def function_b(y)
 end
 
 function_b(3)
+
+=begin
+	terminado
+=end

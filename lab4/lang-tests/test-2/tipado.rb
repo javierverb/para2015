@@ -6,19 +6,22 @@ Ruby es un lenguaje de tipado DEBIL
 =end
 
 puts "probamos que tipo de tipado tiene Ruby"
-a = 12
-b = 3.14
-puts "a = ",  a
+num = 10
+puts "num = ", num
 puts "La variable a, ¿es Integer?"
-puts a.is_a?(Integer)
+puts num.is_a?(Integer)
 puts "\n"
 
-puts "b = ",  b
-puts "La variable b, ¿es Float?"
-puts b.is_a?(Float)
+word = "hola!! "
+puts "word = ", word
+puts "La variable word, ¿es String?"
+puts word.is_a?(String)
 puts "\n"
 
-result = a + b
+result = word * num
 puts "result = ", result
-puts "La variable result, ¿es Float?"
-puts result.is_a?(Float)
+puts "La variable result, ¿es String?"
+puts result.is_a?(String)
+puts "\n"
+puts "Ruby es de tipado DEBIL"
+puts "\n"
