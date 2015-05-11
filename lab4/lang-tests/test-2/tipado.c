@@ -1,25 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-void function(char* a, int b){
-	return a * b;
-}
-
 int main(void){
 
-	int a = 123;
+	int num = 123;
 	printf("\n'a' es una variable de tipo entero\n");
 	
-	char* palabra = "hola a todos";
-	printf("palabra es un string: %s\n\n", palabra);
+	char* word = "hola a todos";
+	printf("palabra es un string: %s\n\n", word);
 	
-	void result;
-	result = function(palabra, a);
+	int result;
+	result = word + num;
+	printf("el resultado es %d\n",result);
+	printf("C ES DE TIPADO DEBIL\n");
 
 	return 0;
 }
 
-// PREGUNTAR PERO ES TIPADO FUERTE
+// c es de tipado DEBIL
 
 

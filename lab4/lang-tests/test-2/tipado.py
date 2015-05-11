@@ -3,9 +3,9 @@ PYTHON es un lenguaje de tipado DEBIL
 """
 
 def tipado_debil():
-	a = 23
-	print "a = ", a
-	print "a es", type(a) 
+	num = 23
+	print "num = ", num
+	print "num es", type(num) 
 	print "\n"
 	
 	word = "hola a todos"
@@ -13,10 +13,11 @@ def tipado_debil():
 	print "word es", type(word)
 	print"\n"
 	
-	resultado = word * a
-	print "resultado = ", resultado
+	result = word * num
+	print "result = ", result
 	print"\n"
-	print "resultado es", type(resultado)
+	print "result es", type(result)
 	print"\n"
+	print("Python es de tipado DEBIL\n")
 
 tipado_debil()

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-/*
+
 int global = 1;
 
 int function_a(int z){
@@ -26,8 +26,8 @@ int main(void){
 
     return 0;
 }
-*/
 
+/*
 int main(void){
     {
         {
@@ -45,11 +45,13 @@ int main(void){
                     printf("y es redefinido, NO ES EL MISMO 'y' que el del bloque contenedor \n");      
                     printf("x = %d, y = %d\n\n", x, y);
                 }
-            printf("x en nungun momento se redefinio, por lo tanto cuando se hace x++ toma el valor del bloque principal\n");
+            printf("x en ningun momento se redefinio, por lo que cuando hace x++ toma el valor del bloque principal\n");
             printf("es decir, no se creo una varieble nueva como fue en el caso de 'y'\n");
             printf("x = %d, y = %d\n\n", x, y);
+            printf("Luego c tiene alcance ESTATICO\n\n");
             }
         }
     return 0;
     }
 }
+*/

@@ -1,7 +1,11 @@
+import System.IO
+
+var_global = 1
 
 main =
 	do
-		function_b 3
+		let result = function_b 3
+		print(result)
 		
 
 function_a :: Integer -> IO Integer
@@ -13,5 +17,5 @@ function_a z =
 function_b :: Integer -> Integer
 function_b y = 
 	do
-		let var_global = y+1
-		function_a (var_global*y)
+		let var_global = y + 1
+		function_a (var_global * y)

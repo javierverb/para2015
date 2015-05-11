@@ -8,8 +8,8 @@ object HelloWorld {
       var word : String = "hola!!"
       println(word)
       
-      var resultado = word * num
-      println(resultado)
+      var result = word * num
+      println(result)
       println("concluimos que scala es de tipado DEBIL")
    }
 }
