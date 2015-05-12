@@ -2,7 +2,7 @@
 PYTHON es un lenguaje de tipado DEBIL
 """
 
-def tipado_debil():
+def weak_type():
     num = 10
     print "num = ", num
     print "num es", type(num) 
@@ -18,4 +18,4 @@ def tipado_debil():
     print "result es", type(result)
     print("Python es de tipado DEBIL\n")
 
-tipado_debil()
+weak_type()
