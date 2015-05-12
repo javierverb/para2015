@@ -15,9 +15,9 @@ main = tipado_fuerte 3 "hola"
 
 tipado_fuerte :: Integer -> String -> IO ()
 tipado_fuerte num word =
-	do
-		let result = word + num
-		print("el result es:")
-		print(result)
-		return ()
+    do
+        let result = word + num
+        print("el result es:")
+        print(result)
+        return ()
 -- haskell es de tipado FUERTE

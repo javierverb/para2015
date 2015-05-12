@@ -1,4 +1,4 @@
-object HelloWorld {
+object Typed {
    def main(args: Array[String]) {
       println("prueba de tipado fuerte o debil")
       
