@@ -26,15 +26,15 @@ public class Point {
     {
         Point pnt1 = new Point(0,0);
         Point pnt2 = new Point(0,0);
-        System.out.println("pnt1 X: " + pnt1.x + "pnt1 Y: " + pnt1.y);
-        System.out.println("pnt2 X: " + pnt2.x + "pnt2 Y: " + pnt2.y);
-        System.out.println("tricky1\n");
+        System.out.println("\npnt1 X: " + pnt1.x + " pnt1 Y: " + pnt1.y);
+        System.out.println("pnt2 X: " + pnt2.x + " pnt2 Y: " + pnt2.y);
+        System.out.println("\ntricky1");
         tricky1(pnt1, pnt2);
-        System.out.println("pnt1 X: " + pnt1.x + "pnt1 Y: " + pnt1.y);
-        System.out.println("pnt2 X: " + pnt2.x + "pnt2 Y: " + pnt2.y);
-        System.out.println("tricky2\n");
+        System.out.println("pnt1 X: " + pnt1.x + " pnt1 Y: " + pnt1.y);
+        System.out.println("pnt2 X: " + pnt2.x + " pnt2 Y: " + pnt2.y);
+        System.out.println("\ntricky2");
         tricky2(pnt2, pnt2);
-        System.out.println("pnt1 X: " + pnt1.x + "pnt1 Y: " + pnt1.y);
-        System.out.println("pnt2 X: " + pnt2.x + "pnt2 Y: " + pnt2.y);
+        System.out.println("pnt1 X: " + pnt1.x + " pnt1 Y: " + pnt1.y);
+        System.out.println("pnt2 X: " + pnt2.x + " pnt2 Y: " + pnt2.y + "\n");
     }
 }
