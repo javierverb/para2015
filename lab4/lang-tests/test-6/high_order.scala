@@ -2,11 +2,18 @@ object High_order {
     
     def main(args: Array[String]) {
 
-        lazy var x = {println("esto se imprimira una sola vez"); 10}
+        lazy val x = 10
+        val z = 123
+        print("\n")
+        print("esto es x: ",x)
+        print("\n")
+        print("esto es z: ",z)
+        print("\n")
 
-        r = x + y 
+        z = 11
+        print("ahora z = ",z)
+        print("\n")
 
-
-        
+         
     }
 }
