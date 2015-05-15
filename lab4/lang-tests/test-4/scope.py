@@ -1,5 +1,5 @@
 """
-python tiene alcance ESTÁTICO
+python tiene alcance ESTATICO
 """
 
 global_var = 1

@@ -10,9 +10,7 @@ object High_order {
         print("esto es z: ",z)
         print("\n")
 
-        z = 11
-        print("ahora z = ",z)
-        print("\n")
+        
 
          
     }
