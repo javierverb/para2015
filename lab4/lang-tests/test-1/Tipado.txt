@@ -162,4 +162,61 @@ typed.java:10: error: incompatible types
 1 error
 ___
 
-me falta scala y js
+Para el caso de scala, un simil de Java, el resultado es similar:
+
+object Typed {
+
+    def main (args: Array[String]) {
+        
+        var tstatic = 0;
+
+        /* Esto dará un error en tiempo de compilación: 
+        Se esperaba un int. Ademas de que no permite
+        reescribir el valor */
+        tstatic = "Never will be this value";
+    }
+}
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ scalac typed.scala 
+typed.scala:10: error: type mismatch;
+ found   : java.lang.String("Never will be this value")
+ required: Int
+        tstatic = "Never will be this value";
+                  ^
+one error found
+___
+
+Un caso completamente distinto es javascript, un lenguaje de scripting y utilizado comunmente en la web por su flexibilidad respecto a muchos aspectos, entre ellos, el tipado dinámico que este presenta. El código que lo demuestra es:
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>typed.js</title>
+</head>
+<body>
+    <h2>Test a typed in javascript</h2>
+    <script type="text/javascript">
+        var a = 10;
+        console.log("var a = 10 => type of a: "+typeof(a));
+        a = function (x) {return x+1;};
+        console.log("a = function (x) {return x+1;}; => type of a: "+typeof(a));
+        a = "ten";
+        console.log("a = 'ten'; => type of a: "+typeof(a));
+    </script>
+</body>
+</html>
+Claramente el tipo cambia a medida que la variable se reasigna.
+Para corroborar esto, utilizamos 'typeof' mostrando el tipo de la variable.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ firefox typed.html &
+[Presiono ctrl+shift+k]
+"var a = 10 => type of a: number" typed.html:11:8
+"a = function (x) {return x+1;}; => type of a: function" typed.html:13:8
+"a = 'ten'; => type of a: string" typed.html:15:8
+___

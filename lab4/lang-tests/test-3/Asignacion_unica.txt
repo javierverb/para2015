@@ -1,0 +1,330 @@
+3-Asignación única:
+
+Se entiende por asignación única, a aquella variable que sólo puede
+tomar un valor durante toda su 'vida' durante el programa. Más hablando en claro, tomando un valor semántico similar al de una constante.
+
+Personalmente pienso que un lenguaje con asignación única es un lenguaje cruel y despiadado que te obliga a extenderlo en el caso de querer usar múltiple asignación.
+
+A continuación se detalla el código de C que demuestra que este lenguaje es de múltiple asignación y la explicación del mismo:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    
+    int multiple_assignment = 219;
+    printf("var multiple_assignment: %d\n", multiple_assignment);
+    multiple_assignment = 221;
+    multiple_assignment++;
+    printf("var multiple_assignment: %d\n", multiple_assignment);
+}
+
+Claramente si fuera de simple asignación, la variable 'multiple_assignment' no podría tomar el valor 221 o 222, sin embargo, compila sin errores.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ clang assignment.c && ./a.out
+var multiple_assignment: 219
+var multiple_assignment: 222
+
+Para obtener un mecanismo similar al de asignación única, se puede utilizar el prefijo const lo cual fuerza a la variable a tomar un valor constante como se observa a continuación:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    const int readOnlyVar = 10;
+    printf("%d\n", readOnlyVar);
+    /* Dado que una constante no puede cambiar
+    este programa no compilará */
+    readOnlyVar++;
+}
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ clang assignment_forced_to_single.c && ./a.out
+assignment_forced_to_single.c:9:16: error: read-only variable is not assignable
+    readOnlyVar++;
+    ~~~~~~~~~~~^
+1 error generated.
+___
+
+Java es de múltiple asignación como se muestra en el código a continuación.
+
+class Assignment {
+    public static void main(String[] args) {
+
+        int multiple_assignment = 220;
+        System.out.println("var multiple_assignment: "+multiple_assignment);
+        multiple_assignment = 221;
+        multiple_assignment++;
+        System.out.println("var multiple_assignment: "+multiple_assignment);
+    }
+}
+
+Se aplica la misma lógica que para los lenguajes anteriores y
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ javac assignment.java && java Assignment 
+var multiple_assignment: 220
+var multiple_assignment: 222
+
+Y al igual que en C, se puede emular un comportamiento similar utilizando el prefijo 'final' antes de la declaración de la variable como se observa a continuación:
+
+class Assignment {
+    public static void main(String[] args) {
+
+        final int multiple_assignment = 220;
+        /* Dado que una constante no puede cambiar
+        este programa no compilará */
+        multiple_assignment++;
+    }
+}
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ javac assignment_forced_to_single.java 
+assignment_forced_to_single.java:7: error: cannot assign a value to final variable multiple_assignment
+        multiple_assignment++;
+        ^
+1 error
+___
+Dado que scala tiene una relación directa con java, el comportamiento es similar.
+
+object Assignment {
+
+    def main (args: Array[String]) {
+        
+        var m_assignment = 0;
+        System.out.println("var multiple_assignment: "+m_assignment);
+        m_assignment = 222;
+        System.out.println("var multiple_assignment: "+m_assignment);
+    }
+}
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ scalac assignment.scala && scala Assignment
+var multiple_assignment: 0
+var multiple_assignment: 222
+
+Y al igual que el resto de los lenguajes, se puede replicar el comportamiento de simple asignación de la siguiente manera:
+
+object Assignment {
+
+    def main (args: Array[String]) {
+        
+        val CONSTANT_m_assignment = 0;
+        System.out.println("var multiple_assignment: "+CONSTANT_m_assignment);
+        /* Dado que una constante no puede cambiar
+        este programa no compilará */
+        CONSTANT_m_assignment = 222;
+    }
+}
+donde
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ scalac assignment_forced_to_single.scala && scala Assignment
+assignment_forced_to_single.scala:9: error: reassignment to val
+        CONSTANT_m_assignment = 222;
+                              ^
+one error found
+___
+
+Haskell es de asignación múltiple pero de una manera un tanto rebuscada. A continuación el siguiente código lo demuestra:
+
+module Main where
+
+setValue :: Int -> IO Int
+setValue a = return a
+
+main = do
+    a <- setValue 10
+    print a
+    a <- setValue 15
+    print a
+--Notar que también se puede hacer algo como redefinir la variable, lo cual
+--a mi entender representa crear una variable completamente nueva con el valor
+--asignado. Sería algo como:
+--let a = 10
+--let a = 15
+
+Como se puede observar, para reasignar un valor, se utilizó una función 'setValue' con tipo especificado. Si se hubiera intentado hacer algo del estilo 
+a = 10
+a = 15
+no se hubiera logrado puesto que al momento de parsear esto (al menos escrito de esa forma) no es válido.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ haskell-compiler assignment.hs && ./assignment
+[1 of 1] Compiling Main             ( assignment.hs, assignment.o )
+Linking assignment ...
+10
+15
+Luego, para utilizar valores constantes, se puede hacer algo tan simple como declarar funciones que retornen un valor constante.
+De esta forma, el valor estará dado por la función. 
+A continuación el código utilizado:
+
+module Main where
+
+constant :: Int
+constant = 222
+
+main = do
+    let c = constant
+    print c
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ haskell-compiler assignment_forced_to_single.hs && ./assignment_forced_to_single
+222
+___
+
+Python es de asignación múltiple de acá a la China:
+
+# encoding: utf-8
+def assignment():
+    multiple_assignment = 219
+    print("var multiple_assignment: %d\n" % multiple_assignment)
+    multiple_assignment = 221
+    multiple_assignment += 1
+    print("var multiple_assignment: %d\n" % multiple_assignment)
+
+assignment()
+
+Aplicando la misma lógica que para los demás lenguajes,
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ python assignment.py 
+var multiple_assignment: 219
+
+var multiple_assignment: 222
+
+Sin embargo, python no dispone de variables o valores constantes.
+Por lo que se intentó simular este efecto de la siguiente forma:
+
+# encoding: utf-8
+class Constant(object):
+    
+    __UNPROTECTED = True
+    value = None
+
+    def __init__(self, value):
+        super(Constant, self).__init__()
+        self.value = value
+        self.__UNPROTECTED = False
+
+    def __setattr__(self, *arg):
+        if not self.__UNPROTECTED:
+            raise Exception("This value is only read")
+        else:
+            super(Constant, self).__setattr__(*arg)
+
+a = Constant(2)
+print a.value
+# Dado que la clase Constant prohibe la reasignación de un valor
+# Esto generará una excepción al cambiar el valor.
+# Sin embargo, la variable a puede apuntar a otros valores :(
+# de la forma a = "cambie de valor muajaja"
+a.value = 3
+
+Tal como dicen los comentarios, nada evita que el usuario apunte a otros valores.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+ $ python assignment_forced_to_single.py 
+2
+Traceback (most recent call last):
+  File "assignment_forced_to_single.py", line 24, in <module>
+    a.value = 3
+  File "assignment_forced_to_single.py", line 14, in __setattr__
+    raise Exception("This value is only read")
+Exception: This value is only read
+___
+
+Ruby es de múltiple asignación:
+
+def assignment()
+    multiple_assignment = 219
+    puts("var multiple_assignment: %d\n" % multiple_assignment)
+    multiple_assignment = 221
+    multiple_assignment += 1
+    puts("var multiple_assignment: %d\n" % multiple_assignment)
+end
+
+assignment()
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ ruby assignment.rb 
+var multiple_assignment: 219
+var multiple_assignment: 222
+
+
+Y, a diferencia de python, permite usar una definición de constantes declarando esta con la el primer carácter de nombre de variable con mayúscula:
+
+def assignment()
+    SOME_CONSTANT = 10
+    SOME_CONSTANT = 11
+end
+
+assignment()
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+ $ ruby assignment_forced_to_single.rb 
+assignment_forced_to_single.rb:2: dynamic constant assignment
+    SOME_CONSTANT = 10
+                   ^
+assignment_forced_to_single.rb:3: dynamic constant assignment
+    SOME_CONSTANT = 11
+___
+
+Javascript es de múltiple asignación aunque usted no lo crea:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>assignment.js</title>
+</head>
+<body>
+    <h2>Test a assignment in javascript</h2>
+    <script type="text/javascript">
+        var a = 10;
+        console.log("var a = "+a);
+        a = function (x) {return x+1;};
+        console.log("var a = "+a);
+        a = "ten";
+        console.log("var a = "+a);
+    </script>
+</body>
+</html>
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ firefox assignment.html &
+[Presiono ctrl+shift+k]
+
+"var a = 10" assignment.html:11:8
+"var a = function (x) {return x+1;}" assignment.html:13:8
+"var a = ten" assignment.html:15:8
+
+Quien sabe, quizá si este informe lo hubiera hecho 5 días antes, esto pudo haber sido distinto, sin embargo, hace poco en los navegadores más recientes, se desarrolló compatibilidad para el prefijo 'const' que determina que esta variable es constante y no cambiará de valor.
+(link para más información)
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
+
+En este código vemos como podría usarse:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>assignment.js</title>
+</head>
+<body>
+    <h2>Test a assignment forced to single in javascript</h2>
+    <script type="text/javascript">
+        const b = 10;
+        console.log("const b = " + b);
+        b = 20;
+    </script>
+</body>
+</html>
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ firefox assignment_forced_to_single.html &
+[Presiono ctrl+shift+k]
+SyntaxError: invalid assignment to const b
+___

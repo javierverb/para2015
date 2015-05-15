@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 def dynamicType():
 
     a = 222
@@ -8,7 +7,7 @@ def dynamicType():
     print a
     a = [222]
     print a
-    a = {222:222}
+    a = {222: 222}
     print a
 
 dynamicType()
