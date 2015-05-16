@@ -25,31 +25,3 @@ int main(void){
     return 0;
 }
 
-/*
-int main(void){
-    {
-        {
-            int x = 10, y  = 20;
-            {
-                printf("\nprimer print: x, y toman el valor del bloque contenedor\n");
-                printf("x = %d, y = %d\n\n", x, y);
-                {
-                    int y = 40;
-    
-                    x++;
-                    y++;
-
-                    printf("x aumenta en 1, toma el valor del bloque contenedor\n");
-                    printf("y es redefinido, NO ES EL MISMO 'y' que el del bloque contenedor \n");      
-                    printf("x = %d, y = %d\n\n", x, y);
-                }
-            printf("x en ningun momento se redefinio, por lo que cuando hace x++ toma el valor del bloque principal\n");
-            printf("es decir, no se creo una varieble nueva como fue en el caso de 'y'\n");
-            printf("x = %d, y = %d\n\n", x, y);
-            printf("Luego c tiene alcance ESTATICO\n\n");
-            }
-        }
-    return 0;
-    }
-}
-*/

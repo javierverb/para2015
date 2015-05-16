@@ -1,44 +1,24 @@
-class Global {
-    public static int global_var = 1;
-}
-
-class Alcance {
+class Scope {
     
-    public static int fun_a(int z){
-        System.out.println("esto es 'z' en fun_a");
-        System.out.println(z);
-        System.out.println("esto es 'global_var' en fun_a");
-        System.out.println(Global.global_var);
-        return (z + Global.global_var);
-    }
-    
-    public static int fun_b(int y){
-        /*int global_var = 0;*/
-
-        System.out.println("esto es 'y' en fun_b");
-        System.out.println(y);
-        System.out.println("esto es 'global_var' en fun_b");
-        System.out.println(Global.global_var);
-
-        Global.global_var = y + 1;
-        System.out.println("ahora 'global_var' = y+1 (sigo en fun_b)");
-        System.out.println(Global.global_var);
-        return fun_a(Global.global_var * y);
+    int y = 1;
+    int fun_print(int z) {
+        System.out.format("El valor de y es: %d\n", z);
+        System.out.format("El valor de y es: %d\n", y);
+        System.out.format("Java tiene alcance Estático\n");
+        return z;
     }
 
-    public static void main(String[] args){
-        System.out.println("main");
+    int fun_write(int z){
+        int y = 3;
+        System.out.format("El valor de y en fun_write es: %d\n", y);
+        return fun_print(y + z);
+    }
+
+    public static void main (String args[]) {
         
-        int result;
-        result = fun_b(3);
-
-        System.out.println(result);
-    }
-
+        int y = 2;
+        System.out.format("El valor de y en main es: %d\n", y);
+        Scope a = new Scope();
+        a.fun_write(y);
+  }
 }
-
-/*en fun_b redefini el global_var, dandole el valor de y+1
-  la deficinicion tendria que tener el alcance del bloque,
-  por lo que si toma valor 4 en fun_a, significa que al compilar,
-  la variable toma el valor del ultimo ACTIVATION-RECORD por lo tanto
-  JAVA es de alcance DINAMICO*/

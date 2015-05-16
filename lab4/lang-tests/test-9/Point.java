@@ -3,12 +3,12 @@ public class Point {
     public int y;
 
     public Point(int x, int y){
-        System.out.println("adentro de Point");
+        System.out.println("\tadentro de Point");
         this.x = x;
         this.y = y;
-        System.out.println("this.x = " + this.x + ", x = " + x);
-        System.out.println("this.y = " + this.y + ", y = " + y);
-        System.out.println("afuera de Point");
+        System.out.println("\tthis.x = " + this.x + ", x = " + x);
+        System.out.println("\tthis.y = " + this.y + ", y = " + y);
+        System.out.println("\tafuera de Point");
     }
 
     public static void tricky1(Point arg1, Point arg2)

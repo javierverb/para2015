@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <h1>Alcance en JavaScript</h1>
+        <p>JavaScript tiene Estático.</p>
+
+        <script>
+        var x = 5
+
+        window.alert(fun_b(x));
+
+        function fun_a(z) {
+            window.alert("estoy en fun_a");
+            window.alert(z);
+            window.alert("x vale en fun_a");
+            window.alert(x);
+            window.alert("sali en fun_a");
+            return x;
+        }
+
+
+        function fun_b(y) {
+            var x = 10;
+            window.alert("estoy en fun_b");
+            window.alert(x);
+            window.alert("sali en fun_b");
+            return fun_a(x);
+
+        }
+
+        </script>
+
+    </body>
+</html> 

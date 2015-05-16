@@ -1,24 +1,21 @@
-"""
-python tiene alcance ESTATICO
-"""
+# encoding: utf-8
 
-global_var = 1
+x = 1
+def execute():
+    
+    def fun_a(y):
+        print "en fun_a, 'y' vale: ", y
+        print "en fun_a, 'x' vale: ", x
+        print "en fun_a, x+y vale: ", x+y
 
-def function_a(z):
-	print "function_a, z-> ", z
-	print "function_a, global_var-> ", global_var
-	print "return: ", (global_var+z)
-	return (global_var + z)
+    def fun_b():
+        y = 3
+        x = 0
+        print "en fun_b, 'y' vale: ", y
+        print "en fun_b, 'x' vale: ", x
+        fun_a(123)
 
-def function_b(y):
-	print "function_b, y-> ", y
-	global global_var
-	global_var = y+1
-	print "function_b, global_var-> ", global_var
-	print "function_b, return: ", (global_var * y)
-	return function_a(global_var * y)
+    fun_b()
 
-function_b(3)
-"""
-terminado
-"""
+execute()
+print "\nPython tiene alcance Estático\n"

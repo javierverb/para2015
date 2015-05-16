@@ -5,28 +5,28 @@
 Ruby es de alcance DINAMICO
 =end
 
-$global_var = 1
+global_var = 1
 
 def function_a(z)
 	print "function_a, z --> ", z
 	print "\n"
-	print "function_a, global_var --> ", $global_var
+	print "function_a, global_var --> ", global_var
 	print "\n"
-	print "resultado de function_a = ", ($global_var + z)
+	print "resultado de function_a = ", (global_var + z)
 	print "\n"
-	return $global_var + z
+	return global_var + z
 
 end
 
 def function_b(y)
 	print "function_b, y --> ", y
 	print "\n"
-	$global_var = y+1
-	print "function_b, global_var --> ", $global_var
+	global_var = y+1
+	print "function_b, global_var --> ", global_var
 	print "\n"
-	print "function_b, return: ", ($global_var*y)
+	print "function_b, return: ", (global_var*y)
 	print "\n"
-	return function_a($global_var*y)
+	return function_a(global_var*y)
 
 end
 
