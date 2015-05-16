@@ -14,3 +14,226 @@ Introducción:
         "___\n"}+
 
 Resoluciones:
+
+1-Tipado:
+
+A continuación se detalla el código de C que demuestra que este lenguaje es de tipado estático y la explicación del mismo:
+
+#include <stdlib.h>
+#include <stdio.h>
+
+int main() {
+    
+    int tstatic = 222;
+    // esto explotará en tiempo de compilación al asignar
+    // algo que no se corresponde con el tipo definido a 
+    // la variable siempre y cuando coloquemos -Werror en 
+    // la compilación
+    tstatic = "boom";
+    printf("%s\n", tstatic);
+
+    return EXIT_SUCCESS;
+}
+La siguiente definición fue extraída de la wikipedia:
+
+"Un lenguaje de programación es dinámicamente tipado si una misma variable puede tomar valores de distinto tipo en distintos momentos...".
+
+Además del siguiente fragmento:
+
+"Se dice de un lenguaje de programación que usa un tipado estático cuando la comprobación de tipificación se realiza durante la compilación, y no durante la ejecución..."
+
+Aplicando estas dos definiciones/fragmentos se puede concluir que para demostrar que un lenguaje es de tipado estático basta con generar un error en tiempo de compilación relacionado con los tipos. Sin embargo, en este caso el compilador (se probó con gcc y clang) sólo genera una advertencia de conversión implícita. Para considerar esta advertencia como un error, es necesario agregar la flag -Werror.
+
+Luego de esto, se puede ver claramente que se intenta asignar un valor que NO corresponde con el tipo declarado.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ clang -Werror typed.c 
+typed.c:11:13: error: incompatible pointer to integer conversion assigning to 'int' from 'char [5]'
+      [-Werror,-Wint-conversion]
+    tstatic = "boom";
+            ^ ~~~~~~
+typed.c:12:20: error: format specifies type 'char *' but the argument has type 'int' [-Werror,-Wformat]
+    printf("%s\n", tstatic);
+            ~~     ^~~~~~~
+            %d
+2 errors generated.
+___
+
+El siguiente código escrito en python demuestra que este lenguaje es de tipado dinámico:
+
+def dynamicType():
+
+    a = 222
+    print a
+    a = "two"
+    print a
+    a = [222]
+    print a
+    a = {222:222}
+    print a
+
+dynamicType()
+
+En este caso, utilizando las mismas definiciones/fragmentos de la wikipedia se puede concluir que, al poder asignarle valores de distintos tipos a una misma variable, python es de tipo dinámico.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ python typed.py 
+222
+two
+[222]
+{222: 222}
+___
+
+De la misma forma ruby es de tipado dinámico:
+
+def dynamicType()
+
+    a = 222
+    puts a
+    a = "two"
+    puts a
+    a = [222]
+    puts a
+    a = {222 => 222}
+    puts a
+end
+
+dynamicType()
+
+Claramente se ve en el código que a la variable 'a' se le asignan diferentes valores.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ ruby typed.rb 
+222
+two
+222
+{222=>222}
+___
+
+Haskell es de tipado (muy) estático. El siguiente código no podrá ser compilado dadas las restricciones de este tipo de lenguajes en relación al sistema de tipos:
+
+import System.IO
+import Data.Char
+import Control.Monad
+
+
+static :: Int -> IO Int
+static a = return (a + 222)
+
+checkTyped = 
+    do 
+        ok <- static 0
+        print ok
+        fail <- static "0"
+        print fail
+
+En este caso se declara una función que recibe un valor Int como parámetro. Luego, al recibirse un valor distinto al tipo esperado, surgirá un error en tiempo de compilación.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ haskell-compiler typed.hs
+[1 of 1] Compiling Main             ( typed.hs, typed.o )
+
+typed.hs:1:1: The function `main' is not defined in module `Main'
+
+typed.hs:13:24:
+    Couldn't match expected type `Int' with actual type `[Char]'
+    In the first argument of `static', namely `"0"'
+    In a stmt of a 'do' block: fail <- static "0"
+    In the expression:
+      do { ok <- static 0;
+           print ok;
+           fail <- static "0";
+           print fail }
+___
+
+El siguiente código demuestra que Java es de tipado estático:
+
+class StrongerTyped {
+
+    public static void main(String[] args)
+    {
+
+        int tStatic = 0;
+        /* Intentamos cambiar el tipo de
+        la variable "tStatic"*/
+        
+        tStatic = "I'm a string";
+        /* Esto dará un error en tiempo de compilación: 
+        Se esperaba un int. */
+    }
+}
+
+Nuevamente aplicando la lógica de demostración usada anteriormente, si es tipado estático, el compilador no dudará en generar un error cuando a una variable de tipo X se le intenta asignar un valor que corresponde a un tipo Y. Donde (X intersection Y) = Empty
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ javac typed.java 
+typed.java:10: error: incompatible types
+        tStatic = "I'm a string";
+                  ^
+  required: int
+  found:    String
+1 error
+___
+
+Para el caso de scala, un simil de Java, el resultado es similar:
+
+object Typed {
+
+    def main (args: Array[String]) {
+        
+        var tstatic = 0;
+
+        /* Esto dará un error en tiempo de compilación: 
+        Se esperaba un int. Ademas de que no permite
+        reescribir el valor */
+        tstatic = "Never will be this value";
+    }
+}
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ scalac typed.scala 
+typed.scala:10: error: type mismatch;
+ found   : java.lang.String("Never will be this value")
+ required: Int
+        tstatic = "Never will be this value";
+                  ^
+one error found
+___
+
+Un caso completamente distinto es javascript, un lenguaje de scripting y utilizado comunmente en la web por su flexibilidad respecto a muchos aspectos, entre ellos, el tipado dinámico que este presenta. El código que lo demuestra es:
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>typed.js</title>
+</head>
+<body>
+    <h2>Test a typed in javascript</h2>
+    <script type="text/javascript">
+        var a = 10;
+        console.log("var a = 10 => type of a: "+typeof(a));
+        a = function (x) {return x+1;};
+        console.log("a = function (x) {return x+1;}; => type of a: "+typeof(a));
+        a = "ten";
+        console.log("a = 'ten'; => type of a: "+typeof(a));
+    </script>
+</body>
+</html>
+Claramente el tipo cambia a medida que la variable se reasigna.
+Para corroborar esto, utilizamos 'typeof' mostrando el tipo de la variable.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ firefox typed.html &
+[Presiono ctrl+shift+k]
+"var a = 10 => type of a: number" typed.html:11:8
+"a = function (x) {return x+1;}; => type of a: function" typed.html:13:8
+"a = 'ten'; => type of a: string" typed.html:15:8
+___
