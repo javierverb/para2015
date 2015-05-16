@@ -1,17 +1,18 @@
 #include <stdio.h>
-
-int factorial(int n) {
-
-    if (n == 0 || n == 1) {
-      return 1;
+int tail_rec(int number) {
+    if (number == 0) {
+        // break here! 
+        return 1;
     }
-
-    return n * factorial(n-1);
+    else {
+        return 1 + tail_rec(number-1);
+    }
 }
 
-int main(int argc) {
-    int answer = factorial(15);
-    printf("%d\n", answer);
+int main() {
+    int result = tail_rec(10);
+    printf("tail_rec(10) result is: %d\n", result);
+    return 0;
 }
 
 // con -O2
