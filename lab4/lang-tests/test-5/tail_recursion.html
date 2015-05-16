@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>t_rec.js</title>
+</head>
+<body>
+    <h2>Test a tail recursion in javascript</h2>
+    <script type="text/javascript">
+        function rec (n) {
+            if (n == 0) {
+                console.trace();
+                return 1;
+            }
+            else {
+                return rec(n-1);
+            }
+        };
+        var res = rec(10);
+        console.log(res);
+    </script>
+</html>

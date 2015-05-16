@@ -238,13 +238,123 @@ TailRec.main(tail_recursion_optimized.java:15)
 t_rec(10) =>11
 ____
 
-Y aunque no lo parezca, Scala si soporta TCO:
+Y aunque no lo parezca, Scala si soporta TCO!!:
 
 import scala.annotation.tailrec
+object RecOpt {
 
-@tailrec def factorialAcc(acc: Int, n: Int): Int = {
-  if (n <= 1) acc
-  else factorialAcc(n * acc, n - 1)
+    @tailrec def factorialAcc(acc: Int, n: Int): Int = {
+        if (n <= 1) return 1/0;
+        else return factorialAcc(n * acc, n - 1);
+    }
+
+    def main (args: Array[String]) {
+        try { 
+            factorialAcc(1, 10);
+        } catch {
+            case e: Exception => e.printStackTrace;
+            System.exit(1);
+        }
+    }
 }
 
 (fuente: http://stackoverflow.com/questions/1677419/does-scala-support-tail-recursion-optimization)
+
+Utilizamos la estrategia de generar una excepción para mostrar el backtrace del stack donde en este caso, a nosotros sólo nos interesa las llamadas a nuestra clase.
+Un detalle no menor, es que las optimizaciones no son tan mágicas como las del compilador de C, de tal forma que al menos en las pruebas realizadas sólo se aplica la optimización cuando hay sólo acumuladores.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ scala RecOp
+java.lang.ArithmeticException: / by zero
+    at RecOp$.factorialAcc(tail_recursion_optimized.scala:5)
+    at RecOp$.main(tail_recursion_optimized.scala:11)
+    at RecOp.main(tail_recursion_optimized.scala)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    ...
+    ...
+
+Ahora bien, si no hubiera tenido un acumulador:
+
+object RecOp {
+
+    def factorialAcc(n: Int): Int = {
+        if (n <= 1) return 1/0;
+        else return n*factorialAcc(n - 1);
+    }
+
+    def main (args: Array[String]) {
+        try { 
+            factorialAcc(10);
+        } catch {
+            case e: Exception => e.printStackTrace;
+            System.exit(1);
+        }
+    }
+}
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+ $ scala RecOp
+java.lang.ArithmeticException: / by zero
+    at RecOp$.factorialAcc(tail_recursion.scala:4)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.main(tail_recursion.scala:10)
+    at RecOp.main(tail_recursion.scala)
+
+Por lo tanto en scala hay optimización a la cola.
+___
+Javascript no tiene TCO por el momento dado que es un lenguaje muy flexible y compatible para gran cantidad de navegadores.
+A mi entender, este tipo re chequeo y optimización implicaría un gran trabajo por delante y no descarto la posibilidad de que más adelante se lleve a cabo de manera estandarizada.
+El siguiente código muestra una recursión a la cola:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>t_rec.js</title>
+</head>
+<body>
+    <h2>Test a tail recursion in javascript</h2>
+    <script type="text/javascript">
+        function rec (n) {
+            if (n == 0) {
+                console.trace();
+                return 1;
+            }
+            else {
+                return rec(n-1);
+            }
+        };
+        var res = rec(10);
+        console.log(res);
+    </script>
+</html>
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ firefox tail_recursion.html &
+[Presiono ctrl+shift+k]
+
+console.trace(): tail_recursion.html:12
+rec() tail_recursion.html:12
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+<anónima>
+___
