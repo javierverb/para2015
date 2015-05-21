@@ -237,3 +237,1800 @@ $ firefox typed.html &
 "a = function (x) {return x+1;}; => type of a: function" typed.html:13:8
 "a = 'ten'; => type of a: string" typed.html:15:8
 ___
+
+2- Tipado.
+
+Las definición de tipado fuerte y débil son muy variantes, por ello se uso como criterio que si es posible obtener un resultado cuando se aplican operaciones sobre variables con distintos tipos y no una falla o error, el código se considera de tipdo débil 
+
+Python.
+
+Se procede a demostrar que el lenguaje es de tipado débil y la explicación del mismo.
+
+Código.
+
+def weak_type(): 
+    num = 10 
+    print "num = ", num 
+    print "num es", type(num) 
+    print "\n" 
+     
+    word = "hola a todos\n" 
+    print "word = ", word 
+    print "word es", type(word) 
+     
+    result = word * num 
+    print "result:" 
+    print result 
+    print "result es", type(result) 
+    print("Python es de tipado DEBIL\n") 
+
+weak_type() 
+
+
+Explicación.
+
+En Python el control sobre el tipo de las variables es débil, esto significa que es posible usar variables de diferentes tipos en un mismo entorno, en este caso, fué posible multiplicar una variable de tipo 'entero' con una de tipo 'string' dando como resultado una variable de tipo 'string' que contiene la palabra de la  variable 'string' repetida el número de la variable 'entero', el tipo asignado a la variable resultado fué provista de forma subjetiva por Python, de este modo, se puede comprender que este lenguaje es de TIPADO DÉBIL.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+num =  10 
+num es <type 'int'> 
+
+word =  hola a todos 
+word es <type 'str'> 
+
+result: 
+hola a todos 
+hola a todos 
+hola a todos 
+hola a todos 
+hola a todos 
+hola a todos 
+hola a todos 
+hola a todos 
+hola a todos 
+hola a todos 
+
+result es <type 'str'> 
+Python es de tipado DEBIL
+___
+
+Haskell.
+
+A continuación se demostrara que Haskell es un lenguaje de tipado fuerte.
+
+Código.
+
+import System.IO
+
+main = strong_type 3 "hola" 
+
+strong_type :: Integer -> String -> IO () 
+strong_type num word = 
+    do 
+        let result = word + num 
+        print("el result es:") 
+        print(result) 
+        return ()
+
+
+Explicación.
+
+En este lenguaje, no se permiten violaciones en los tipos de datos, es decir, dado el valor de una variable de un tipo concreto, no es posible usarla como si fuera de otro tipo.
+En este caso no es posible la suma de una variable de tipo 'Integer' con una de tipo 'String'.
+Concluimos que Haskell es fuertemente tipado. Hay lenguajes de 'tipado fuerte' que tienen cierto grado de “debilidad” por ejemplo permitiendo sumar o multiplicar una variable de tipo entero con una de tipo flotante,
+pero Haskell no, por lo que se es muy fuertemente tipado.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+tipado.hs:19:37: 
+    Couldn't match type `Integer' with `[Char]' 
+    Expected type: String 
+      Actual type: Integer 
+    In the second argument of `(+)', namely `num' 
+    In the expression: word + num 
+    In an equation for `result': result = word + num
+___
+
+Java.
+
+Se procede a demostrar que Java es de tipado débil y la explicación del mismo.
+
+Código.
+
+public class typed { 
+    public static void main(String[] args) { 
+
+        int num = 10; 
+        System.out.println(); 
+        System.out.println("la variable num:" + num); 
+
+        String word = new String("hola!!"); 
+        System.out.println("la variable word: " + word); 
+
+        String word2 = new String("chau!!"); 
+        System.out.println("la variable word2: " + word2); 
+        System.out.println(); 
+
+        String result = word + num; 
+        System.out.println("result = word + num"); 
+        System.out.println("result: " + result); 
+        System.out.println(); 
+
+        System.out.println("word * num es error"); 
+        System.out.println("word * word es error"); 
+        System.out.println("word + num es valido : " + result); 
+        System.out.println("word + word es valido: " + (word + word2)); 
+        System.out.println(); 
+        System.out.println("java es de tipado DEBIL"); 
+
+    } 
+}
+
+
+Explicación.
+
+Al igual que en Python, es posible realizar operaciones entre variables que son de distintos tipos, obteniendo como resultado una operación interna al lenguaje, en este caso, fue posible sumar una variable word de tipo 'String' a la variable num de tipo 'int', produciendo la concatenación de ambas variables como un solo 'String', es decir, la varible num(de tipo 'int') sufrió una conversión implícita de tipo pasando a ser de tipo 'String'
+Por este motivo, se concluye con que Java es un lenguaje de tipo DÉBIL.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+la variable num:10 
+la variable word: hola!! 
+la variable word2: chau!! 
+
+result = word + num 
+result: hola!!10 
+
+word * num es error 
+word * word es error 
+word + num es valido : hola!!10 
+word + word es valido: hola!!chau!! 
+
+java es de tipado DEBIL 
+___
+
+Scala.
+
+Procedemos a demostrar que Scala es un lenguaje con tipado débil.
+
+
+Código.
+
+object Typed { 
+   def main(args: Array[String]) { 
+      println("prueba de tipado fuerte o debil") 
+      println() 
+      
+      var num : Int = 10 
+      println("variable num: ") 
+      println(num) 
+      println() 
+      
+      var word : String = "hola!!" 
+      println("variable word: ") 
+      println(word) 
+      println() 
+      
+      var result = word * num 
+      println(result) 
+      println() 
+      println("concluimos que Scala es de tipado DEBIL") 
+   } 
+}
+
+
+Explicación.
+
+En este lenguaje las reglas sobre lo que se puede hacer con los tipos no son estrictas, es por ello que fue posible realizar operaciones entre una variable de tipo 'Int' y una de tipo 'String'. A diferencia de lenguajes como Java, aquí es posible declarar una variable sin asignarle un tipo, como en el caso de la variable 'result' a la que sin asignarle un tipo, el lenguaje, le asigna el tipo 'String'.
+Por ello se concluye que Scala es un lenguaje de tipado DÉBIL.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+prueba de tipado fuerte o debil
+
+variable num: 
+10
+
+variable word: 
+hola!!
+
+hola!!hola!!hola!!hola!!hola!!hola!!hola!!hola!!hola!!hola!!
+
+concluimos que Scala es de tipado DEBIL
+___
+
+C.
+
+C es considerado  uno de los lenguaje menos débiles para explicar esto, consideramos el siguiente programa.
+
+Código.
+
+#include <stdio.h> 
+#include <stdlib.h> 
+
+int main(void){ 
+
+    int num = 123; 
+    printf("\n'a' es una variable de tipo entero\n"); 
+    
+    char* word = "hola a todos"; 
+    printf("palabra es un string: %s\n\n", word); 
+    
+    int result; 
+    result = word + num; 
+    printf("el resultado es %d\n",result); 
+    printf("C ES DE TIPADO DEBIL\n"); 
+
+    return 0; 
+} 
+// c es de tipado DEBIL
+
+
+Explicación.
+
+Dentro de la categoría de lenguajes de tipado débiles, C es uno de los menos débiles, en este lenguaje, no solo es necesario declarar el tipo de cada variable, sino que la diversidad de operaciones que permite este con variables de tipos diferentes es muy reducida.
+En el programa, ,se suma una variable de tipo 'int' con una variable de tipo 'char*' esto es posible dado que un char* es una dirección de memoria, por lo tanto es un valor numérico y por ello es posible sumar ese valor a una variable de tipo 'int' dando como resultado un entero que representa la dirección de memoria mas el valor de la variable.
+Por ello se considera que C es un lenguaje de tipado DÉBIL, aunque dentro de esta categoría, es muy poco débil.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+Al compilar el programa devuelve un WARNING y crea el ejecutable:
+
+'a' es una variable de tipo entero 
+palabra es un string: hola a todos 
+
+el resultado es 4196119 
+C ES DE TIPADO DEBIL
+___
+
+JavaScript.
+ 
+Al igual que C, JavaScript es de tipado débil, solo que en la categoría de tipado débil, es uno de los lenguaje con un tipado muy débil.
+
+Código.
+
+<!DOCTYPE html> 
+<html> 
+    <body> 
+
+        <h1>Tipado en JavaScript</h1> 
+        <p>JavaScript tiene tipado debil.</p> 
+
+        <script> 
+            window.alert(5 + 'aaaa'); 
+        </script> 
+
+    </body> 
+</html>
+
+
+Explicación.
+
+Información obtenida de 
+http://www.etnassoft.com/2011/01/27/tipado-blando-en-javascript/
+
+Para muchos, JavaScript es considerado el primer lenguaje de scripting, la libertad que ofrece en cuanto al tratamiento de variables es considerado como un peligro potencial que hay que saber manejar.
+La asignación de tipos se realiza en forma interna por JavaScript.
+El concepto de coerción de datos está íntimamente ligado con un tipado débil. Al relegar la conversión de datos al intérprete interno, a menudo se precisa de modificar los valores para adaptarlos y poder realizar operaciones entre ellos. Las coerciones en Javascript, en determinados casos, resultan muy poco intuitivas y pueden convertirse en fuente de errores.
+En el ejemplo es posible sumar una variable no definida que representa un valor numérico a una variable no definida que representa una cadena de caracteres, el resultado es que la variable del valor numérico se concatena con la cadena de caracteres, por lo que el resultado es de tipo 'String'.
+También es posible comparar el valor numérico con un cadena de caracteres dando 'True' como resultado.
+En conclusión, JavaScript no solo es de tipado débil sino que además es es muy poco intuitivo lo cual lleva a potenciales errores.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+En alerta de JavaScript:
+    5aaaa
+___
+
+Ruby.
+
+A continuación se detalla el código que demuestra que Ruby es un lenguaje de tipado débil. 
+
+
+Código.
+
+!/bin/env ruby 
+# encoding: utf-8 
+
+=begin 
+Ruby es un lenguaje de tipado DEBIL 
+=end 
+
+puts "probamos que tipo de tipado tiene Ruby" 
+num = 10 
+puts "num = ", num 
+puts "La variable a, ¿es Integer?" 
+puts num.is_a?(Integer) 
+puts "\n" 
+
+word = "hola!! " 
+puts "word = ", word 
+puts "La variable word, ¿es String?" 
+puts word.is_a?(String) 
+puts "\n" 
+
+result = word * num 
+puts "result = ", result 
+puts "La variable result, ¿es String?" 
+puts result.is_a?(String) 
+puts "\n" 
+puts "Ruby es de tipado DEBIL" 
+puts "\n"
+
+
+Explicación.
+
+Ruby es un lenguaje que posee una gran similitud con Python, en el, no se declara el tipo de las variables, esto se lleva a cabo en forma interna por el lenguaje, esto se puede constatar con la función 'var.is_a?'.
+Al igual que en lenguajes de programación de tipado débil, es posible realizar operaciones entre variables de tipos diferentes. 
+En el ejemplo se declaran dos variables, ambas sin tipo, a una se le asigna un valor numérico y a la otra una cadena de caracteres. Una variable 'result', también sin tipo, captura la multiplicación de las variables anteriores, dando como resultado que la cadena de caracteres se repita n-veces, donde n es el valor de la variable numérica.
+Por lo tanto, 'result' obtuvo el tipo 'String' durante su compilación. De este modo, se deduce que Ruby es un lenguaje de tipado DÉBIL.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+probamos que tipo de tipado tiene Ruby 
+num = 
+10 
+La variable a, ¿es Integer? 
+true 
+
+word = 
+hola!! 
+La variable word, ¿es String? 
+true 
+
+result = 
+hola!! hola!! hola!! hola!! hola!! hola!! hola!! hola!! hola!! hola!! 
+La variable result, ¿es String? 
+true 
+
+Ruby es de tipado DEBIL
+___
+
+3-Asignación única:
+
+Se entiende por asignación única, a aquella variable que sólo puede
+tomar un valor durante toda su 'vida' durante el programa. Más hablando en claro, tomando un valor semántico similar al de una constante.
+
+Personalmente pienso que un lenguaje con asignación única es un lenguaje cruel y despiadado que te obliga a extenderlo en el caso de querer usar múltiple asignación.
+
+A continuación se detalla el código de C que demuestra que este lenguaje es de múltiple asignación y la explicación del mismo:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    
+    int multiple_assignment = 219;
+    printf("var multiple_assignment: %d\n", multiple_assignment);
+    multiple_assignment = 221;
+    multiple_assignment++;
+    printf("var multiple_assignment: %d\n", multiple_assignment);
+}
+
+Claramente si fuera de simple asignación, la variable 'multiple_assignment' no podría tomar el valor 221 o 222, sin embargo, compila sin errores.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ clang assignment.c && ./a.out
+var multiple_assignment: 219
+var multiple_assignment: 222
+
+Para obtener un mecanismo similar al de asignación única, se puede utilizar el prefijo const lo cual fuerza a la variable a tomar un valor constante como se observa a continuación:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    const int readOnlyVar = 10;
+    printf("%d\n", readOnlyVar);
+    /* Dado que una constante no puede cambiar
+    este programa no compilará */
+    readOnlyVar++;
+}
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ clang assignment_forced_to_single.c && ./a.out
+assignment_forced_to_single.c:9:16: error: read-only variable is not assignable
+    readOnlyVar++;
+    ~~~~~~~~~~~^
+1 error generated.
+___
+
+Java es de múltiple asignación como se muestra en el código a continuación.
+
+class Assignment {
+    public static void main(String[] args) {
+
+        int multiple_assignment = 220;
+        System.out.println("var multiple_assignment: "+multiple_assignment);
+        multiple_assignment = 221;
+        multiple_assignment++;
+        System.out.println("var multiple_assignment: "+multiple_assignment);
+    }
+}
+
+Se aplica la misma lógica que para los lenguajes anteriores y
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ javac assignment.java && java Assignment 
+var multiple_assignment: 220
+var multiple_assignment: 222
+
+Y al igual que en C, se puede emular un comportamiento similar utilizando el prefijo 'final' antes de la declaración de la variable como se observa a continuación:
+
+class Assignment {
+    public static void main(String[] args) {
+
+        final int multiple_assignment = 220;
+        /* Dado que una constante no puede cambiar
+        este programa no compilará */
+        multiple_assignment++;
+    }
+}
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ javac assignment_forced_to_single.java 
+assignment_forced_to_single.java:7: error: cannot assign a value to final variable multiple_assignment
+        multiple_assignment++;
+        ^
+1 error
+___
+Dado que scala tiene una relación directa con java, el comportamiento es similar.
+
+object Assignment {
+
+    def main (args: Array[String]) {
+        
+        var m_assignment = 0;
+        System.out.println("var multiple_assignment: "+m_assignment);
+        m_assignment = 222;
+        System.out.println("var multiple_assignment: "+m_assignment);
+    }
+}
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ scalac assignment.scala && scala Assignment
+var multiple_assignment: 0
+var multiple_assignment: 222
+
+Y al igual que el resto de los lenguajes, se puede replicar el comportamiento de simple asignación de la siguiente manera:
+
+object Assignment {
+
+    def main (args: Array[String]) {
+        
+        val CONSTANT_m_assignment = 0;
+        System.out.println("var multiple_assignment: "+CONSTANT_m_assignment);
+        /* Dado que una constante no puede cambiar
+        este programa no compilará */
+        CONSTANT_m_assignment = 222;
+    }
+}
+donde
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ scalac assignment_forced_to_single.scala && scala Assignment
+assignment_forced_to_single.scala:9: error: reassignment to val
+        CONSTANT_m_assignment = 222;
+                              ^
+one error found
+___
+
+Haskell es de asignación múltiple pero de una manera un tanto rebuscada. A continuación el siguiente código lo demuestra:
+
+module Main where
+
+setValue :: Int -> IO Int
+setValue a = return a
+
+main = do
+    a <- setValue 10
+    print a
+    a <- setValue 15
+    print a
+--Notar que también se puede hacer algo como redefinir la variable, lo cual
+--a mi entender representa crear una variable completamente nueva con el valor
+--asignado. Sería algo como:
+--let a = 10
+--let a = 15
+
+Como se puede observar, para reasignar un valor, se utilizó una función 'setValue' con tipo especificado. Si se hubiera intentado hacer algo del estilo 
+a = 10
+a = 15
+no se hubiera logrado puesto que al momento de parsear esto (al menos escrito de esa forma) no es válido.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ haskell-compiler assignment.hs && ./assignment
+[1 of 1] Compiling Main             ( assignment.hs, assignment.o )
+Linking assignment ...
+10
+15
+Luego, para utilizar valores constantes, se puede hacer algo tan simple como declarar funciones que retornen un valor constante.
+De esta forma, el valor estará dado por la función. 
+A continuación el código utilizado:
+
+module Main where
+
+constant :: Int
+constant = 222
+
+main = do
+    let c = constant
+    print c
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ haskell-compiler assignment_forced_to_single.hs && ./assignment_forced_to_single
+222
+___
+
+Python es de asignación múltiple de acá a la China:
+
+# encoding: utf-8
+def assignment():
+    multiple_assignment = 219
+    print("var multiple_assignment: %d\n" % multiple_assignment)
+    multiple_assignment = 221
+    multiple_assignment += 1
+    print("var multiple_assignment: %d\n" % multiple_assignment)
+
+assignment()
+
+Aplicando la misma lógica que para los demás lenguajes,
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ python assignment.py 
+var multiple_assignment: 219
+
+var multiple_assignment: 222
+
+Sin embargo, python no dispone de variables o valores constantes.
+Por lo que se intentó simular este efecto de la siguiente forma:
+
+# encoding: utf-8
+class Constant(object):
+    
+    __UNPROTECTED = True
+    value = None
+
+    def __init__(self, value):
+        super(Constant, self).__init__()
+        self.value = value
+        self.__UNPROTECTED = False
+
+    def __setattr__(self, *arg):
+        if not self.__UNPROTECTED:
+            raise Exception("This value is only read")
+        else:
+            super(Constant, self).__setattr__(*arg)
+
+a = Constant(2)
+print a.value
+# Dado que la clase Constant prohibe la reasignación de un valor
+# Esto generará una excepción al cambiar el valor.
+# Sin embargo, la variable a puede apuntar a otros valores :(
+# de la forma a = "cambie de valor muajaja"
+a.value = 3
+
+Tal como dicen los comentarios, nada evita que el usuario apunte a otros valores.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+ $ python assignment_forced_to_single.py 
+2
+Traceback (most recent call last):
+  File "assignment_forced_to_single.py", line 24, in <module>
+    a.value = 3
+  File "assignment_forced_to_single.py", line 14, in __setattr__
+    raise Exception("This value is only read")
+Exception: This value is only read
+___
+
+Ruby es de múltiple asignación:
+
+def assignment()
+    multiple_assignment = 219
+    puts("var multiple_assignment: %d\n" % multiple_assignment)
+    multiple_assignment = 221
+    multiple_assignment += 1
+    puts("var multiple_assignment: %d\n" % multiple_assignment)
+end
+
+assignment()
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ ruby assignment.rb 
+var multiple_assignment: 219
+var multiple_assignment: 222
+
+
+Y, a diferencia de python, permite usar una definición de constantes declarando esta con la el primer carácter de nombre de variable con mayúscula:
+
+def assignment()
+    SOME_CONSTANT = 10
+    SOME_CONSTANT = 11
+end
+
+assignment()
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+ $ ruby assignment_forced_to_single.rb 
+assignment_forced_to_single.rb:2: dynamic constant assignment
+    SOME_CONSTANT = 10
+                   ^
+assignment_forced_to_single.rb:3: dynamic constant assignment
+    SOME_CONSTANT = 11
+___
+
+Javascript es de múltiple asignación aunque usted no lo crea:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>assignment.js</title>
+</head>
+<body>
+    <h2>Test a assignment in javascript</h2>
+    <script type="text/javascript">
+        var a = 10;
+        console.log("var a = "+a);
+        a = function (x) {return x+1;};
+        console.log("var a = "+a);
+        a = "ten";
+        console.log("var a = "+a);
+    </script>
+</body>
+</html>
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ firefox assignment.html &
+[Presiono ctrl+shift+k]
+
+"var a = 10" assignment.html:11:8
+"var a = function (x) {return x+1;}" assignment.html:13:8
+"var a = ten" assignment.html:15:8
+
+Quien sabe, quizá si este informe lo hubiera hecho 5 días antes, esto pudo haber sido distinto, sin embargo, hace poco en los navegadores más recientes, se desarrolló compatibilidad para el prefijo 'const' que determina que esta variable es constante y no cambiará de valor.
+(link para más información)
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
+
+En este código vemos como podría usarse:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>assignment.js</title>
+</head>
+<body>
+    <h2>Test a assignment forced to single in javascript</h2>
+    <script type="text/javascript">
+        const b = 10;
+        console.log("const b = " + b);
+        b = 20;
+    </script>
+</body>
+</html>
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ firefox assignment_forced_to_single.html &
+[Presiono ctrl+shift+k]
+SyntaxError: invalid assignment to const b
+___
+
+4- Alcance
+
+
+Definición.
+
+Alcance Estático: El valor de las variables globales se obtiene del bloque inmediatamente contenedor.
+
+Alcance Dinámico: El valor de las variables globales se obtiene del activation record más reciente.
+
+
+Python.
+
+Código.
+
+global_var = 1 
+
+def function_a(z): 
+    print "function_a, z-> ", z 
+    print "function_a, global_var-> ", global_var 
+    print "return: ", (global_var+z) 
+    return (global_var + z) 
+
+def function_b(y): 
+    print "function_b, y-> ", y 
+    global global_var 
+    global_var = y+1 
+    print "function_b, global_var-> ", global_var 
+    print "function_b, return: ", (global_var * y) 
+    return function_a(global_var * y) 
+
+function_b(3)
+
+
+Explicación.
+
+El programa comienza definiendo una variable 'x' con alcance para todo el bloque de la función 'execute()', cuando se ejecuta, esta función llama a 'fun_b()', en ella se define una variable 'x' con un alcance solo para la función 'fun_b()' y se termina llamando a la función 'fun_a()', aquí se pide que se imprima el valor de x el cual toma de la variable del bloque contenedor y no del ultimo activation record. 
+De esta forma se demuestra que Python tiene alcance ESTÁTICO.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+function_b, y->  3 
+function_b, global_var->  4 
+function_b, return:  12 
+function_a, z->  12 
+function_a, global_var->  4 
+return:  16 
+___
+
+Haskell.
+
+Código.
+
+import System.IO 
+y = 1 
+function_a :: Integer -> IO Integer 
+function_a z = 
+    do 
+        print("el valor de 'z' en function_a es: ") 
+        print(z) 
+        print("el valor de 'y' en function_a es: ") 
+        print(y) 
+        return z 
+
+
+function_b :: Integer -> IO Integer 
+function_b z = 
+    do 
+        let y = 3 
+        res <- function_a(y+z) 
+        return res 
+
+
+main = 
+    do 
+        let y = 2 
+        function_b y
+
+
+Explicación.
+
+Haskell es de alcance Estático, esto se demuestra de la siguiente manera.
+En el programa principal, se ejecuta la función 'main', esta llama a 'function_b y' donde 'y' vale 2.
+'function_b' crea una variable nueva 'y' y le asigna el valor 3. Seguido a esto se llama a 'function_a' que se ocupa de imprimir la variable 'y'.
+La variable 'y' toma el valor de la definida en el bloque contenedor, de esta forma demostramos que Haskell es de alcance Estático.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+"el valor de 'z' en function_a es: " 
+5 
+"el valor de 'y' en function_a es: " 
+1 
+___ 
+
+Java.
+
+Código.
+
+class Scope { 
+    
+    int y = 1; 
+    int fun_print(int z) { 
+        System.out.format("El valor de y es: %d\n", z); 
+        System.out.format("El valor de y es: %d\n", y); 
+        System.out.format("Java tiene alcance Estático\n"); 
+        return z; 
+    } 
+
+    int fun_write(int z){ 
+        int y = 3; 
+        System.out.format("El valor de y en fun_write es: %d\n", y); 
+        return fun_print(y + z); 
+    } 
+
+    public static void main (String args[]) { 
+        
+        int y = 2; 
+        System.out.format("El valor de y en main es: %d\n", y); 
+        Scope a = new Scope(); 
+        a.fun_write(y); 
+  } 
+}
+
+
+Explicación.
+
+Se define una variable (y=1) con alcance de todos los bloques.
+Luego en la función 'main' se llama a 'fun_write(y)' con 'y' definido de forma local, tiene alcance solo en la función 'main', en 'fun_write' se define una nueva variable 'y' con el valor de 3 y luego devuelve la función 'fun_print' quien tiene que imprimir la variable 'y'.
+Imprime el valor obtenido de la variable del bloque contenedor. 
+Por lo tanto es de alcance ESTÁTICO
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+El valor de y en main es: 2 
+El valor de y en fun_write es: 3 
+El valor de y es: 5 
+El valor de y es: 1 
+Java tiene alcance Estático
+___
+
+
+Scala.
+
+Código.
+
+object Scope { 
+    
+    var y : Int = 0; 
+    def fun_print(z: Int) { 
+        println("El valor de z en fun_print es: " + z); 
+        println("El valor de y en fun_print es: " + y); 
+        println("Java tiene alcance Estático"); 
+    } 
+
+    def rewrite(z: Int){ 
+        var y : Int = 3; 
+        println("El valor de y en rewrite es: " + y); 
+        return fun_print(y + z); 
+    } 
+
+    def main(args: Array[String]) { 
+
+        // val a = new Alcance() 
+        var y : Int = 2 
+        println(" la variable y en main vale: " + y); 
+        rewrite(y) 
+    } 
+}
+
+
+Explicación.
+
+Se define una variable (y=0) con alcance de todos los bloques.
+Luego en la función 'main' se llama a 'rewrite(y)' con 'y' definido de forma local, tiene alcance solo en la función main, en 'rewrite' se define una nueva variable 'y' con el valor de 3 y luego devuelve la función 'fun_print' quien tiene que imprimir la variable 'y'.
+Imprime el valor obtenido de la variable del bloque contenedor. 
+Por lo tanto es de alcance ESTÁTICO
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+la variable y en main vale: 2 
+El valor de y en rewrite es: 3 
+El valor de z en fun_print es: 5 
+El valor de y en fun_print es: 0 
+Java tiene alcance Estático 
+___
+
+C.
+
+Código.
+
+#include <stdio.h> 
+
+int global = 1; 
+
+int function_a(int z){ 
+    printf("en function_a 'z' vale: %d\n",z); 
+    printf("en function_a 'global' vale: %d\n",global); 
+    printf("como 'global' vale 4 entonces tomo el valor del bloque en function_b\n"); 
+    printf("entonces C tiene un ALCANCE ESTATICO\n"); 
+    return z + global; 
+} 
+
+int function_b(int y){ 
+    printf("\nen function_b 'y' vale: %d\n",y); 
+    int global = y+1; 
+    printf("'global' es local para function_b y vale: %d\n\n",global); 
+    return (function_a(global*y)); 
+} 
+
+int main(void){ 
+    int res = 0; 
+    res = function_b(3); 
+    printf("%d\n\n",res); 
+ 
+    return 0; 
+}
+
+
+Explicación.
+
+Se declara una variable global (int global) el alcance que tiene es sobre todas las demás funciones.
+Cuando se llama a main(), esta llama a 'function_b', en esta, se declara una variable nueva 'global', esta variable solo tiene alcance dentro de la función que retorna a la función 'function_a'.
+En 'function_a' la variable 'global' puede tener el valor que tomo de su ultimo activation record, valor que toma de 'function_b' ó toma el valor del bloque contenedor, la variable global.
+En el caso de C, toma elvalor del bloque contenedor por lo que tiene alcance ESTÁTICO.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+en function_b 'y' vale: 3 
+'global' es local para function_b y vale: 4 
+
+en function_a 'z' vale: 12 
+en function_a 'global' vale: 1 
+como 'global' vale 4 entonces tomo el valor del bloque en function_b 
+entonces C tiene un ALCANCE ESTATICO 
+13
+___
+
+JavaScript.
+
+Código.
+
+<!DOCTYPE html> 
+<html> 
+    <body> 
+
+        <h1>Alcance en JavaScript</h1> 
+        <p>JavaScript tiene Estático.</p> 
+
+        <script> 
+        var x = 5 
+
+        window.alert(fun_b(x)); 
+
+        function fun_a(z) { 
+            window.alert("estoy en fun_a"); 
+            window.alert(z); 
+            window.alert("x vale en fun_a"); 
+            window.alert(x); 
+            window.alert("sali en fun_a"); 
+            return x; 
+        } 
+
+
+        function fun_b(y) { 
+            var x = 10; 
+            window.alert("estoy en fun_b"); 
+            window.alert(x); 
+            window.alert("sali en fun_b"); 
+            return fun_a(x); 
+
+        } 
+
+        </script> 
+
+    </body> 
+</html>
+
+
+Explicación.
+
+Se define una variable  la variable 'x' que tiene alcance sobre las dos funciones,  luego se llama a fun_b, alli se declara una nueva variable 'x' y se le asigna un valor diferente a la anterior, la funcion devuelve la funcion fun_a que tiene que imprimir 'x'.
+como JavaScript tiene alcance estatico, toma el valor de la variable del bloque contenedor.
+De esta forma se demuestra que JavaScript tiene alcance ESTÁTICO.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+estoy en fun_b
+10
+sali de fun_b
+estoy en fun_a
+10
+x vale en fun_a
+5
+sali de fun_a
+5
+___
+
+Ruby.
+
+Código.
+
+$global_var = 1 
+
+def function_a(z) 
+    print "function_a, z --> ", z 
+    print "\n" 
+    print "function_a, global_var --> ", $global_var 
+    print "\n" 
+    print "resultado de function_a = ", ($global_var + z) 
+    print "\n" 
+    return $global_var + z 
+
+end 
+
+def function_b(y) 
+    print "function_b, y --> ", y 
+    print "\n" 
+    $global_var = y+1 
+    print "function_b, global_var --> ", $global_var 
+    print "\n" 
+    print "function_b, return: ", ($global_var*y) 
+    print "\n" 
+    return function_a($global_var*y) 
+
+end 
+
+function_b(3)
+
+
+Explicación.
+
+En Ruby no se declara el tipo de las variables, por lo que la variable toma diferentes valores en distintas funciones, en 'function_b' 'global_var' tiene el valor de 4 mientras que la definida fuera de las funciones toma el valor de 1.
+La función 'function_a' se ocupa de imprimir el valor de 'global_var' la cual vale 4 que fue el último valor que tomó.
+Por este motivo, se deduce que Ruby es de alcance DINÁMICO
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+function_b, y --> 3 
+function_b, global_var --> 4 
+function_b, return: 12 
+function_a, z --> 12 
+function_a, global_var --> 4 
+resultado de function_a = 16
+___
+
+5-Recursión a la Cola:
+
+En este punto mostraremos qué lenguajes tienen optimización
+de llamada a la cola (tail call optimization) partiendo del lenguaje python por medio del siguiente código:
+
+# encoding: utf-8
+def tail_rec(number):
+    if number == 0:
+        raise Exception("Hey! show the stack")
+    else:
+        return 1 + tail_rec(number-1)
+
+tail_rec(5)
+
+Puesto que una forma rápida de ver las llamadas al stack en ciertos lenguajes es generando una excepción, eso mismo utilizamos en este caso.
+Si el lenguaje optimizara las llamadas a la cola, nuestro programa, tendría un tamaño de stack constante.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+ $ python tail_recursion.py
+Traceback (most recent call last):
+  File "tail_recursion.py", line 8, in <module>
+    tail_rec(5)
+  File "tail_recursion.py", line 6, in tail_rec
+    return 1 + tail_rec(number-1)
+  File "tail_recursion.py", line 6, in tail_rec
+    return 1 + tail_rec(number-1)
+  File "tail_recursion.py", line 6, in tail_rec
+    return 1 + tail_rec(number-1)
+  File "tail_recursion.py", line 6, in tail_rec
+    return 1 + tail_rec(number-1)
+  File "tail_recursion.py", line 6, in tail_rec
+    return 1 + tail_rec(number-1)
+  File "tail_recursion.py", line 4, in tail_rec
+    raise Exception("Hey! show the stack")
+Exception: Hey! show the stack
+
+Sin embargo, ni aunque utilizáramos un acumulador logramos un stack constante:
+
+# encoding: utf-8
+def tail_rec_optimized(number, acc):
+    if number == 0:
+        raise Exception("Hey! show the stack")
+    else:
+        return tail_rec_optimized(number-1, acc+1)
+
+tail_rec_optimized(5, 0)
+
+Puesto que
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ python tail_recursion_optimized.py 
+Traceback (most recent call last):
+  File "tail_recursion_optimized.py", line 8, in <module>
+    tail_rec_optimized(5, 0)
+  File "tail_recursion_optimized.py", line 6, in tail_rec_optimized
+    return tail_rec_optimized(number-1, acc+1)
+  File "tail_recursion_optimized.py", line 6, in tail_rec_optimized
+    return tail_rec_optimized(number-1, acc+1)
+  File "tail_recursion_optimized.py", line 6, in tail_rec_optimized
+    return tail_rec_optimized(number-1, acc+1)
+  File "tail_recursion_optimized.py", line 6, in tail_rec_optimized
+    return tail_rec_optimized(number-1, acc+1)
+  File "tail_recursion_optimized.py", line 6, in tail_rec_optimized
+    return tail_rec_optimized(number-1, acc+1)
+  File "tail_recursion_optimized.py", line 4, in tail_rec_optimized
+    raise Exception("Hey! show the stack")
+Exception: Hey! show the stack
+___
+
+Para el caso de C, el compilador brinda la posibilidad de optimizar hasta en tres niveles distintos. Sin embargo, para un programa recursivo sin acumulador ni flags de optimización, genera un trace normal recursivo no optimizado.
+Para poder ver el traceback del stack, utilizamos GDB.
+
+#include <stdio.h>
+int tail_rec(int number) {
+    if (number == 0) {
+        // break here! 
+        return 1;
+    }
+    else {
+        return 1 + tail_rec(number-1);
+    }
+}
+
+int main() {
+    int result = tail_rec(10);
+    printf("tail_rec(10) result is: %d\n", result);
+    return 0;
+}
+
+// con -O1 va como piña
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ gcc -g tail_recursion.c -o t_rec && gdb t_rec
+(gdb) b 4
+Punto de interrupción 1 at 0x40053e: file tail_recursion.c, line 4.
+(gdb) bt
+No stack.
+(gdb) run
+Starting program: /home/javier/Escritorio/para2015/lab4/lang-tests/test-5/t_rec 
+
+Breakpoint 1, tail_rec (number=0) at tail_recursion.c:5
+5           return 1;
+(gdb) bt
+#0  tail_rec (number=0) at tail_recursion.c:5
+#1  0x0000000000400552 in tail_rec (number=1) at tail_recursion.c:8
+#2  0x0000000000400552 in tail_rec (number=2) at tail_recursion.c:8
+#3  0x0000000000400552 in tail_rec (number=3) at tail_recursion.c:8
+#4  0x0000000000400552 in tail_rec (number=4) at tail_recursion.c:8
+#5  0x0000000000400552 in tail_rec (number=5) at tail_recursion.c:8
+#6  0x0000000000400552 in tail_rec (number=6) at tail_recursion.c:8
+#7  0x0000000000400552 in tail_rec (number=7) at tail_recursion.c:8
+#8  0x0000000000400552 in tail_rec (number=8) at tail_recursion.c:8
+#9  0x0000000000400552 in tail_rec (number=9) at tail_recursion.c:8
+#10 0x0000000000400552 in tail_rec (number=10) at tail_recursion.c:8
+#11 0x0000000000400569 in main () at tail_recursion.c:13
+
+Claramente se puede observar que el stack no tiene un tamaño constante si no más bien lineal.
+
+Ahora veamos qué sucede si compilamos con el poderoso gcc (o clang) junto con la flag -O[some_level]+ el mismo programa
+donde some_level = 0 < i < 3
+La salida en pantalla que se obtuvo al ejecutar el código es:
+$ gcc -g -O1 tail_recursion.c -o t_rec && gdb t_rec
+(gdb) b 4
+Punto de interrupción 1 at 0x40055d: file tail_recursion.c, line 4.
+(gdb) run 
+Starting program: /home/javier/Escritorio/para2015/lab4/lang-tests/test-5/t_rec 
+
+Breakpoint 1, tail_rec (number=number@entry=10) at tail_recursion.c:5
+5           return 1;
+(gdb) bt
+#0  tail_rec (number=number@entry=10) at tail_recursion.c:5
+#1  0x0000000000400589 in main () at tail_recursion.c:13
+(gdb) 
+
+Donde claramente se puede ver que se hace una única llamada!! WOW!
+___
+
+En ruby hay optimización aunque se debe ser explícito para poder utilizarla. Desafortunadamente no se pudo comprobar realmente su optimización. A continuación el código que 'intenta' tener un stack de tamaño menor:
+
+def tail_rec(number, acc)
+    if number == 0 then
+        return 1/0
+    else
+        return tail_rec(number-1, acc)
+    end
+end
+
+tail_rec(5, 0)
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+ $ ruby tail_recursion.rb
+res=tail_recursion.rb:3:in `/': divided by 0 (ZeroDivisionError)
+    from tail_recursion.rb:3:in `tail_rec'
+    from tail_recursion.rb:5:in `tail_rec'
+    from tail_recursion.rb:5:in `tail_rec'
+    from tail_recursion.rb:5:in `tail_rec'
+    from tail_recursion.rb:5:in `tail_rec'
+    from tail_recursion.rb:5:in `tail_rec'
+    from tail_recursion.rb:10:in `<main>'
+___
+
+Haskell también permite optimizar a la cola utilizando el prefijo '-O2' al momento de compilar. El siguiente código muestra una función recursiva:
+
+module Main where
+import Debug.Trace
+
+
+factorial :: Int -> Int
+factorial n | n == 0    = traceStack ("Last case") 1
+            | otherwise = n * (factorial $ n - 1)
+
+main = do
+    putStrLn $ "factorial 20: " ++ show (factorial 20)
+
+___
+
+Java no dispone de una optimización a la cola:
+
+class TailRec {
+    public static int t_rec(int n) {
+        if (n == 0) {
+            for (StackTraceElement ste : Thread.currentThread().getStackTrace()) 
+            {
+                System.out.println(ste);
+            }
+
+
+            return 1;
+        }
+        else {
+            return 1 + t_rec(n-1);
+        }
+    }
+    public static void main(String[] args) {
+        int res = t_rec(10);
+        System.out.println("t_rec(10) =>"+res);
+    }
+}
+
+ó el código
+
+class TailRec {
+    public static int t_rec(int n, int acc) {
+        if (n == 0) {
+            for (StackTraceElement ste : Thread.currentThread().getStackTrace()) 
+            {
+                System.out.println(ste);
+            }
+            return 1+acc;
+        }
+        else {
+            return t_rec(n-1, acc+1);
+        }
+    }
+    public static void main(String[] args) {
+        int res = t_rec(10, 0);
+        System.out.println("t_rec(10) =>"+res);
+    }
+}
+
+demuestran al momento de compilar que Java no dispone de una TCO.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+ $ javac tail_recursion_optimized.java && java TailRec 
+java.lang.Thread.getStackTrace(Thread.java:1589)
+TailRec.t_rec(tail_recursion_optimized.java:4)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.t_rec(tail_recursion_optimized.java:11)
+TailRec.main(tail_recursion_optimized.java:15)
+t_rec(10) =>11
+____
+
+Y aunque no lo parezca, Scala si soporta TCO!!:
+
+import scala.annotation.tailrec
+object RecOpt {
+
+    @tailrec def factorialAcc(acc: Int, n: Int): Int = {
+        if (n <= 1) return 1/0;
+        else return factorialAcc(n * acc, n - 1);
+    }
+
+    def main (args: Array[String]) {
+        try { 
+            factorialAcc(1, 10);
+        } catch {
+            case e: Exception => e.printStackTrace;
+            System.exit(1);
+        }
+    }
+}
+
+(fuente: http://stackoverflow.com/questions/1677419/does-scala-support-tail-recursion-optimization)
+
+Utilizamos la estrategia de generar una excepción para mostrar el backtrace del stack donde en este caso, a nosotros sólo nos interesa las llamadas a nuestra clase.
+Un detalle no menor, es que las optimizaciones no son tan mágicas como las del compilador de C, de tal forma que al menos en las pruebas realizadas sólo se aplica la optimización cuando hay sólo acumuladores.
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ scala RecOp
+java.lang.ArithmeticException: / by zero
+    at RecOp$.factorialAcc(tail_recursion_optimized.scala:5)
+    at RecOp$.main(tail_recursion_optimized.scala:11)
+    at RecOp.main(tail_recursion_optimized.scala)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    ...
+    ...
+
+Ahora bien, si no hubiera tenido un acumulador:
+
+object RecOp {
+
+    def factorialAcc(n: Int): Int = {
+        if (n <= 1) return 1/0;
+        else return n*factorialAcc(n - 1);
+    }
+
+    def main (args: Array[String]) {
+        try { 
+            factorialAcc(10);
+        } catch {
+            case e: Exception => e.printStackTrace;
+            System.exit(1);
+        }
+    }
+}
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+ $ scala RecOp
+java.lang.ArithmeticException: / by zero
+    at RecOp$.factorialAcc(tail_recursion.scala:4)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.factorialAcc(tail_recursion.scala:5)
+    at RecOp$.main(tail_recursion.scala:10)
+    at RecOp.main(tail_recursion.scala)
+
+Por lo tanto en scala hay optimización a la cola.
+___
+Javascript no tiene TCO por el momento dado que es un lenguaje muy flexible y compatible para gran cantidad de navegadores.
+A mi entender, este tipo re chequeo y optimización implicaría un gran trabajo por delante y no descarto la posibilidad de que más adelante se lleve a cabo de manera estandarizada.
+El siguiente código muestra una recursión a la cola:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>t_rec.js</title>
+</head>
+<body>
+    <h2>Test a tail recursion in javascript</h2>
+    <script type="text/javascript">
+        function rec (n) {
+            if (n == 0) {
+                console.trace();
+                return 1;
+            }
+            else {
+                return rec(n-1);
+            }
+        };
+        var res = rec(10);
+        console.log(res);
+    </script>
+</html>
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+$ firefox tail_recursion.html &
+[Presiono ctrl+shift+k]
+
+console.trace(): tail_recursion.html:12
+rec() tail_recursion.html:12
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+rec() tail_recursion.html:16
+<anónima>
+___
+
+6- Alto Orden
+
+
+Código.
+
+object High_order { 
+
+    def func() : Int = { 
+            println("hola a todos"); 2 
+        } 
+    
+    def main(args: Array[String]) { 
+
+        lazy val x = func() 
+        println("x es lazy val") 
+        println(x) 
+        println(x) 
+        println(x) 
+        println(x) 
+
+        val y = () => { 
+            println("hola a todos"); 2 
+        } 
+
+        println("ahora y es una funcion --> x()") 
+        println(y()) 
+        println(y()) 
+        println(y()) 
+        println(y()) 
+
+    } 
+}
+
+
+Explicación.
+
+El programa comienza con la declaración de una variable 'lazy', este tipo de variables son computadas la primera vez que se necesita y su valor NO será recomputado si es reutilizada en el resto del programa, en el ejemplo, se define a la variable 'x'(lazy val x) como una función 'fun()' que imprime una cadena de caracteres y luego se le signa un valor entero.
+Cuando se ejecute por primera vez, realizara la salida por pantalla de la cadena de caracteres y seguido a esto el valor entero pero en las próximas ejecuciones solamente imprimirá el valor entero debido a que solo se ejecuta una vez y luego nunca más.
+La forma en la que una variable es recomputada cada vez que se necesite es definir a la variable como una función que devuelve un valor.
+En el programa se definió una variable 'y' como una función que no toma ningún parámetro, la función realiza la salida por pantalla de la cadena de caracteres y devuelve el valor numérico, cuando se la reutiliza en el programa, vuelve a devolver tanto la cadena de caracteres como el valor numérico.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+'x' es lazy val 
+hola a todos 
+2 
+2 
+2 
+2 
+ahora 'y' es una funcion --> y() 
+hola a todos 
+2 
+hola a todos 
+2 
+hola a todos 
+2 
+hola a todos 
+2 
+___ 
+
+
+7- Pasaje de Parámetros
+
+Consigna: ¿Qué diferencia hay en Scala entre pasar una variable por valor, pero lazy, a pasar a una variable por nombre?
+Cree un programa que muestre estas diferencias
+
+Código
+
+object Passage_of_parameters { 
+    
+    def fun_byValue(x: Int) = { 
+        println("by value vale: " + x) 
+    } 
+
+    def fun_byName(x: => Int) = { 
+        println("by name vale: " + x) 
+    } 
+
+    def main(args: Array[String]){ 
+
+        lazy val x = {println("esto es x"); 10} 
+        var y = {println("esto es y"); 20} 
+
+        fun_byValue(x) 
+        fun_byName(y) 
+
+        fun_byValue(x) 
+        fun_byName(y) 
+    } 
+}
+
+
+Explicación.
+
+En el caso de fun_byValue, se pierde  la ventaje de que el valor sea lazy porque se evalúa en el momento de la llamada a la función. 
+En el caso de fun_byName solo se evalúa cuando lo necesita el cuerpo de la función.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+esto es y 
+esto es x 
+by value vale: 10 
+by name vale: 20 
+by value vale: 10 
+by name vale: 20 
+___
+
+8- Pasaje de Parámetros
+
+
+Fragmento en C:
+
+int main(void) { 
+    int x=50, y=70; 
+    ... 
+    printf("x=%d y=%d", x, y); 
+    return 0; 
+} 
+
+void interchange(int x1, int y1) { 
+    int z1; 
+    ... 
+    ... 
+    ... 
+    printf("x1=%d y1=%d", x1, y1); 
+}
+
+
+Fragmento en Perl: 
+
+$x=50; 
+$y=70; 
+&interchange ($x, $y); 
+print "x:$x y:$y\n"; 
+sub interchange { 
+($x1, $y1) = @_; 
+... 
+... 
+... 
+print "x1:$x1 y1:$y\n"; 
+}
+
+
+Fragmento obtenido de Wikipedia.
+
+En ambos lenguajes, es posible realizar pasaje por parámetros por valor y por referencia.
+El pasaje por valor, consiste en copiar el contenido de la variable que queremos pasar en otra dentro del ámbito local de la subrutina, consiste pues en copiar el contenido de la memoria del argumento que se quiere pasar a otra dirección de memoria, correspondiente al argumento dentro del ámbito de dicha subrutina.
+Se tendrán dos valores duplicados e independientes, con lo que la modificación de uno no afecta al otro.
+El paso de parámetros por referencia consiste en proporcionar a la función a la que se le quiere pasar el argumento la dirección de memoria del dato. En este caso se tiene un único valor referenciado (o apuntado) desde dos puntos diferentes, el programa principal y la subrutina a la que se le pasa el argumento, por lo que cualquier acción sobre el parámetro se realiza sobre la misma posición de memoria.
+
+
+Código de C:
+
+#include <stdio.h> 
+
+void interchange(int x1, int y1){ 
+    
+    int z1 = 0; 
+    printf("\nInside interchange function before interchange\n"); 
+    printf("x1 = %d \ny1 = %d\n", x1, y1); 
+
+    z1 = x1; 
+    x1 = y1; 
+    y1 = z1; 
+
+    printf("Inside interchange function after interchange\n"); 
+    printf("x1 = %d\ny1 = %d\n", x1, y1); 
+
+} 
+
+int main(void){ 
+    
+    int x=50, y=70; 
+    printf("\nfunction main:\n"); 
+    printf("x = %d\ny = %d\n", x, y); 
+
+    interchange(x,y); 
+    printf("\nfunction main:\n"); 
+    printf("x = %d\ny = %d\n", x, y); 
+    printf("\nEl programa realiza pasaje por valor (call_by_value)\n\n"); 
+
+    return 0; 
+
+}
+
+
+Explicación.
+
+En el programa, se comienza declarando las variables 'x' e 'y' como variables de tipo entero, se les asignan los valores de 50 y 70 respectivamente.
+Seguido a ello, se llama a la función 'interchange' que toma como parámetros los valores de 'x' e 'y', al tratarse de pasaje por valor, los valores de los parámetros de la función 'interchange' son copias de las variables 'x' e 'y', la función trabaja con los valores de esas copias, dentro de la función, se realiza un “swap” de los parámetros (x=70, y=50), pero al tratarse de “copias de variables”, el intercambio de valores entre variables solo tendrá lugar dentro de la función.
+Una vez finalizada la función 'interchange', se imprime por pantalla los valores de las variables 'x' e 'y', valen 50 y 70 respectivamente, valor de las variables originales.
+De esta forma se demuestra que al realizar pasaje por VALOR, se realizan “copias” de las variables que se pasaran por parámetros y estas solo sufrirán modificaciones dentro de la función.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+function main: 
+x = 50 
+y = 70 
+
+Inside interchange function before interchange 
+x1 = 50 
+y1 = 70 
+Inside interchange function after interchange 
+x1 = 70 
+y1 = 50 
+
+function main: 
+x = 50 
+y = 70 
+
+El programa realiza pasaje por valor (call_by_value)
+___ 
+
+
+Código de Perl:
+
+$x=50; 
+$y=70; 
+
+print "\n"; 
+print "BEFORE subrutine.\n"; 
+print "x --> $x\n"; 
+print "y --> $y\n"; 
+print "\n"; 
+
+print "START subrutine\n"; 
+&interchange ($x, $y); 
+print "END subrutine\n"; 
+print"\n"; 
+
+print "AFTER subrutine.\n"; 
+print "x:$x y:$y\n"; 
+
+print "\nEl programa realiza pasaje por referencia(call_by_reference)\n"; 
+print "el valor de las variables sufre modificacion fuera de la subrutina\n\n"; 
+
+sub interchange { 
+my($x1, $y1) = @_; 
+print "--parameters--\n"; 
+print "\t x1: $x1\n\t y1: $y1\n"; 
+@_[0] = $y1; 
+@_[1] = $x1; 
+
+print "after operations in subrutine\n"; 
+print "\t x1:$x1\n\t y1:$y1\n"; 
+}
+
+
+Explicación.
+
+En el programa, se declaran las variables '$x' y '$y' asignandole los valores 50 y 70 respectivamente.
+Seguido a ello se llama a la subrutina 'interchange', como los argumentos se pasan por referencia, la asignación de los argumento a las variables locales se hace mediante el operador “my”
+(my($x1, $y1) = @_)
+De esta manera no pasamos los datos en sí, si no la dirección que ocupan en memoria, asi es posible modificar de forma permanente, no local, los datos pasados como argumentos.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+BEFORE subrutine. 
+x --> 50 
+y --> 70 
+
+START subrutine 
+--parameters-- 
+     x1: 50 
+     y1: 70 
+after operations in subrutine 
+     x1:50 
+     y1:70 
+END subrutine 
+
+AFTER subrutine. 
+x:70 y:50 
+
+El programa realiza pasaje por referencia(call_by_reference) 
+el valor de las variables sufre modificacion fuera de la subrutina
+___
+
+9- Pasaje de Parámetros
+
+
+Código.
+
+public class Point { 
+    public int x; 
+    public int y; 
+
+    public Point(int x, int y){ 
+        System.out.println("\tadentro de Point"); 
+        this.x = x; 
+        this.y = y; 
+        System.out.println("\tthis.x = " + this.x + ", x = " + x); 
+        System.out.println("\tthis.y = " + this.y + ", y = " + y); 
+        System.out.println("\tafuera de Point"); 
+    } 
+
+    public static void tricky1(Point arg1, Point arg2) 
+    { 
+        arg1.x = 100; 
+        arg1.y = 100; 
+        System.out.println("DENTRO DE tricky1"); 
+        System.out.println("\targ1.x = " + arg1.x + " arg1.y = " + arg1.y); 
+        System.out.println("\targ2.x = " + arg2.x + " arg2.y = " + arg2.y); 
+        Point temp = arg1; 
+        System.out.println("\ttemp = arg1"); 
+        System.out.println("\targ1.x = " + arg1.x + " arg1.y = " + arg1.y); 
+        System.out.println("\targ2.x = " + arg2.x + " arg2.y = " + arg2.y); 
+        arg1 = arg2; 
+        System.out.println("\targ1 = arg2"); 
+        System.out.println("\targ1.x = " + arg1.x + " arg1.y = " + arg1.y); 
+        System.out.println("\targ2.x = " + arg2.x + " arg2.y = " + arg2.y); 
+        arg2 = temp; 
+        System.out.println("\targ2 = temp"); 
+        System.out.println("\targ1.x = " + arg1.x + " arg1.y = " + arg1.y); 
+        System.out.println("\targ2.x = " + arg2.x + " arg2.y = " + arg2.y); 
+        System.out.println("FUERA DE tricky1"); 
+    } 
+
+    public static void tricky2(Point arg1, Point arg2) 
+    { 
+        arg1 = null; 
+        arg2 = null; 
+    } 
+
+    public static void main(String[] args) 
+    { 
+        System.out.println("\nINICIALIZACION"); 
+        Point pnt1 = new Point(0,0); 
+        Point pnt2 = new Point(0,0); 
+        System.out.println("\npnt1 X: " + pnt1.x + " pnt1 Y: " + pnt1.y); 
+        System.out.println("pnt2 X: " + pnt2.x + " pnt2 Y: " + pnt2.y); 
+        System.out.println("-------------------------------------------"); 
+        System.out.println("\ntricky1"); 
+        tricky1(pnt1, pnt2); 
+        System.out.println("pnt1 X: " + pnt1.x + " pnt1 Y: " + pnt1.y); 
+        System.out.println("pnt2 X: " + pnt2.x + "   pnt2 Y: " + pnt2.y); 
+        System.out.println("-------------------------------------------"); 
+        System.out.println("\ntricky2"); 
+        tricky2(pnt2, pnt2); 
+        System.out.println("pnt1 X: " + pnt1.x + " pnt1 Y: " + pnt1.y); 
+        System.out.println("pnt2 X: " + pnt2.x + "   pnt2 Y: " + pnt2.y); 
+        System.out.println("-------------------------------------------"); 
+    } 
+}
+
+
+Explicación.
+
+Dado que en Java todos los parametros se pasan por valor, cuando se realiza la llamada a un método, los parámetros formales reservan un espacio en memoria y reciben los valores de los parámetros actuales. 
+Cuando el argumento es de tipo primitivo (int, double, char, boolean, float, short, byte), 
+el paso por valor significa que cuando se invoca al método se reserva un nuevo espacio en memoria para el parámetro formal. 
+El método no puede modificar el parámetro actual. 
+Cuando el argumento es una referencia a un objeto (por ejemplo, un array o cualquier otro objeto) el paso por valor significa que el método recibe una copia de la dirección de memoria donde se encuentra el objeto. 
+La referencia no puede modificarse pero sí se pueden modificar los contenidos de los objetos durante la ejecución del método, en este caso, los atributos x e y serán los contenidos que cambiarán.
+
+
+La salida en pantalla que se obtuvo al ejecutar el código es:
+
+INICIALIZACION 
+    adentro de Point 
+    this.x = 0, x = 0 
+    this.y = 0, y = 0 
+    afuera de Point 
+    adentro de Point 
+    this.x = 0, x = 0 
+    this.y = 0, y = 0 
+    afuera de Point 
+
+pnt1 X: 0 pnt1 Y: 0 
+pnt2 X: 0 pnt2 Y: 0 
+------------------------------------------- 
+
+tricky1 
+DENTRO DE tricky1 
+    arg1.x = 100 arg1.y = 100 
+    arg2.x = 0 arg2.y = 0 
+    temp = arg1 
+    arg1.x = 100 arg1.y = 100 
+    arg2.x = 0 arg2.y = 0 
+    arg1 = arg2 
+    arg1.x = 0 arg1.y = 0 
+    arg2.x = 0 arg2.y = 0 
+    arg2 = temp 
+    arg1.x = 0 arg1.y = 0 
+    arg2.x = 100 arg2.y = 100 
+FUERA DE tricky1 
+pnt1 X: 100 pnt1 Y: 100 
+pnt2 X: 0   pnt2 Y: 0 
+------------------------------------------- 
+
+tricky2 
+pnt1 X: 100 pnt1 Y: 100 
+pnt2 X: 0   pnt2 Y: 0 
+___
