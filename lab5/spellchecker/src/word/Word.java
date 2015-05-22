@@ -20,6 +20,8 @@ public class Word {
 	
 	// METHODS
 	public void setWord(String w){
+        
+        this.word = w;
 		
 	}
 	
