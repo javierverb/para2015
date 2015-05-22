@@ -1,5 +1,7 @@
 package word;
 
+import java.util.Iterator;
+
 public class WordSet {
 	/**
 	 * La clase Word represenata una palabra y es
@@ -12,7 +14,7 @@ public class WordSet {
 	}
 	
 	// METHODS
-	public void add(){
+	public void add(Word w){
 		
 	}
 	
@@ -25,9 +27,9 @@ public class WordSet {
 		
 	}
 	
-	// TODO
-	public void iterator(){
-		// fixme pls
+	// TODO complete this
+	public Iterator<Word> iterator(){
+		return null;
 	}
 	
 	public int size(){

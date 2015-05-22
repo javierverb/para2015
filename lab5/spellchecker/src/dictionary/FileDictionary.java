@@ -11,7 +11,7 @@ import java.io.UnsupportedEncodingException;
  * La clase FileDictionary representa un diccionario
  * que se carga desde un archivo de texto.
  */
-public class FileDictionary {
+public class FileDictionary extends Dictionary {
 	
 	// ATRIBUTES
 	public String loadPath = "dictionary.txt";
@@ -67,10 +67,10 @@ public class FileDictionary {
 	 * TODO: continue the document
 	 * */
 	public void save() {
-		custom_save("");
+		this.custom_save("");
 	}
 	
 	public void save(String path_to_save_dictionary) {
-		custom_save(path_to_save_dictionary);
+		this.custom_save(path_to_save_dictionary);
 	}
 }
