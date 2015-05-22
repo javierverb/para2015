@@ -1,29 +1,42 @@
 package document;
-import java.io.BufferedReader;
-
 import word.Word;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class Document {
 
 	/**
 	 * representa al documento que se va a procesar.
 	 */
+	
 	// ATRIBUTES
-	BufferedReader input;
-	BufferedReader output;
+	private BufferedReader input_file = null;
+	private BufferedWriter output_file = null;
 	
 	
 	// CONSTRUCTOR
-	public Document(String input_path, String output_path) {
-		// TODO Auto-generated constructor stub
-		this.input = input_path; // TODO: fixme
-		this.output = output_path; // TODO: fixme
+	public Document(String input_file, String output_file) {
+		try {
+		     this.input_file = new BufferedReader(new FileReader("file_in.txt"));
+		     this.output_file = new BufferedWriter(new FileWriter("file_out.txt"));
+		} 
+		catch (IOException e) {
+		    e.printStackTrace();
+		} 
 	}
 	
 	
 	// METHODS
-	public void close(){
-		
+	public void close() throws IOException{
+	
+		output_file.close();
+		input_file.close();
+	
 	}
 	
 	public Word getWord(){
@@ -31,7 +44,9 @@ public class Document {
 		return w;
 	}
 	
-	public void putWord(Word w){
+	public void putWord(Word w) throws IOException {
+		
+		output_file.write(w.getWord());
 		
 	}
 }
