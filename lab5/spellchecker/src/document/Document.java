@@ -33,10 +33,8 @@ public class Document {
 	
 	// METHODS
 	public void close() throws IOException{
-	
 		output_file.close();
 		input_file.close();
-	
 	}
 	
 	public Word getWord(){

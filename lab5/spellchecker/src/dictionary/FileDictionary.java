@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
+
+import word.Word;
 
 /**
  * La clase FileDictionary representa un diccionario
@@ -34,7 +37,8 @@ public class FileDictionary extends Dictionary {
 			try (BufferedReader br = new BufferedReader(file_to_load)) {
 				String sCurrentLine;
 				while ((sCurrentLine = br.readLine()) != null) {
-					// TODO: load here please!!
+					Word word_obj = new Word(sCurrentLine);
+					this.set.add(word_obj);
 				}
 			} catch (IOException e) {
 				// skip :)
@@ -45,32 +49,29 @@ public class FileDictionary extends Dictionary {
 		}
 	}
 	
-	private void custom_save(String custom_path) {
+	private void custom_save(String custom_path) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
 		if (custom_path.length() == 0){
 			custom_path = this.loadPath;
 		}
-		try {
-			writer = new PrintWriter(custom_path, "UTF-8");
-			// TODO: save here please !!!
-			writer.println("The first line");
-			writer.println("The second line");
-			writer.close();
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		writer = new PrintWriter(custom_path, "UTF-8");
+		Iterator <Word> word_iterator = this.set.iterator();
+		while (word_iterator.hasNext()) {
+			Word word_obj_to_save = word_iterator.next();
+			writer.println(word_obj_to_save.getWord());
 		}
+		writer.close();
 	}
 	
 	/*I use this info:
 	 * http://stackoverflow.com/questions/2885173/java-how-to-create-a-file-and-write-to-a-file
 	 * TODO: continue the document
 	 * */
-	public void save() {
+	public void save() throws FileNotFoundException, UnsupportedEncodingException {
 		this.custom_save("");
 	}
 	
-	public void save(String path_to_save_dictionary) {
+	public void save(String path_to_save_dictionary) throws FileNotFoundException, UnsupportedEncodingException {
 		this.custom_save(path_to_save_dictionary);
 	}
 }

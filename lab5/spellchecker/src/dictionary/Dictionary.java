@@ -25,7 +25,7 @@ public abstract class Dictionary {
 	}
 	
 	public void add(Word w) {
-		//this.set.add(w);
+		this.set.add(w);
 	}
 	
 	public boolean contains(Word w) {
