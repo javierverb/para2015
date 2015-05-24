@@ -27,15 +27,30 @@ public class Word {
 	
 	
 	public String getWord(){	
-		String w = "";
-		return w;
+		
+		return this.word;
 	}
 	
 	
-	// falta hasCode():int
+	@Override
+	public int hashCode(){
+
+		int count = 0;
+		count = this.word.length();
+		return count;
 	
-	
-	public boolean equals(){
-		return false;
 	}
+	
+	
+	@Override
+	public boolean equals(Object o){
+
+		if(( o instanceof Word) && (((Word)o).getWord() == this.word)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 }
