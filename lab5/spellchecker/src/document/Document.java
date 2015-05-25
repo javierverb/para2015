@@ -33,18 +33,17 @@ public class Document {
 	
 	// METHODS
 	public void close() throws IOException{
-		output_file.close();
-		input_file.close();
+		this.output_file.close();
+		this.input_file.close();
 	}
 	
+	// TODO: complete me
 	public Word getWord(){
 		Word w = null;
 		return w;
 	}
 	
 	public void putWord(Word w) throws IOException {
-		
 		output_file.write(w.getWord());
-		
 	}
 }

@@ -198,10 +198,9 @@ void ignored_add(char *word) {
         while (dict_ignored[i] != NULL) {
             i++;
         }
-        dict_ignored = realloc(dict_ignored, (i+1)*sizeof(char*));
+        dict_ignored = realloc(dict_ignored, (i)*sizeof(char*));
         dict_ignored[i] = strcpy(new_word_to_add, word);
     }
-
 }
 
 /*******************************************************************
@@ -272,7 +271,6 @@ int get_word(char *word) {
         exit(EXIT_FAILURE);
     }
 
-struct Document;
     int character_readed, i = 0;
     while (!feof(doc_in)) {
         character_readed = fgetc(doc_in);
@@ -343,7 +341,7 @@ void consult_user(char *word){
         printf("Palabra no reconocida: [%s]\n Aceptar (a) - Ignorar (i) - Reemplazar (r): ", word);
         scanf("%s", ans);
     }while((strcmp(ans,"r") != 0) && (strcmp(ans,"a") != 0) && (strcmp(ans,"i") != 0));
-    /* completar aca  */
+
     if(strcmp(ans,"a") == 0){
         dict_add(word);
         printf("la palabra %s fue AGREGADA al diccionario\n",word);
@@ -458,6 +456,6 @@ int main(int argc, char **argv){
 
     dict_destroy(dict_main, main_size);
 
-    printf("El documento %s ha sido procesado. Resultados en out.txt\n", argv[1]);
+    printf("El documento %s ha sido procesado. Resultados en out_file.txt\n", argv[1]);
     return EXIT_SUCCESS;
 }
