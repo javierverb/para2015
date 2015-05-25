@@ -3,7 +3,7 @@ package word;
 public class Word {
 	/**
 	 * La clase Word represenata una palabra y es
-	 * un grapper sobre el tipo de datos String. 
+	 * un wrapper sobre el tipo de datos String. 
 	 */
 	
 	// ATRIBUTES
@@ -26,19 +26,16 @@ public class Word {
 	}
 	
 	
-	public String getWord(){	
-		
+	public String getWord() {
 		return this.word;
 	}
 	
 	
 	@Override
 	public int hashCode(){
-
 		int count = 0;
 		count = this.word.length();
 		return count;
-	
 	}
 	
 	

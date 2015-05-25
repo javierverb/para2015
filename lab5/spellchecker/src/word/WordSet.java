@@ -1,39 +1,40 @@
 package word;
 
+import java.util.HashSet;
 import java.util.Iterator;
 
-public class WordSet {
-	/**
-	 * La clase Word represenata una palabra y es
-	 * un grapper sobre el tipo de datos String. 
-	 */
+/**
+ * La clase Word represenata una palabra y es
+ * un wrapper sobre el tipo de datos String. 
+ */
+public class WordSet {	
+	
+	private HashSet<Word> set = null;
 	
 	// CONSTRUCTOR
 	public WordSet() {
-		// TODO Auto-generated constructor stub
+		this.set = new HashSet<Word>();
 	}
 	
 	// METHODS
 	public void add(Word w){
-		
+		this.set.add(w);
 	}
 	
 	public boolean contains(Word w){
-		return false;
-		
+		return this.set.contains(w);
 	}
 	
 	public void clear(){
-		
+		this.set.clear();
 	}
 	
-	// TODO complete this
 	public Iterator<Word> iterator(){
-		return null;
+		return this.set.iterator();
 	}
 	
-	public int size(){
-		return 0;
+	public int size() {
+		return this.set.size();
 	}
 
 }

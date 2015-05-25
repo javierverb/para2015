@@ -16,12 +16,12 @@ import word.WordSet;
  */
 public abstract class Dictionary {	
 	
-	protected WordSet set;
+	protected WordSet set = null;
 	
 	
 	// CONSTRUCTOR
 	public Dictionary() {
-		// TODO Auto-generated constructor stub
+		this.set = new WordSet();
 	}
 	
 	public void add(Word w) {
@@ -57,7 +57,7 @@ public abstract class Dictionary {
 		return list_to_save_word;
 	}
 	
-	public int size(){
+	public int size() {
 		return this.set.size();
 	}
 

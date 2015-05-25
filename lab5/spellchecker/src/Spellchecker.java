@@ -10,7 +10,7 @@ import word.Word;
 public class Spellchecker {
 
 	// CONSTRUCTOR
-		public Spellchecker(){}
+	public Spellchecker(){}
 		
 		
 	// METHODS
