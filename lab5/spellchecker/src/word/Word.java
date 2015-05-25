@@ -1,11 +1,10 @@
 package word;
 
-public class Word {
-	/**
-	 * La clase Word represenata una palabra y es
-	 * un wrapper sobre el tipo de datos String. 
-	 */
-	
+/**
+ * La clase Word represenata una palabra y es
+ * un wrapper sobre el tipo de datos String. 
+ */
+public class Word {	
 	// ATRIBUTES
 	private String word;
 	
@@ -19,17 +18,15 @@ public class Word {
 	
 	
 	// METHODS
-	public void setWord(String w){
-        
-        this.word = w;
-		
-	}
+	public void setWord(String w){ 
 	
+		this.word = w;	
+	
+	}
 	
 	public String getWord() {
 		return this.word;
 	}
-	
 	
 	@Override
 	public int hashCode(){
@@ -38,11 +35,10 @@ public class Word {
 		return count;
 	}
 	
-	
 	@Override
 	public boolean equals(Object o){
 
-		if(( o instanceof Word) && (((Word)o).getWord() == this.word)){
+		if(( o instanceof Word) && (((Word)o).getWord() == this.getWord())){
 			return true;
 		}
 		else{
