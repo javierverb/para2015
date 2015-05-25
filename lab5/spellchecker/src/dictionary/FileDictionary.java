@@ -20,9 +20,7 @@ public class FileDictionary extends Dictionary {
 	public String loadPath = "dictionary.txt";
 	
 	// CONSTRUCTORS
-	public FileDictionary() {
-		// TODO Auto-generated constructor stub
-	}
+	public FileDictionary() {}
 	
 	public FileDictionary(String loadPath){
 		this.loadPath = loadPath;
