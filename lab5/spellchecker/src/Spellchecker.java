@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import dictionary.Dictionary;
 import word.Word;
 
@@ -32,9 +34,8 @@ public class Spellchecker {
 
     }
     
-    public static Word consultUser(Word w, Dictionary dic_in, Dictionary dic_out){
+    public static Word consultUser(Word w, Dictionary dic_in, Dictionary dic_out) {
         
-        public static Word consultUser(Word w, Dictionary dic_in, Dictionary dic_out){
         
         String s;
         String rep;
@@ -47,19 +48,19 @@ public class Spellchecker {
             reader.close();
         }while ((s != "r") && (s != "a") && (s != "i"));
         
-        if (s == "a"){
+        if (s == "a") {
             // hacer
             System.out.println("la palabra: " + w);
             System.out.println("fue AGREGADA al diccionario");
         }
 
-        if (s == "i"){
+        if (s == "i") {
             // hacer
             System.out.println("la palabra: " + w);
             System.out.println("fue IGNORADA al diccionario");
         }
         
-        if (s == "r"){
+        if (s == "r") {
             // remlazar
             System.out.println("Remplazar por: ");
             Scanner replace = new Scanner(System.in);

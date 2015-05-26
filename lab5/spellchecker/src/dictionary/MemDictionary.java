@@ -4,7 +4,7 @@ package dictionary;
  * La clase MemDictionary representa un diccionario
  * que se almacena en memoria solamente.
  */
-public class MemDictionary {
+public class MemDictionary extends Dictionary {
 	
 	// CONSTRUCTOR
 	public MemDictionary() {}

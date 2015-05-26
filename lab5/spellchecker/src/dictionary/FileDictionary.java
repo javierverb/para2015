@@ -26,9 +26,13 @@ public class FileDictionary extends Dictionary {
 		this.loadPath = loadPath;
 	}
 	
-	
-	// METHODS
-	/* http://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/ */
+	/** 
+	 * Método que se encarga de cargar un diccionario mediante un path
+	 * @param String path_to_load_dictionary
+	 * @see 
+	 * <a href="http://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/"
+	 * this
+	 * </a> */
 	public void load(String path_to_load_dictionary) throws IOException {
 		try {
 			FileReader file_to_load = new FileReader(path_to_load_dictionary);
@@ -47,6 +51,11 @@ public class FileDictionary extends Dictionary {
 		}
 	}
 	
+	/**
+	 * custom_save es un método privado que evita la repetición de código dependiendo del path provisto
+	 * para 'guardar' el diccionario en un archivo.
+	 * @param custom_path. Este String determina en donde guardar el archivo.
+	 * */
 	private void custom_save(String custom_path) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
 		if (custom_path.length() == 0){
@@ -61,7 +70,7 @@ public class FileDictionary extends Dictionary {
 		writer.close();
 	}
 	
-	/*I use this info:
+	/**I use this info:
 	 * http://stackoverflow.com/questions/2885173/java-how-to-create-a-file-and-write-to-a-file
 	 * TODO: continue the document
 	 * */

@@ -20,27 +20,35 @@ public class Document {
 	
 	
 	// CONSTRUCTOR
-	public Document(String input_file, String output_file) {
-		try {
-		     this.input_file = new BufferedReader(new FileReader("file_in.txt"));
-		     this.output_file = new BufferedWriter(new FileWriter("file_out.txt"));
-		} 
-		catch (IOException e) {
-		    e.printStackTrace();
-		} 
+	public Document(String input_file, String output_file) throws IOException {
+		this.input_file = new BufferedReader(new FileReader(input_file));
+		this.output_file = new BufferedWriter(new FileWriter(output_file));
 	}
 	
 	
 	// METHODS
-	public void close() throws IOException{
+	public void close() throws IOException {
 		this.output_file.close();
 		this.input_file.close();
 	}
 	
 	// TODO: complete me
-	public Word getWord(){
-		Word w = null;
-		return w;
+	public Word getWord() throws IOException {
+		String string_to_word= "";
+		int c = 0;
+		this.input_file.reset();
+		while((c = this.input_file.read()) != -1) {
+			char character = (char) c;
+			if (Character.isAlphabetic(character)) {
+				string_to_word += character;
+			}
+			// ver esto
+			else {
+				this.input_file.mark(character);
+			}
+		}
+		Word word_to_return = new Word(string_to_word);
+		return word_to_return;
 	}
 	
 	public void putWord(Word w) throws IOException {
