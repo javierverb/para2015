@@ -8,12 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+/**
+ * representa al documento que se va a procesar.
+ */
 public class Document {
 
-	/**
-	 * representa al documento que se va a procesar.
-	 */
-	
 	// ATRIBUTES
 	private BufferedReader input_file = null;
 	private BufferedWriter output_file = null;
@@ -36,7 +35,7 @@ public class Document {
 	public Word getWord() throws IOException {
 		String string_to_word= "";
 		int c = 0;
-		this.input_file.reset();
+		//this.input_file.reset();
 		while((c = this.input_file.read()) != -1) {
 			char character = (char) c;
 			if (Character.isAlphabetic(character)) {
@@ -45,6 +44,7 @@ public class Document {
 			// ver esto
 			else {
 				this.input_file.mark(character);
+				break;
 			}
 		}
 		Word word_to_return = new Word(string_to_word);

@@ -1,6 +1,11 @@
+import java.io.IOError;
+import java.io.IOException;
 import java.util.Scanner;
 
 import dictionary.Dictionary;
+import dictionary.FileDictionary;
+import dictionary.MemDictionary;
+import document.Document;
 import word.Word;
 
 /**
@@ -16,7 +21,7 @@ public class Spellchecker {
 		
 		
 	// METHODS
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		String dict;
 		
@@ -42,17 +47,13 @@ public class Spellchecker {
 		// destroy dictionaries
 		dict_main.clear();
 		dict_ignored.clear();
-
 	}
 	
 	public static Word consultUser(Word w, Dictionary dic_in, Dictionary dic_out) {
-		
-		
 		String s;
 		String rep;
-		
 		do{
-			System.out.println("Palabra no reconocida: " + w);
+			System.out.println("Palabra no reconocida: " + w.getWord());
 			System.out.println("Aceptar (a) - Ignorar (i) - Reemplazar (r): ");
 			Scanner reader = new Scanner(System.in);
 			s = reader.next();
@@ -84,13 +85,13 @@ public class Spellchecker {
 			
 	}
 	
-	public static void processDocument(String s1, String s2, Dictionary dic_in, Dictionary dic_out){
+	public static void processDocument(String doc_in, String doc_out, Dictionary dic_added_word, Dictionary dic_ignored_word) throws IOException{
 		// TODO: complete this!!
 		Word current_word;
 		Document doc = new Document(doc_in, doc_out);
 		
 		try{
-			Word wd;
+			Word wd = null;
 			while(true){
 				current_word = doc.getWord();
 				if(!(dic_added_word.contains(current_word) || dic_ignored_word.contains(current_word))){
@@ -99,7 +100,7 @@ public class Spellchecker {
 				doc.putWord(wd);	
 			}
 		}
-		catch (IOError){
+		catch (IOError e){
 			doc.close();
 		}
 	}
