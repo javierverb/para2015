@@ -21,8 +21,14 @@ public class WordSet {
 		this.set.add(w);
 	}
 	
-	public boolean contains(Word w){
-		return this.set.contains(w);
+	public boolean contains(Word w) {
+		boolean is_known= false;
+		Iterator <Word> word_iterator = this.set.iterator();
+		while (word_iterator.hasNext() && !is_known) {
+			Word word_to_compare = word_iterator.next();
+			is_known = word_to_compare.equals(w);
+		}
+		return is_known;
 	}
 	
 	public void clear(){

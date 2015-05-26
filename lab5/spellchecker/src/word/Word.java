@@ -19,9 +19,7 @@ public class Word {
 	
 	// METHODS
 	public void setWord(String w){ 
-	
-		this.word = w;	
-	
+		this.word = w;
 	}
 	
 	public String getWord() {
@@ -36,14 +34,14 @@ public class Word {
 	}
 	
 	@Override
-	public boolean equals(Object o){
-
-		if(( o instanceof Word) && (((Word)o).getWord() == this.getWord())){
+	public boolean equals(Object o) {
+		if((o instanceof Word) && (((Word)o).getWord() == this.getWord())){
 			return true;
 		}
-		else{
+		else {
+			System.out.println("["+((Word) o).getWord() + "]");
+			System.out.println(this.getWord());
 			return false;
 		}
 	}
-
 }

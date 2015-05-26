@@ -42,12 +42,15 @@ public class FileDictionary extends Dictionary {
 					Word word_obj = new Word(sCurrentLine);
 					this.set.add(word_obj);
 				}
-			} catch (IOException e) {
+				System.out.println("Cargando diccionario...Ok");
+			} 
+			catch (IOException e) {
+				System.out.println("¡Diccionario no cargado!");
 				// skip :)
 			}
 		} catch (FileNotFoundException e1) {
-			// if file not found, my dictionary is empty and 
-			// ...exit? TODO: PREGUNTAR
+			System.out.println("Diccionario "+ path_to_load_dictionary + " no encontrado. Cargando diccionario por defecto:" + this.loadPath);
+			// if file not found, my dictionary is empty and not load nothing
 		}
 	}
 	
@@ -58,13 +61,15 @@ public class FileDictionary extends Dictionary {
 	 * */
 	private void custom_save(String custom_path) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
-		if (custom_path.length() == 0){
+		if (custom_path.length() == 0) {
 			custom_path = this.loadPath;
 		}
+		System.out.println("Guardando diccionario...en:" + custom_path);
 		writer = new PrintWriter(custom_path, "UTF-8");
 		Iterator <Word> word_iterator = this.set.iterator();
 		while (word_iterator.hasNext()) {
 			Word word_obj_to_save = word_iterator.next();
+			System.out.println(word_obj_to_save.getWord());
 			writer.println(word_obj_to_save.getWord());
 		}
 		writer.close();
