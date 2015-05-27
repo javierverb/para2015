@@ -5,27 +5,38 @@ package word;
  * un wrapper sobre el tipo de datos String. 
  */
 public class Word {	
-	// ATRIBUTES
+	/** Atributes */
 	private String word;
 	
-	// CONSTRUCTORS
+	/** Constructors */
 	public Word(){}
 	
 	public Word(String word) {
-		// TODO Auto-generated constructor stub
+
 		this.word = word;
 	}
 	
 	
-	// METHODS
+	/** Methods */
+	
+	/**
+	 * Asigna 'w' al atributo de la clase.
+	 * */
 	public void setWord(String w){ 
 		this.word = w;
 	}
 	
+	/**
+	 * Devuelve el atributo.
+	 * */
 	public String getWord() {
 		return this.word;
 	}
 	
+	
+	/**
+	 * 
+	 * */
 	@Override
 	public int hashCode(){
 		int count = 0;
@@ -33,6 +44,9 @@ public class Word {
 		return count;
 	}
 	
+	/**
+	 * 
+	 * */
 	@Override
 	public boolean equals(Object o) {
 		if((o instanceof Word) && (this.getWord().equals(((Word)o).getWord()))) {

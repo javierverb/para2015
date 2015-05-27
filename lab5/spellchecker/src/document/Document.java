@@ -13,25 +13,35 @@ import java.io.IOException;
  */
 public class Document {
 
-	// ATRIBUTES
+	/** Atributes */
 	private BufferedReader input_file = null;
 	private BufferedWriter output_file = null;
 	
 	
-	// CONSTRUCTOR
+	/** Constructor */
 	public Document(String input_file, String output_file) throws IOException {
 		this.input_file = new BufferedReader(new FileReader(input_file));
 		this.output_file = new BufferedWriter(new FileWriter(output_file));
 	}
 	
 	
-	// METHODS
+	/** Methods */
+	
+	/**
+	 * Cierra el documento.
+	 */
 	public void close() throws IOException {
 		this.output_file.close();
 		this.input_file.close();
 	}
 	
-	// TODO: complete me
+	/**
+	 * El metodo getWord, lee el documento de entrada,
+	 * palabra por palabra, copiando al documento de salida
+	 * todos los caracteres no alfabeticos precedentes que encuentre.
+	 * Al llegar al final del archivo, lo senaliza mediante una
+	 * excepcion EOFException
+	 */
 	public Word getWord() throws IOException {
 		String string_to_word= "";
 		int c = 0;
@@ -62,6 +72,9 @@ public class Document {
 		return null;
 	}
 	
+	/**
+	 * Escribe la palabra w al archivo de salida.
+	 */
 	public void putWord(Word w) throws IOException {
 		output_file.write(w.getWord());
 	}

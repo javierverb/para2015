@@ -16,15 +16,17 @@ import word.Word;
  */
 public class FileDictionary extends Dictionary {
 	
-	// ATRIBUTES
+	/** Atributes */
 	public String loadPath = "dictionary.txt";
 	
-	// CONSTRUCTORS
+	/** Constructors */
 	public FileDictionary() {}
 	
 	public FileDictionary(String loadPath){
 		this.loadPath = loadPath;
 	}
+	
+	/** Methods */
 	
 	/** 
 	 * Método que se encarga de cargar un diccionario mediante un path
