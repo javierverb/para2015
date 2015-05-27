@@ -25,8 +25,7 @@ public class WordSet {
 		boolean is_known= false;
 		Iterator <Word> word_iterator = this.set.iterator();
 		while (word_iterator.hasNext() && !is_known) {
-			Word word_to_compare = word_iterator.next();
-			is_known = word_to_compare.equals(w);
+			is_known = word_iterator.next().equals(w);
 		}
 		return is_known;
 	}

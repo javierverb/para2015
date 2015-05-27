@@ -35,7 +35,7 @@ public class Word {
 	
 	@Override
 	public boolean equals(Object o) {
-		if((o instanceof Word) && (((Word)o).getWord() == this.getWord())){
+		if((o instanceof Word) && (this.getWord().equals(((Word)o).getWord()))) {
 			return true;
 		}
 		else {

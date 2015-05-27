@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
+
 import dictionary.Dictionary;
 import dictionary.FileDictionary;
 import dictionary.MemDictionary;
@@ -34,11 +35,17 @@ public class Spellchecker {
 		dict_path = (args.length >= 2) ? args[1] : "dict.txt";
 		System.out.println(args[0]);
 		
-		// create dictionaries
+		// create dictionaries and load
 		FileDictionary dict_main = new FileDictionary(dict_path);
 		MemDictionary dict_ignored = new MemDictionary();
+		dict_main.load(dict_path);
+		
+		// TODO: remove this line when finish debug
+		System.out.print("Printeando:");
+		dict_main.dumpDict();
+		
 		// procces document
-		processDocument("doc_in.txt", "doc_out.txt", dict_main, dict_ignored);
+		processDocument(args[0], "doc_out.txt", dict_main, dict_ignored);
 		// save dict_main
 		dict_main.save();
 		// destroy dictionaries
@@ -86,12 +93,11 @@ public class Spellchecker {
 		Word current_word;
 		Document doc = new Document(doc_in, doc_out);
 	
-		Word wd = null;
 		while((current_word = doc.getWord()) != null) {
 			if(!(dic_added_word.contains(current_word) || dic_ignored_word.contains(current_word))) {
-				wd = consultUser(current_word, dic_added_word, dic_ignored_word);
+				current_word = consultUser(current_word, dic_added_word, dic_ignored_word);
 			}
-			doc.putWord(wd);
+			doc.putWord(current_word);
 		}
 		doc.close();
 	}

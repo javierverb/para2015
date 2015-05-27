@@ -85,5 +85,17 @@ public abstract class Dictionary {
 	public int size() {
 		return this.set.size();
 	}
+	
+	/**
+	 * FOR DEBUG; PLEASE remove me when finish it TODO
+	 * */
+	public void dumpDict() {
+		Iterator <Word> word_iterator = this.set.iterator();
+		while (word_iterator.hasNext()) {
+			Word word_obj_to_dump = word_iterator.next();
+			System.out.println("My object:"+
+					word_obj_to_dump.getWord());
+		}
+	}
 
 }
