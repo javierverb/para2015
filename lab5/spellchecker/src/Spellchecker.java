@@ -14,11 +14,18 @@ import word.Word;
  */
 public class Spellchecker {
 
-	// CONSTRUCTOR
+	/** Constructor */
 	public Spellchecker(){}
 		
 		
-	// METHODS
+	/** Methods */
+	
+	/**
+	 * Punto de entrada principal. Abre el diccionario 
+	 * principal, procesa el archivo especificado y 
+	 * guarda los cambios realizados en el diccionario 
+	 * principal.
+	 * */
 	public static void main(String[] args) throws Exception {
 		
 		String dict_path;
@@ -46,6 +53,12 @@ public class Spellchecker {
 		dict_ignored.clear();
 	}
 	
+	/**
+	 * Consulta al usuario sobre que accion realizar 
+	 * (aceptar, ignorar o reemplazar) con la palabra w.
+	 * Una vez que el usuario elige, realiza la accion 
+	 * elegida.
+	 * */
 	public static Word consultUser(Word w, Dictionary dic_added_word, Dictionary dic_ignored_word) {
 		char s;
 		String rep;
@@ -81,6 +94,11 @@ public class Spellchecker {
 		} while ((s != 'r') && (s != 'a') && (s != 'i'));
 	}
 	
+	/**
+	 * Procesa el documento fname, palabra por palabra, 
+	 * consultando al usuario sobre la accion a realizar 
+	 * si la palabra no es conocida.
+	 * */
 	public static void processDocument(String doc_in, String doc_out, Dictionary dic_added_word, Dictionary dic_ignored_word) throws IOException {
 		// TODO: complete this!!
 		Word current_word;

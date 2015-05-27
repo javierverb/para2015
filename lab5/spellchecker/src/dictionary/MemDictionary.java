@@ -6,6 +6,6 @@ package dictionary;
  */
 public class MemDictionary extends Dictionary {
 	
-	// CONSTRUCTOR
+	/** Constructor */
 	public MemDictionary() {}
 }
