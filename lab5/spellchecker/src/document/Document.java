@@ -59,7 +59,7 @@ public class Document {
 					}
 					else {
 						System.out.println(character);
-						this.input_file.mark(i-1);
+						this.input_file.mark(i);
 						this.input_file.reset();
 					}
 					Word word_to_return = new Word(string_to_word);
