@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 /**
  * La clase WordSet representa un conjunto de palabras,
- * el cual se implementa internamente con una coleccion
+ * el cual se implementa internamente con una colección
  * que implemente la interfaz Set. 
  */
 public class WordSet {	
@@ -48,8 +48,8 @@ public class WordSet {
 	}
 	
 	/**
-	 * El metodo iterator devuelve una referencia a un iterator
-	 * correspondiente a la implementacion interna del conjunto.
+	 * El método iterator devuelve una referencia a un iterator
+	 * correspondiente a la implementación interna del conjunto.
 	 * */
 	public Iterator<Word> iterator(){
 		return this.set.iterator();

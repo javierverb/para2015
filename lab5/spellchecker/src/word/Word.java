@@ -5,6 +5,7 @@ package word;
  * un wrapper sobre el tipo de datos String. 
  */
 public class Word {	
+	
 	/** Atributes */
 	private String word;
 	
@@ -35,17 +36,23 @@ public class Word {
 	
 	
 	/**
-	 * 
+	 * El hashcode es un numero entero, sin signo, que sirve en colecciones de tipo Hash*.
+	 * Este método debe ser sobrescrito en todas las clases que sobrescriban el método equals,
+	 * si no se quiere tener un comportamiento extraño al utilizar las colecciones de tipo Hash*
+	 * y otras clases. Si dos objetos son iguales según el método equals sobrescrito,
+	 * estos deberian regresar el mismo hashcode.
+	 * @return 
 	 * */
 	@Override
 	public int hashCode(){
-		int count = 0;
-		count = this.word.length();
-		return count;
+		
+		return this.word.hashCode();
+
 	}
 	
 	/**
-	 * 
+	 * Define una relación de equivalencia entre objetos,
+	 * basandose en un subconjunto de atributos.
 	 * */
 	@Override
 	public boolean equals(Object o) {
@@ -53,9 +60,8 @@ public class Word {
 			return true;
 		}
 		else {
-			System.out.println("["+((Word) o).getWord() + "]");
-			System.out.println(this.getWord());
 			return false;
 		}
 	}
+
 }

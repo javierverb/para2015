@@ -17,7 +17,7 @@ import word.Word;
 public class FileDictionary extends Dictionary {
 	
 	/** Atributes */
-	public String loadPath = "dictionary.txt";
+	public String loadPath = "dict.txt";
 	
 	/** Constructors */
 	public FileDictionary() {}
@@ -63,6 +63,7 @@ public class FileDictionary extends Dictionary {
 	 * */
 	private void custom_save(String custom_path) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer;
+		
 		if (custom_path.length() == 0) {
 			custom_path = this.loadPath;
 		}
@@ -81,10 +82,17 @@ public class FileDictionary extends Dictionary {
 	 * http://stackoverflow.com/questions/2885173/java-how-to-create-a-file-and-write-to-a-file
 	 * TODO: continue the document
 	 * */
+	
+	/**
+	 * guarda en el diccionario en el mismo archivo desde el cual se cargó.
+	 * */
 	public void save() throws FileNotFoundException, UnsupportedEncodingException {
 		this.custom_save("");
 	}
 	
+	/**
+	 * guarda en el diccionario en el path especificado.
+	 * */
 	public void save(String path_to_save_dictionary) throws FileNotFoundException, UnsupportedEncodingException {
 		this.custom_save(path_to_save_dictionary);
 	}

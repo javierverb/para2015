@@ -50,10 +50,8 @@ public class Document {
 		
 		while((c = this.input_file.read()) != -1) {
 			char character = (char) c;
-			if (Character.isLetter(character)) {
-				System.out.println("leyo -->" + character);
+			if (Character.isLetterOrDigit(character)) {
 				string_to_word += character;
-				System.out.println("string_to_word -->" + string_to_word);
 				this.input_file.mark(4);
 				i += 1;
 			}
@@ -64,8 +62,6 @@ public class Document {
 						this.putWord(invalid_character);
 					}
 					else {
-						System.out.println(character);
-						//this.input_file.mark();
 						this.input_file.reset();
 					}
 					Word word_to_return = new Word(string_to_word);

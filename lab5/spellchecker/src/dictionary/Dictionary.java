@@ -16,6 +16,7 @@ import word.WordSet;
  */
 public abstract class Dictionary {	
 	
+	/** Atribute */
 	protected WordSet set = null;
 	
 	
@@ -23,6 +24,8 @@ public abstract class Dictionary {
 	public Dictionary() {
 		this.set = new WordSet();
 	}
+	
+	/** Methods */
 	
 	/**
 	 * Método que se encarga de agregar palabras
@@ -51,7 +54,7 @@ public abstract class Dictionary {
 	
 	
 	/**
-	 * Inserta en el diccionario todas los elementos pertenecientes a la lista 
+	 * Inserta en el diccionario todos los elementos pertenecientes a la lista 
 	 * pasada como argumento.
 	 * @param <b> dictionary: </b>diccionario tipo List<String>
 	 * */
@@ -84,18 +87,6 @@ public abstract class Dictionary {
 	 * */
 	public int size() {
 		return this.set.size();
-	}
-	
-	/**
-	 * FOR DEBUG; PLEASE remove me when finish it TODO
-	 * */
-	public void dumpDict() {
-		Iterator <Word> word_iterator = this.set.iterator();
-		while (word_iterator.hasNext()) {
-			Word word_obj_to_dump = word_iterator.next();
-			System.out.println("My object:"+
-					word_obj_to_dump.getWord());
-		}
 	}
 
 }

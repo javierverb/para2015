@@ -37,19 +37,19 @@ public class Spellchecker {
 			throw new Exception("\n\nInvalid args:\n"+msgError);
 		}
 		
-		// si se especifico un diccionario lo usamos,
-		// caso contrario usamos el diccionario por defecto
-		dict_path = (args.length >= 2) ? args[1] : "dict.txt";
-		System.out.println(args[0]);
+		// si se especificó un diccionario lo usamos,
+		// caso contrario usamos el diccionario por defecto. Notar que si el path del diccionario
+		// es "", se toma el valor por defecto. 
+		dict_path = (args.length >= 2 && !args[1].equals("")) ? args[1] : "dict.txt";
+		System.out.println("documento --> " + args[0]);
+		System.out.println("diccionario --> " + dict_path + "\n");
+		
 		
 		// create dictionaries and load
 		FileDictionary dict_main = new FileDictionary(dict_path);
 		MemDictionary dict_ignored = new MemDictionary();
+		dict_ignored.add(new Word(""));
 		dict_main.load(dict_path);
-		
-		// TODO: remove this line when finish debug
-		System.out.print("Printeando:");
-		dict_main.dumpDict();
 		
 		// procces document
 		processDocument(args[0], "doc_out.txt", dict_main, dict_ignored);
@@ -61,14 +61,15 @@ public class Spellchecker {
 	}
 	
 	/**
-	 * Consulta al usuario sobre que accion realizar 
+	 * Consulta al usuario sobre que acción realizar 
 	 * (aceptar, ignorar o reemplazar) con la palabra w.
-	 * Una vez que el usuario elige, realiza la accion 
+	 * Una vez que el usuario elige, realiza la acción 
 	 * elegida.
 	 * */
 	public static Word consultUser(Word w, Dictionary dic_added_word, Dictionary dic_ignored_word) {
 		char s;
 		String rep;
+		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
 		do {
 			System.out.println("Palabra no reconocida: " + w.getWord());
@@ -103,11 +104,11 @@ public class Spellchecker {
 	
 	/**
 	 * Procesa el documento fname, palabra por palabra, 
-	 * consultando al usuario sobre la accion a realizar 
+	 * consultando al usuario sobre la acción a realizar 
 	 * si la palabra no es conocida.
 	 * */
 	public static void processDocument(String doc_in, String doc_out, Dictionary dic_added_word, Dictionary dic_ignored_word) throws IOException {
-		// TODO: complete this!!
+
 		Word current_word;
 		Document doc = new Document(doc_in, doc_out);
 	
