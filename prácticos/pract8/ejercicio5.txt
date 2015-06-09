@@ -1,0 +1,42 @@
+5- Defina en Prolog un sistema de ayuda a una central de turnos.
+   Este sistema dira si se le puede asignar un turno a un paciente con un
+   determinado medico para un determinado dıa, siguiendo las siguientes premisas:
+
+    * el paciente no tiene ningun turno asignado para el mismo dıa a la misma hora.
+    * el paciente no tiene ningun turno asignado con ningun especialista de la
+      misma especialidad para la que pide turno.
+    * el medico para el que pide turno no tiene turno asignado con ningun otro
+      paciente para el mismo dıa a la misma hora.
+
+Se puede definir con una sola regla!
+
+La base de conocimiento puede ser como sigue:
+
+turno(celia,rivas,(6,30,8)).
+turno(celia,zilvetti,(7,14,11)).
+turno(tomas,rivas,(7,11,10)).
+turno(tomas,perez,(8,11,10)).
+turno(tomas,schuster,(9,11,10)).
+turno(lidia,zilvetti,(7,14,10)).
+turno(lidia,schuster,(9,11,11)).
+turno(esteban,rivas,(7,1,9)).
+especialidad(rivas,oftalmologia).
+especialidad(smith,oftalmologia).
+especialidad(zilvetti,ginecologıa).
+especialidad(roman,ginecologıa).
+especialidad(perez,endocrinologıa).
+especialidad(schuster,clınico).
+
+================================================================================
+asignarTurno(Paciente, Especialista, Fecha) :-
+        not(turno(Paciente, __, Fecha)),
+        not(turno(Paciente, Especialista, __),
+            especialidad(Especialista, Especialista));
+
+otra forma
+
+dimos_turno(Paciente, Especialista, Dia):-
+    not(turno(Paciente, _, Dia)),
+    not(turno(Paciente, E, _),
+    especialidad(E, X), especialidad(especialista, X))
+    not(turno(_, Especialista, Dia)).

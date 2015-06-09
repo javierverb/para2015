@@ -1,0 +1,30 @@
+2. A partir de la siguiente base de datos:
+    
+    elfo_domestico(dobby).
+    bruja(hermione).
+    bruja(’McGonagall’).
+    bruja(rita_skeeter).
+    puede_hacer_magia(X):- elfo_domestico(X).
+    puede_hacer_magia(X):- hechicero(X).
+    puede_hacer_magia(X):- bruja(X).
+
+Cuales de las siguientes consultas se satisfacen?
+Con que instanciaciones de variables?
+
+?- puede_hacer_magia(elfo_domestico). --> elfo_domestico(elfo_domestico) no, 
+                                          hechicero(elfo_domestico) no,
+                                          bruja(elfo_domestico) no 
+?- hechicero(harry).
+?- puede_hacer_magia(hechicero). --> no no no
+?- puede_hacer_magia(’McGonagall’). --> si!!
+?- puede_hacer_magia(Hermione). --> si si si
+
+Dibuje el arbol de busqueda para la consulta puede_hacer_magia(Hermione).
+
+        -----puede_hacer_maguia(Hermione)-------
+        |                   |                  |
+        |                   |                  |
+elfo_dom(Hermione)   hechicero(Hermione)  bruja(Hermione)
+                                                |
+                                                |
+                            devuelve hermione y McGonagall xq Hermione es variable??
