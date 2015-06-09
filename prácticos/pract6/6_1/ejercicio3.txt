@@ -1,0 +1,257 @@
+3- Dibuje la jerarquıa de clases en que se basa el siguiente codigo.
+-------------------------------------------------------------------------------
+A)
+===============================================================================
+class storable
+{
+    public:
+    storable (const char *);
+    virtual void read() = 0; // this becomes pure virtual making storable an abstract
+    virtual void write();    // class
+    virtual ~ storable();
+    private:
+    ....
+}
+
+class transmitter : public virtual storable
+{
+    public:
+    void write()
+    {
+        read();
+        ....
+    }
+}
+
+class receiver : public virtual storable
+{
+    public:
+    void read();
+}
+
+class radio : public transmitter, public receiver
+{
+    public:
+    ...
+}
+
+int main()
+{
+    radio *rad = new radio();
+    receiver *r1 = rad;
+    transmitter *r2 = rad;
+    
+    rad -> write();
+    r1 ->  write();
+    r2 ->  write();
+    
+    return 1;
+}
+===============================================================================
+
+B)
+===============================================================================
+SpinSpots spots;
+SpinArm arm;
+
+void setup(){
+    size(640, 360);
+    arm = new SpinArm (width /2, height/2, 0.01);
+    spots = new SpinSpots(width/2, height /2, -0.02, 90.0);
+}
+
+void draw(){
+    background(204);
+    arm.update();
+    arm.display();
+    spots.update();
+    spots.display();
+}
+
+class Spin{
+    float x, y, speed;
+    float angle = 0.0;
+    Spin (float xpos, float ypos, float s){
+        x = xpos;
+        y = ypos;
+        speed = s;
+    }
+
+    void update(){
+        angle += speed;
+    }
+}
+
+class SpinArm extends Spin{
+    SpinArm (float x, float y, float s){
+        super(x, y, s);
+    }
+    void display(){
+        strokeWeight(1);
+        stroke(0);
+        pushMatrix();
+        translate (x, y);
+        angle += speed;
+        rotate (angle);
+        line (0, 0, 165, 0);
+        popMatrix();
+    }
+}
+
+class SpinSpots extends Spin{
+    float dim;
+    SpinSpots ( float x , float y, float s, float d ){
+        super (x, y, s);
+        dim = d;
+    }
+    void display(){
+        noStroke();
+        pushMatrix();
+        translate(x, y);
+        angle += speed;
+        rotate(angle);
+        ellipse(- dim/2, 0, dim, dim);
+        ellipse(dim/2, 0, dim, dim);
+        popMatrix();
+    }
+}
+===============================================================================
+
+C)
+===============================================================================
+#!/usr/bin/ruby
+
+class Being
+
+    @@count = 0
+    def initialize
+        @@count += 1
+        puts "Being class created"
+    end
+
+    def show_count
+        "There are #{ @@count } beings"
+    end
+end
+
+class Human < Being
+    def initialize
+        super
+        puts "Human is created"
+    end
+end
+
+class Animal < Being
+    def initialize
+        super
+        puts "Animal is created"
+    end
+end
+
+class Dog < Animal
+    def initialize
+        super
+        puts "Dog is created"
+    end
+end
+
+Human.new
+d = Dog.new
+puts d.show_count
+===============================================================================
+
+D)
+===============================================================================
+Option Strict On
+
+Module Example
+
+    Class Being
+        Sub New()
+            Console.WriteLine("Being is created")
+        End Sub
+
+    End Class
+
+    Class Human
+        Inherits Being
+        Sub New()
+            Console.WriteLine("Human is created")
+        End Sub
+    End Class
+
+    Sub Main()
+        Dim h As New Human
+    End Sub
+
+End Module
+===============================================================================
+
+
+E)
+===============================================================================
+class Opt {
+public :
+    /// Returns true if a barrier has been hit
+    virtual bool barrier(double S) = 0;
+    /// Returns payoff at maturity for underlying price S
+    virtual double pay (double S) = 0;
+};
+
+class Vanilla:
+    public Opt
+{
+    /// Strike
+    double K;
+public:
+    bool barrier(double S)
+    {
+        return false;
+    }
+    double pay(double S)
+    {
+        return (S - K) > 0 ? S - K : 0;
+    }
+};
+
+class NoBarrier:
+    public Opt
+{
+public:
+    bool barrier (double S)
+    {
+        return false;
+    }
+};
+
+class Vanilla2:
+    public NoBarrier
+{
+    /// Strike
+    double K;
+public:
+    double pay (double S)
+    {
+        return (S - K) > 0 ? S - K : 0;
+    }
+};
+
+class PlainPay:
+    public Opt
+{
+    /// Strike
+    double K ;
+public:
+    double pay (double S)
+    {
+        return (S - K) > 0 ? S - K : 0;
+    }
+};
+
+class Vanilla3:
+    public NoBarrier,
+    public PlainPay
+{
+
+};
+===============================================================================
