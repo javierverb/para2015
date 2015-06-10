@@ -1,4 +1,26 @@
-#!/bin/sh
+#!/bin/bash
+# data file
+INPUT="test.txt"
+function get_word {
+    # while loop
+    local acumulator=""
+    while IFS= read -r -n1 character
+    do
+        # check if is valid
+        if ! [[ "$char" =~ [^a-zA-Z0-9\ ] ]]; then
+            acumulator+=$character
+        fi
+    # display one character at a time
+    done < "$INPUT"
+    echo $acumulator
+}
+
+function is_contains {
+    local is_kwnow=`grep $1 $2`
+    return is_kwnow 
+}
+
+result=is_contains hola test.txt
 
 function main {
     
@@ -21,12 +43,3 @@ function main {
 
 
 main doc.tx
-
-#> grep "hola" file.txt
-#hola
-#eso en terminal
-
-#en script usar echo $, va a imprimir 0 o 1(si la palabra existe o no)
-# otra forma seria:
-# var = 'grep "hola" file.txt' (las comillas simples son comillas q apuntan a la izq)
-# $var = hola
