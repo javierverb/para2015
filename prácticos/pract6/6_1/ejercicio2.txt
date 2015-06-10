@@ -1,0 +1,246 @@
+2- En los siguientes programas escritos en C++, indique que parte del programa
+se encontrarıa en el archivo .h
+El archivo .h o archivo de cabeceras contiene declaraciones de clases cuya
+implementacion se encuentra en otros archivos, con extension .cpp.
+Su finalidad es ser incluıdos en otros archivos que usan las funciones que se
+declaran en el archivo de cabeceras.
+
+A)
+=============================================================================== --> a2dd.hpp
+class A2DD{
+    private :
+    int gx ;
+    int gy ;
+
+    public :
+    A2DD ( int x , int y ) ; // se dejan aca las declaraciones
+    int getSum () ;
+};
+===============================================================================
+=============================================================================== --> a2dd.cpp
+A2DD :: A2DD ( int x , int y ) //las def se prefijan con el nombre de la class
+{
+    gx = x ;
+    gy = y ;
+}
+
+int A2DD :: getSum ()
+{
+    return gx + gy ;
+}
+===============================================================================
+
+
+
+B)
+=============================================================================== --> frac.hpp
+class Fraction{
+    private int numer;
+    private int denom;
+
+    public Fraction();
+    public Fraction(int n);
+    public Fraction(int n, int d);
+
+    public void print();
+};
+===============================================================================
+=============================================================================== --> frac.cpp
+// include header file with the class declaration
+# include "frac.hpp"
+
+// include standard header file
+# include <iostream >
+# include <cstdlib >
+
+/* constructor por defecto , inicializando en 0 */
+Fraction :: Fraction(){
+    numer = 0;
+    denom = 1;
+}
+
+/* constructor para un numero entero , inicializando en n */
+Fraction :: Fraction(int n){
+    numer = n;
+    denom = 1;
+}
+
+/* constructor para numerador y denominador , inicializados segun parametro */
+Fraction :: Fraction(int n, int d){
+    numer = n;
+    denom = d;
+    if(d == 0){
+        std :: cerr <<"error: el denominador es 0"<< std :: endl;
+        std :: exit(EXIT_FAILURE);
+    }
+}
+
+/* print */
+void Fraction :: print ()
+{
+std :: cout << numer << '/' << denom << std :: endl ;
+}
+===============================================================================
+
+
+
+C)
+=============================================================================== --> Circle.h
+class Circle{
+    private double radius;
+    private String color;
+
+    // Constructor
+    // los valores por defecto solo se especifican en la declaracion, no se repiten
+    // en la definicion.
+    
+    public Circle(double r, Strinc c);
+
+    // getter publico para el miembro de datos privado "radius"
+    public double getRadius();
+
+    // setter publico para el miembro de datos privado "radius"
+    public void setRadius(double r);
+
+    // getter publico para el miembro de datos privado "color"
+    public String getColor();
+
+    // setter publico para el miembro de datos privado "color"
+    public void setColor(String c);
+
+    // una funcion miembro publica
+    public double getArea();
+
+};
+===============================================================================
+=============================================================================== --> Circle.c
+#include "Circle.h"
+
+Circle :: Circle(double r, string c){
+    radius = r ;
+    color = c ;
+}
+
+double Circle :: getRadius() const {
+    return radius ;
+}
+
+void Circle :: setRadius (double r){
+    radius = r;
+}
+
+String Circle :: getColor() const{
+    return color;
+}
+
+void Circle :: setColor (String c){
+    color = c;
+}
+
+double Circle :: getArea() const {
+    return radius * radius *3.14159265;
+}
+===============================================================================
+
+
+
+=============================================================================== --> Time.h
+class Time{
+    private int hour;
+    private int minute;
+    private int second;
+
+    // Constructor con valores por defecto , sin validacion de input
+    public Time(int h, int m, int s);
+
+    // setter publico para el miembro de datos privado "hour", sin validacion de input
+    public void seteHour(int h);
+
+    // getter publico para el miembro de datos privado "hour"
+    public int getHour();
+
+    // setter publico para el miembro de datos privado "minute",sin validacion de input
+    public void setMinute(int m);
+
+    // getter publico para el miembro de datos privado "minute"
+    public int getMinute();
+    
+    // setter publico para el miembro de datos privado "second",sin validacion de input
+    public void setSecond (int s);
+
+    // getter publico para el miembro de datos privado "second"
+    public int getSecond();
+
+    // Fijar hora, minuto y segundo, sin validacion de input.
+    public voidsetTime(int h, int m, int s);
+
+    // Imprimir esta instancia de Time en el formato de "hh:mm:ss"
+    public void print();
+
+    // Aumentar esta instancia por un segundo
+    void nextSecond();
+}
+===============================================================================
+=============================================================================== -->Time.c
+# include <iostream>
+# include <iomanip>
+#include "Time.h"
+
+Time :: Time (int h, int m, int s){
+    hour = h;
+    minute = m;
+    second = s;
+}
+
+int Time :: getHour() const {
+    return hour;
+}
+
+void Time :: setHour (int h){
+    hour = h;
+}
+
+int Time :: getMinute() const{
+    return minute;
+}
+
+void Time :: setMinute (int m){
+    minute = m;
+}
+
+int Time :: getSecond() const{
+    return second;
+}
+
+void Time :: setSecond(int s){
+    second = s;
+}
+
+void Time :: setTime (int h, int m, int s){
+    hour = h;
+    minute = m;
+    second = s;
+}
+
+void Time :: print() const{
+    cout << setfill ('0') ;
+    cout << setw (2) << hour 
+         << " : " << setw (2) << minute
+         << " : " << setw (2) << second << endl ;
+}
+
+void Time :: nextSecond () {
+    ++ second ;
+    if (second >= 60){
+        second = 0;
+        ++ minute;
+    }
+    if (minute >= 60){
+        minute = 0;
+        ++ hour;
+    }
+    if (hour >= 24){
+        hour = 0;
+    }
+}
+===============================================================================

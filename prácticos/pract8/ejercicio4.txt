@@ -1,0 +1,25 @@
+4- Defina en Prolog el problema de recomendar “amigos” en una red social,
+   especificado como sigue: para un usuario P con un conjunto de amigos
+   CA = [A1, A2, ..., An], los cuales a su vez tienen cada uno asociado un
+   conjunto de amigos C1, C2, ..., Cn le recomendaremos a P todos los miembros
+   de la union de todos los conjuntos de amigos de sus propios amigos
+   CCA = C1 ∪ C2 ... ∪ Cn que NO estan en la lista de sus propios amigos.
+   
+   Pueden usar la siguiente base de conocimiento.
+
+    amigo(pedro,marıa).
+    amigo(marıa,pedro).
+    amigo(marıa,romina).
+    amigo(juan,clara).
+    amigo(clara,juan).
+    amigo(pedro,juan).
+    amigo(marıa,clara).
+    amigo(juan,pedro).
+    amigo(clara,marıa).
+    amigo(romina,marıa).
+
+    recomendar(Usuario, NvoAmigo) :-
+            amigo(Usuario, Amigo),
+            amigo(Amigo, NvoAmigo),
+            not(amigo(Usuario, NvoAmigo)),
+            not(Usuario=Amigo));
