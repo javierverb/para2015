@@ -15,33 +15,33 @@ alias dict_add='echo' # dict_add '$word' >> '$destiny_file'
 
 GLOBAL_WORD_ACUMULATOR=""
 GLOBAL_FILE_OUTPUT="file_output.txt"
+GLOBAL_ARRAY_WORDS=()
 
 # dict added word
 GLOBAL_DICTIONARY=""
 # dict ignored word
 GLOBAL_IGNORED_DICTIONARY=".dict_ignored.txt"
 
-function get_len_file {
-    du -b empty.txt | grep -oh [0-9]*
-    echo $?
-}
-
-
 function get_word {
     
     local document=$1
+    local valid_word=0
+    local invalid_word=1
+
     while IFS= read -r -n1 character
     do
         # check if is valid
-        if ! [[ "$character" =~ [^a-zA-Z0-9\ ] ]]; then
+        if ! [[ "$character" =~ [^a-zA-Z0-9\ ]]]; then
             GLOBAL_WORD_ACUMULATOR+=$character
         else
-            break;
+            GLOBAL_ARRAY_WORDS[$valid_word]=$GLOBAL_WORD_ACUMULATOR
+            GLOBAL_ARRAY_WORDS[$invalid_word]=$character
+            GLOBAL_WORD_ACUMULATOR=""
         fi
+
         echo $GLOBAL_WORD_ACUMULATOR
     
     done < "$document"
-    GLOBAL_WORD_ACUMULATOR="EOF"
 }
 
 function consult_user {
@@ -52,27 +52,31 @@ function consult_user {
           Ignorar (i) - 
           Reemplazar (r): "
     # get from stdin a option
-    read -n1 option_selected
-    
-    case "$option_selected" in
-        a)
-            dict_add $word >> $GLOBAL_DICTIONARY
-            ;;
-        i)
-            dict_add $word >> $GLOBAL_IGNORED_DICTIONARY
-            ;;
-        r)
-            echo "Por favor, Ingrese la nueva palabra
-                  con la que desea reemplazar $word"
-            read new_word
-            word=new_word
-            ;;
-        *)
-            echo "Opcion invalida"
-            consult_user $word $document_output
-            ;;
-    esac
-    put_word $word >> document_output
+    while true; do
+        read -n1 option_selected
+        
+        case "$option_selected" in
+            a)
+                dict_add $word >> $GLOBAL_DICTIONARY
+                break
+                ;;
+            i)
+                dict_add $word >> $GLOBAL_IGNORED_DICTIONARY
+                break
+                ;;
+            r)
+                echo "Por favor, Ingrese la nueva palabra
+                      con la que desea reemplazar $word"
+                read new_word
+                word=new_word
+                break
+                ;;
+            *)
+                echo "Opcion invalida"
+                ;;
+        esac
+    done
+        put_word $word >> $document_output
 }
 
 function main {
@@ -104,9 +108,10 @@ function main {
         if ! [[ "$character" =~ [^a-zA-Z0-9\ ] ]]; then
             GLOBAL_WORD_ACUMULATOR+=$character
         else
-            if (index==0); then
-                put_word $character >> GLOBAL_FILE_OUTPUT
+            if [[$index==0]]; then
+                put_word $character >> $GLOBAL_FILE_OUTPUT
             else
+                echo "nunca entro"
                 let known=$(is_known $GLOBAL_WORD_ACUMULATOR $GLOBAL_DICTIONARY) +
                           $(is_know $GLOBAL_WORD_ACUMULATOR $GLOBAL_IGNORED_DICTIONARY)
                 if (know==0); then
@@ -118,12 +123,13 @@ function main {
                 index=0
             fi
         fi
+        echo $index
         let index+=1
     
     done < "$document"
     echo "El documento $document ha sido procesado. 
     Resultados en $GLOBAL_FILE_OUTPUT"
-    dict_destroy GLOBAL_IGNORED_DICTIONARY
+    dict_destroy $GLOBAL_IGNORED_DICTIONARY
 }
 
 # run script
