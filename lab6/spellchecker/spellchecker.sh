@@ -24,7 +24,7 @@ GLOBAL_IGNORED_DICTIONARY=".dict_ignored.txt"
 
 GLOBAL_WORD_TO_PUT=""
 
-function get_word {
+function get_all_words {
     
     local document=$1
     local valid_word=0
@@ -116,7 +116,7 @@ function main {
     # process_document
     document=$1
 
-    get_word $document
+    get_all_words $document
     for word in ${GLOBAL_ARRAY_WORDS[*]}; do
         echo "WORD:[$word]"
         GLOBAL_WORD_TO_PUT=$word
