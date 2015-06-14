@@ -5,6 +5,7 @@
 # http://stackoverflow.com/questions/3236871/how-to-return-a-string-value-from-a-bash-function
 # http://stackoverflow.com/questions/1878852/how-to-enter-data-from-keyboard-in-shell-programming
 
+
 shopt -s expand_aliases # EXAMPLES:
 # is_known "some_word" $file_to_found
 alias is_known='grep -ci' # return 1 if found, else 0
@@ -44,6 +45,9 @@ function get_all_words {
     let valid_word+=2
     let invalid_character+=2
     done < "$document"
+    # agrega la ultima palabra al arreglo
+    # unicamente para GLOBAL_WORD_ACUMULATOR
+    GLOBAL_ARRAY_WORDS[$valid_word]=$GLOBAL_WORD_ACUMULATOR
 }
 function consult_user {
     # Ejecuta Agregar/Ignorar/Reemplazar
@@ -117,6 +121,7 @@ function main {
     document=$1
 
     get_all_words $document
+    echo "este es el arreglo --> ${GLOBAL_ARRAY_WORDS[*]}"
     for word in ${GLOBAL_ARRAY_WORDS[*]}; do
         echo "WORD:[$word]"
         GLOBAL_WORD_TO_PUT=$word
