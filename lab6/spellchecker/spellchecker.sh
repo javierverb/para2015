@@ -118,7 +118,7 @@ function main {
 
     get_all_words $document
     for word in ${GLOBAL_ARRAY_WORDS[*]}; do
-        echo "WORD:[$word]"
+        
         GLOBAL_WORD_TO_PUT=$word
 
         already_in_dict_added=$(is_known $word $GLOBAL_DICTIONARY)
