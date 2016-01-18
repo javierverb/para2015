@@ -1,0 +1,77 @@
+package dictionary;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+/**
+ * La clase FileDictionary representa un diccionario
+ * que se carga desde un archivo de texto.
+ */
+public class FileDictionary {
+	
+	// ATRIBUTES
+	public String loadPath = "dictionary.txt";
+	
+	// CONSTRUCTORS
+	public FileDictionary() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public FileDictionary(String loadPath){
+		this.loadPath = loadPath;
+	}
+	
+	
+	// METHODS
+	/* http://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/ */
+	public void load(String path_to_load_dictionary) throws IOException {
+		try {
+			FileReader file_to_load = new FileReader(path_to_load_dictionary);
+			try (BufferedReader br = new BufferedReader(file_to_load)) {
+				String sCurrentLine;
+				while ((sCurrentLine = br.readLine()) != null) {
+					// TODO: load here please!!
+				}
+			} catch (IOException e) {
+				// skip :)
+			}
+		} catch (FileNotFoundException e1) {
+			// if file not found, my dictionary is empty and 
+			// ...exit? TODO: PREGUNTAR
+		}
+	}
+	
+	private void custom_save(String custom_path) {
+		PrintWriter writer;
+		if (custom_path.length() == 0){
+			custom_path = this.loadPath;
+		}
+		try {
+			writer = new PrintWriter(custom_path, "UTF-8");
+			// TODO: save here please !!!
+			writer.println("The first line");
+			writer.println("The second line");
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/*I use this info:
+	 * http://stackoverflow.com/questions/2885173/java-how-to-create-a-file-and-write-to-a-file
+	 * TODO: continue the document
+	 * */
+	public void save() {
+		custom_save("");
+	}
+	
+	public void save(String path_to_save_dictionary) {
+		custom_save(path_to_save_dictionary);
+	}
+}

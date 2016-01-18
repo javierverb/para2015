@@ -1,0 +1,46 @@
+package word;
+
+import java.util.HashSet;
+import java.util.Iterator;
+
+/**
+ * La clase Word represenata una palabra y es
+ * un wrapper sobre el tipo de datos String. 
+ */
+public class WordSet {	
+	
+	private HashSet<Word> set = null;
+	
+	// CONSTRUCTOR
+	public WordSet() {
+		this.set = new HashSet<Word>();
+	}
+	
+	// METHODS
+	public void add(Word w){
+		this.set.add(w);
+	}
+	
+	public boolean contains(Word w){
+		Iterator <Word> word_iterator = this.set.iterator();
+		boolean is_equal = false;
+		while (word_iterator.hasNext()) {
+			Word word_obj_to_compare = word_iterator.next();
+			word_obj_to_compare.equals(w);
+		}
+		
+	}
+	
+	public void clear(){
+		this.set.clear();
+	}
+	
+	public Iterator<Word> iterator(){
+		return this.set.iterator();
+	}
+	
+	public int size() {
+		return this.set.size();
+	}
+
+}

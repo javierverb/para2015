@@ -1,0 +1,54 @@
+package dictionary;
+import java.util.Iterator;
+import java.util.List;
+
+import word.Word;
+import word.WordSet;
+
+/**
+ * La clase Dictionary es una clase abstracta que representa
+ * un diccionario de palabras.
+ * Las palabras se almacenan como un conjunto de palabras.
+ * <a href="http://picarcodigo.blogspot.com.ar/2012/10/clases-abstractas.html"> 
+ * Ver referencia 
+ * </a>
+ */
+public abstract class Dictionary {	
+	
+	protected WordSet set;
+	
+	// TODO: override in subclass
+	public void add(Word w) {
+		
+	}
+	
+	// TODO: override in subclass
+	public boolean contains(Word w) {
+		return false;
+	}
+	
+	// TODO: ¿qué hace?
+	public void clear() {
+		
+	}
+	
+	// TODO
+	public void fromStringList(List<String> dictionary){
+		Iterator <String> iterator = dictionary.iterator();
+		while (iterator.hasNext()) {  
+			String current_word = iterator.next();
+			Word word_to_save;
+			this.set.add(current_word);
+		 }  
+	}
+	
+	// TODO
+	public List<String> toStringList(){
+		return null; //
+	}
+	
+	public int size(){
+		return 0;
+	}
+
+}
